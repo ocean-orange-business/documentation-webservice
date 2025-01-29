@@ -2,10 +2,10 @@
 title: eco-conduite
 description: 
 published: true
-date: 2024-12-19T09:24:13.106Z
+date: 2025-01-29T10:06:36.798Z
 tags: 
 editor: markdown
-dateCreated: 2024-12-05T13:01:41.131Z
+dateCreated: 2025-01-29T09:54:14.498Z
 ---
 
 Cette API permet de récupérer :
@@ -15,73 +15,134 @@ Cette API permet de récupérer :
 
 ## Récupérer les notes de sécurité et consommation par mois ou semaine
 
+GET/restapi/ecoAttitude/v1/get_ecoattitude_graph
 
-
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getEchoattitudeGraphUsingGET)
+ [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getEchoattitudeGraphUsingGET)
 
 Authentification préalable nécessaire et passage du token dans le header **X-AUTH-TOKEN**
 
-### Définition {.tabset}
+Attention : le token n’est valable que 12 heures. Au-delà de ce délai, il faudra en générer un nouveau.
 
-#### Endpoint
-```
-get /restapi/ecoAttitude/v1/get_ecoattitude_graph
-```
+### Paramètres de la requête
 
-#### Paramètres de la requête
+|Nom|Description|
+|---|---|
+|EC_MONTH_START|integer ($int32)<br><br>Mois de début|
+|EC_MONTH_END|integer ($int32)<br><br>Mois de fin|
+|EC_YEAR_START|integer ($int32)<br><br>Année de début|
+|EC_YEAR_END|integer ($int32)<br><br>Année de fin|
+|EC_MODE|string<br><br>Au choix : semaine ou mois|
 
-| Nom            | Type             | Description                |
-| -------------- | ---------------- | -------------------------- |
-| EC_MONTH_START | integer ($int32) | Mois de début              |
-| EC_MONTH_END   | integer ($int32) | Mois de fin                |
-| EC_YEAR_START  | integer ($int32) | Année de début             |
-| EC_YEAR_END    | integer ($int32) | Année de fin               |
-| EC_MODE        | string           | Au choix : semaine ou mois |
-#### Réponses
+### Réponses
 
-```application/json;charset=utf-8
-200 OK
-401 UNAUTHORIZED
-403 FORBIDDEN
-404 NOT FOUND
-```
-!Attention l'utilisateur du webservice doit être un utilisateur individuel pour avoir des data 
-![roleindividu.png](/roleindividu.png)
-Sinon vous aurez l'erreur 400 Bad request 
-![erreurindividu_400.png](/erreurindividu_400.png)
+ [####  **200** OK
 
+application/json;charset=utf-8](https://grav.new-media.ovh/web-services/eco-conduite#notes-securite-consommation-res-object-200)
+
+|   |   |
+|---|---|
+|||
+|||
+|||
+
+ [####  **401** UNAUTHORIZED
+
+application/json;charset=utf-8](https://grav.new-media.ovh/web-services/eco-conduite#notes-securite-consommation-res-object-401)
+
+ [####  **403** FORBIDDEN
+
+application/json;charset=utf-8](https://grav.new-media.ovh/web-services/eco-conduite#notes-securite-consommation-res-object-403)
+
+ [####  **404** NOT FOUND
+
+application/json;charset=utf-8](https://grav.new-media.ovh/web-services/eco-conduite#notes-securite-consommation-res-object-404)
 
 ## Récupérer les données liées à l’éco conduite des chauffeurs pour une période donnée
 
+GET/restapi/ecoAttitude/v1/get_datas
 
-
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getDatasUsingGET)
+ [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getDatasUsingGET)
 
 Authentification préalable nécessaire et passage du token dans le header **X-AUTH-TOKEN**
 
-### Définition {.tabset}
+Attention : le token n’est valable que 12 heures. Au-delà de ce délai, il faudra en générer un nouveau.
 
-#### Endpoint
-```
-get /restapi/ecoAttitude/v1/get_datas
-```
+### Paramètres de la requête
 
-#### Paramètres de la requête
+|Nom|Description|
+|---|---|
+|EC_MONTH_START|integer ($int32)<br><br>Mois de début|
+|EC_MONTH_END|integer ($int32)<br><br>Mois de fin|
+|EC_YEAR_START|integer ($int32)<br><br>Année de début|
+|EC_YEAR_END|integer ($int32)<br><br>Année de fin|
+|EC_MODE|string<br><br>Au choix : semaine ou mois|
 
+### Réponses
 
-| Nom            | Type             | Description                |
-| -------------- | ---------------- | -------------------------- |
-| EC_MONTH_START | integer ($int32) | Mois de début              |
-| EC_MONTH_END   | integer ($int32) | Mois de fin                |
-| EC_YEAR_START  | integer ($int32) | Année de début             |
-| EC_YEAR_END    | integer ($int32) | Année de fin               |
-| EC_MODE        | string           | Au choix : semaine ou mois |
+ [####  **200** OK
 
-#### Réponses
+application/json;charset=utf-8](https://grav.new-media.ovh/web-services/eco-conduite#donnees-eco-conduite-res-object-200)
 
-```application/json;charset=utf-8
-200 OK
-401 UNAUTHORIZED
-403 FORBIDDEN
-404 NOT FOUND
-```
+|   |   |
+|---|---|
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+|||
+
+ [####  **401** UNAUTHORIZED
+
+application/json;charset=utf-8](https://grav.new-media.ovh/web-services/eco-conduite#donnees-eco-conduite-res-object-401)
+
+ [####  **403** FORBIDDEN
+
+application/json;charset=utf-8](https://grav.new-media.ovh/web-services/eco-conduite#donnees-eco-conduite-res-object-403)
+
+ [####  **404** NOT FOUND
+
+application/json;charset=utf-8](https://grav.new-media.ovh/web-services/eco-conduite#donnees-eco-conduite-res-object-404)

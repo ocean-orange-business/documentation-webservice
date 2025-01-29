@@ -2,10 +2,10 @@
 title: exemples-de-codes
 description: 
 published: true
-date: 2024-12-20T15:01:22.773Z
+date: 2025-01-29T15:26:03.040Z
 tags: 
 editor: markdown
-dateCreated: 2024-12-05T13:00:59.024Z
+dateCreated: 2025-01-29T10:01:05.690Z
 ---
 
 # Exemples de codes

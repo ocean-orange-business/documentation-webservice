@@ -1,18 +1,17 @@
 ---
-title: Introduction
+title: introduction
 description: 
 published: true
-date: 2025-01-29T15:26:54.235Z
+date: 2025-01-29T15:24:06.533Z
 tags: 
 editor: markdown
-dateCreated: 2025-01-29T09:47:57.689Z
+dateCreated: 2025-01-29T09:49:22.391Z
 ---
 
-# Introduction | Les Webservices Océan -
+# Introduction | Les Webservices Océan
 
 Découvrez notre catalogue d’API disponibles pour toutes nos solutions de gestions d’ activités mobiles afin d’intégrer les données à vos systèmes ERP, ….
 
 ## 1. [Les Webservices Océan](introduction/les-webservices-ocean.md)
 
 ## 2. [Terminologie](introduction/terminologie.md)
-
