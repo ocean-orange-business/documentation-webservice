@@ -2,10 +2,10 @@
 title: trajets-et-positions
 description: 
 published: true
-date: 2024-10-31T14:45:29.845Z
+date: 2025-01-15T14:31:29.466Z
 tags: 
 editor: markdown
-dateCreated: 2024-10-24T13:16:27.247Z
+dateCreated: 2024-12-05T13:02:16.432Z
 ---
 
 # Trajets et positions
@@ -411,7 +411,7 @@ get /restapi/mobility/v1/ficheJour
           "prenom": "string",
           "tel": "string"
         },
-        "etat": "string",
+        "etat": "string",       
         "fullAddress": {
           "address": "string",
           "country": "string",
@@ -432,6 +432,7 @@ get /restapi/mobility/v1/ficheJour
     }
   ]
 }
+*Valeur possibe du champ etat :  « start D » / « waiting T » / « traveling R » / « stop A»
 ```
 
 ## Récupérer les positions d'un ou plusieurs matériels entre deux dates

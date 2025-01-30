@@ -2,10 +2,10 @@
 title: missions
 description: 
 published: true
-date: 2024-10-31T14:45:29.845Z
+date: 2025-01-24T15:05:20.256Z
 tags: 
 editor: markdown
-dateCreated: 2024-10-24T13:16:22.474Z
+dateCreated: 2024-12-05T13:02:09.334Z
 ---
 
 # Gestion des missions
@@ -70,6 +70,7 @@ post /restapi/geomission/ajoutMission
 ```JSON
 {
   "message": "string"
+  Message de retour du WS (succès/échec)
 }
 ```
 
@@ -124,6 +125,7 @@ post /restapi/geomission/modifierMission
 ```JSON
 {
   "message": "string"
+  Message de retour du WS (succès/échec)
 }
 ```
 
@@ -163,11 +165,17 @@ get /restapi/geomission/statutMission
 ```JSON
 {
   "commentRefuseReason": "string",
+  Raison de refus
   "complement": "string",
+  Complément d’information
   "externalMissionId": "string",
+  Identifiant technique de la mission
   "status": "string",
+  Statut de la mission
   "statusCode": "string",
+  Code statut de la mission
   "time": "string"
+  Date de la mission
 }
 ```
 
@@ -207,6 +215,7 @@ post /restapi/geomission/supprimerMission
 #### Résultat
 ```
 {
- message  string  # Message de retour du WS (succès/échec) 
+ "message": "string"
+  Message de retour du WS (succès/échec)
 }
 ```

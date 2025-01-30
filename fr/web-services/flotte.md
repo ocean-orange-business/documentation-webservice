@@ -2,10 +2,10 @@
 title: flotte
 description: 
 published: true
-date: 2024-10-31T14:45:29.845Z
+date: 2025-01-27T16:27:40.067Z
 tags: 
 editor: markdown
-dateCreated: 2024-10-24T13:16:18.205Z
+dateCreated: 2024-12-05T13:02:01.324Z
 ---
 
 # Gestion de la flotte
@@ -54,7 +54,9 @@ get /restapi/mobility/v1/entities
   "entities": [
     {
       "id": 0,
+      Identifiant de l’entité
       "nom": "string"
+      Nom de l’entité
     }
   ]
 }
@@ -97,61 +99,96 @@ get /restapi/vehicule_engin/vehicles
   {
     "boitier": {
       "adBoi": "string",
+      Ad du boitier (APC pour BBOXv1 obsolète) (50)
       "commentaireBoi": "string",
+  		Le commentaire du boitier
       "coreGsmBoi": "string",
+  		Numéro GSM du boitier
       "debutGarantie": "2024-12-17T16:14:51.577Z",
+  		Début de la garantie du boitier
       "finGarantie": "2024-12-17T16:14:51.577Z",
+  		Fin de la garantie du boitier
       "id": 0,
+      Identifiant du boitier
       "idEtatBoitier": 0,
+      Identifiant de l’état du boitier
       "imeiBoi": "string",
+      Imei du boitier (15)
       "numeroSerieBoi": "string",
+      Numéro de série du boitier (50)
       "sn": "string"
+      SN (Serial Number) du boitier (30)
     },
     "chauffeur": {
       "email": "string",
+      Email du chauffeur
       "gsm": "string",
+      Téléphone du chauffeur
       "id": 0,
+      Identifiant du boitier
       "idCivilite": 0,
+      Identifiant du boitier
       "initialesInd": "string",
       "matriculeInd": "string",
+      Matricule du chauffeur
       "nomInd": "string",
+      Nom du chauffeur
       "prenomInd": "string",
+      Prénom du chauffeur
       "suppressionLogique": true
     },
     "emissionCo2": 0,
+    Taux émission de CO2
     "entite": {
       "id": 0,
+      Identifiant de l’entité
       "nom": "string",
+      Nom de l’entité (150)
       "suppressionLogique": true
     },
     "releve": {
       "dateReleve": "2024-12-17T16:14:51.577Z",
-      "id": 0,
+      Date du relevé de compteur kilométrique
+      "id": 0,      
+      Identifiant du relevé
       "value": 0
+      Valeur du relevé de compteur kilométrique 
+      à la fin de la journée précédente (valeur calculée à minuit)
     },
     "releveAjuste": {
       "dateReleve": "2024-12-17T16:14:51.577Z",
+      Date du relevé de compteur kilométrique ajusté 
       "id": 0,
+      Identifiant du relevé
       "value": 0
+      valeur du compteur ajustée en fonction de la distance 
+      ou du temps parcouru par le véhicule depuis le dernier relevé automatique
     },
     "vehicle": {
       "apcMode": "GPS",
       "boitierAvantCoupeCircuit": true,
       "buzzerSurvitesseEnabled": true,
       "categorie": "UNDEFINED",
+      Catégorie du véhicule
       "categorieVehiculeEcoConduite": "UL",
       "couleur": "string",
+      Couleur du véhicule (50)
       "coupeBatterie": true,
       "date1ereMec": "2024-12-17T16:14:51.577Z",
       "description": "string",
+			Description du véhicule
       "detectionPorteEnabled": true,
       "dioEnabled": true,
-      "dispositifIdentifiant": true,
+			Donnée sur une entrée/sortie dans le boitier oui/non (moteur auxiliaire, ...)
+      "dispositifIdentifiant": true,	
+			Etat du dispositif identifiant (oui/non)
       "emissionCo2": 0,
       "etatEcoConduite": "ACTIF",
       "geolocalise": true,
       "geomissionEnabled": true,
+			Activation de géomission (oui/non)
       "geosecuriteEnabled": true,
+			Activation de géosecurité (oui/non)
       "id": 0,
       "idEnergie": 0,
       "idModeDeplacement": 0,
@@ -166,14 +203,19 @@ get /restapi/vehicule_engin/vehicles
         "ordre": 0
       },
       "marque": "string",
+			Marque du véhicule
       "modele": "string",
+			Modèle du véhicule
       "nomImage": "string",
       "nombreCvFiscaux": 0,
       "numeroEmbarque": 0,
       "numeroParc": "string",
       "numeroSerie": "string",
+			Numéro de série du véhicule
       "odirectMode": "ODIRECT_UNIVERSEL",
+			Mode O-Direct Renault/Peugeot/Kuantic, …
       "privacyEnabled": true,
+      Mode « Vie Privée » activé
       "prk": 0,
       "signesDistinctifs": "string",
       "suppressionLogique": true,
