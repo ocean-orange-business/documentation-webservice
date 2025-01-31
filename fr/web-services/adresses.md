@@ -2,10 +2,10 @@
 title: adresses
 description: 
 published: true
-date: 2024-10-31T14:45:29.845Z
+date: 2025-01-27T15:44:17.333Z
 tags: 
 editor: markdown
-dateCreated: 2024-10-24T13:15:58.912Z
+dateCreated: 2024-12-05T13:01:19.545Z
 ---
 
 # Gestion des adresses de référence
@@ -54,29 +54,49 @@ post /restapi/pois/createPoi
 ```json
 {
   "adressePoi": "string",
+  Adresse de référence(150)
   "codePostalPoi": "string",
+  Code postal de l’adresse de référence(20)
   "complementAdresse1Poi": "string",
+	Complément d’adresse I(150)
   "complementAdresse2Poi": "string",
+  Complément d’adresse II(150)
   "denominationPoi": "string",
+	Dénomination de l’adresse de référence(150)
   "etatRegionPoi": "string",
+  Région de l’adresse de référence(150)
   "geom": "string",
+  Polygone contenant l’ensemble des points de l’adresse de référence
   "groupePoi": {
     "id": 0,
+    Identifiant du groupe de l’adresse de référence
     "libelle": "string"
+    Libellé de l’adresse de référence
   },
   "id": 0,
+  Identifiant technique de l’adresse de référence
   "idPays": 0,
+  Identifiant technique du pays
   "latPoi": 0,
+  Latitude de l’adresse de référence
   "libelleTypePoi": {
     "color": "string",
+    Couleur de l’adresse de référence
     "i18nKey": "string",
+    la clé d’internalisation (français / english / español)
     "id": 0,
+    Identifiant technique du libellé du type de l’adresse de référence
     "libelle": "string",
-    "nomImage": "string",
+    Libellé de l’adresse de référence
+    "nomImage": "string",    
     "ordre": 0,
-    "type": "UNDEFINED"
+     Ordre d’affichage de l’adresse de référence
+    "type": "string"
+		Type de l’adresse de référence
+		Enum : UNDEFINED, OFFICE, HOME, PROVIDER, CLIENT, PROSPECT, GAS_STATION, RESTAURANT, OTHER
   },
   "longPoi": 0,
+  Longitude de l’adresse de référence
   "propSpecifiqueDTO": {
     "id": 0,
     "idClient": 0,
@@ -97,8 +117,11 @@ post /restapi/pois/createPoi
     "typeObjet": "CLIENT"
   },
   "rayonPoi": 0,
+  Rayon en mètre de l’adresse de référence
   "suppressionLogique": true,
+  L’adresse est complètement supprimée
   "villePoi": "string"
+	Ville
 }
 ```
 
@@ -137,32 +160,52 @@ post /restapi/pois/updatePoi
 
 #### Résultat
 
-```application/json;charset=utf-8
+```json
 {
   "adressePoi": "string",
+  Adresse de référence(150)
   "codePostalPoi": "string",
+  Code postal de l’adresse de référence(20)
   "complementAdresse1Poi": "string",
+	Complément d’adresse I(150)
   "complementAdresse2Poi": "string",
+  Complément d’adresse II(150)
   "denominationPoi": "string",
+	Dénomination de l’adresse de référence(150)
   "etatRegionPoi": "string",
+  Région de l’adresse de référence(150)
   "geom": "string",
+  Polygone contenant l’ensemble des points de l’adresse de référence
   "groupePoi": {
     "id": 0,
+    Identifiant du groupe de l’adresse de référence
     "libelle": "string"
+    Libellé de l’adresse de référence
   },
   "id": 0,
+  Identifiant technique de l’adresse de référence
   "idPays": 0,
+  Identifiant technique du pays
   "latPoi": 0,
+  Latitude de l’adresse de référence
   "libelleTypePoi": {
     "color": "string",
+    Couleur de l’adresse de référence
     "i18nKey": "string",
+    La clé d’internalisation (français / english / español)
     "id": 0,
+    Identifiant technique du libellé du type de l’adresse de référence
     "libelle": "string",
+    Libellé de l’adresse de référence
     "nomImage": "string",
     "ordre": 0,
-    "type": "UNDEFINED"
+    Ordre d’affichage de l’adresse de référence
+    "type": "string"
+		Type de l’adresse de référence
+		Enum : UNDEFINED, OFFICE, HOME, PROVIDER, CLIENT, PROSPECT, GAS_STATION, RESTAURANT, OTHER
   },
   "longPoi": 0,
+   Longitude de l’adresse de référence
   "propSpecifiqueDTO": {
     "id": 0,
     "idClient": 0,
@@ -183,8 +226,11 @@ post /restapi/pois/updatePoi
     "typeObjet": "CLIENT"
   },
   "rayonPoi": 0,
+  Rayon en mètre de l’adresse de référence
   "suppressionLogique": true,
+  Suppression en base de données oui/non
   "villePoi": "string"
+  Ville
 }
 ```
 
@@ -264,16 +310,25 @@ get /restapi/pois/pois
 [
   {
     "adressePoi": "string",
-    "codePostalPoi": "string",
-    "complementAdresse1Poi": "string",
-    "complementAdresse2Poi": "string",
-    "denominationPoi": "string",
-    "etatRegionPoi": "string",
-    "geom": "string",
-    "groupePoi": {
-      "id": 0,
-      "libelle": "string"
-    },
+  Adresse de référence(150)
+  "codePostalPoi": "string",
+  Code postal de l’adresse de référence(20)
+  "complementAdresse1Poi": "string",
+	Complément d’adresse I(150)
+  "complementAdresse2Poi": "string",
+  Complément d’adresse II(150)
+  "denominationPoi": "string",
+	Dénomination de l’adresse de référence(150)
+  "etatRegionPoi": "string",
+  Région de l’adresse de référence(150)
+  "geom": "string",
+  Polygone contenant l’ensemble des points de l’adresse de référence
+  "groupePoi": {
+    "id": 0,
+    Identifiant du groupe de l’adresse de référence
+    "libelle": "string"
+    Libellé de l’adresse de référence
+  },
     "id": 0,
     "idPays": 0,
     "latPoi": 0,
@@ -284,7 +339,9 @@ get /restapi/pois/pois
       "libelle": "string",
       "nomImage": "string",
       "ordre": 0,
-      "type": "UNDEFINED"
+       "type": "string"
+		Type de l’adresse de référence
+		Enum : UNDEFINED, OFFICE, HOME, PROVIDER, CLIENT, PROSPECT, GAS_STATION, RESTAURANT, OTHER
     },
     "longPoi": 0,
     "propSpecifiqueDTO": {
@@ -306,9 +363,12 @@ get /restapi/pois/pois
       },
       "typeObjet": "CLIENT"
     },
-    "rayonPoi": 0,
-    "suppressionLogique": true,
-    "villePoi": "string"
+   "rayonPoi": 0,
+   Rayon en mètre de l’adresse de référence
+   "suppressionLogique": true,
+   L’adresse est complètement supprimée
+   "villePoi": "string"
+	 Ville
   }
 ]
 ```

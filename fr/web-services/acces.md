@@ -2,10 +2,10 @@
 title: acces
 description: 
 published: true
-date: 2024-10-31T16:06:15.093Z
+date: 2025-01-23T16:26:10.725Z
 tags: 
 editor: markdown
-dateCreated: 2024-10-24T13:15:54.255Z
+dateCreated: 2024-12-05T13:01:11.758Z
 ---
 
 # Gestion des accès
@@ -28,7 +28,7 @@ Cette API permet de :
 #### Endpoint
 
 ```
-post /restapi/auth/authenticate
+post /restapi/auth/authenticate * Deprecated
 ```
 
 #### Paramètres de la requête
@@ -55,6 +55,7 @@ post /restapi/auth/authenticate
   "additionalAccountData": {},
   "passwordExpirationRemainingDays": 0,
   "token": "string"
+  Durée du token 12 heures
 }
 ```
 
@@ -93,6 +94,7 @@ post /restapi/auth/authenticate2
   "additionalAccountData": {},
   "passwordExpirationRemainingDays": 0,
   "token": "string"
+  Durée du token 12 heures
 }
 ```
 
@@ -197,12 +199,17 @@ get /restapi/authorization/functionalities_detailed
 ```JSON
 [
   {
-    "enumCode": "ACCUEIL",
+    "enumCode": "string",
+    Code pour décrire la fonctionnalité
     "fonctionnaliteDto": {
       "description": "string",
+    Description de la fonctionnalité
       "idFonctionnalite": 0,
+    Identifiant unique de la fonctionnalité dans le système d’information Océan
       "ordre": 0,
+    Ordre d'affichage de la fonctionnalité
       "typeElement": "string"
+    Action/Onglets/Lien/Menu/WsAction/Onglets/Lien/Menu/Ws
     }
   }
 ]
