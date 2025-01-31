@@ -8,138 +8,308 @@ editor: markdown
 dateCreated: 2024-10-31T15:22:01.422Z
 ---
 
-# Gestion des adresses de référence
+# Management of Reference Addresses
 
-### Paramètres de la requête
+This API allows for:
 
-| Nom | Description |
-| --- | --- |
-| poi | object  Objet JSON décrivant le point d’intérêt. Pour le format de l’objet se référer à sa description dans https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/poi/createPoiUsingPOST     |
+- Creating a reference address.
+- Modifying a reference address.
+- Deleting a reference address.
+- Retrieving the entire list of reference addresses.
 
-### Réponses
+## Create a Reference Address
 
+[Prior authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**.
+
+### Définition {.tabset}
+
+#### Endpoint
+
+```
+post /restapi/pois/createPoi
+```
+
+#### Request Parameters
+
+| Name        | Type             | Description                                                                                                                                                                 |
+| :--------- | :--------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| customerId * | integer ($int64) | Client Identifier. Required only for multi-client users.                                                                                                                   |
+| poi *      | object           | JSON object describing the point of interest. For the object's format, refer to its description in https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/poi/createPoiUsingPOST |
+| externalId | string           | External Identifier (if it comes from another Information System).                                                                                                         |
+| source     | string           | Source of the external identifier (free field, e.g., name of software for storing reference addresses).                                                                     |
+
+\* mandatory parameter
+
+#### Responses
+
+```application/json;charset=utf-8
+201 Created
+401 UNAUTHORIZED
+403 FORBIDDEN
+404 NOT FOUND
+```
+
+#### Résultat
+
+```json
 {
-
-| adressePoi | string (150)  Adresse de référence   |
-| --- | --- |
-| codePostalPoi | string (20)  Code postal de l’adresse de référence   |
-| complementAdresse1Poi | string (150)  Complément d’adresse I   |
-| complementAdresse2Poi | string (150)  Complément d’adresse II   |
-| denominationPoi | string (150)  Dénomination de l’adresse de référence   |
-| etatRegionPoi | string (100)  Région de l’adresse de référence   |
-| geom | string  Polygone contenant l’ensemble des points de l’adresse de référence   |
-| groupePoi  { | object |
-| id | integer ($int32)  Identifiant du groupe de l’adresse de référence   |
-| libelle | string  Libellé de l’adresse de référence   |
-| } |  |
-| id | integer ($int32)  Identifiant technique de l’adresse de référence   |
-| idPays | number ($float)  Identifiant technique du pays   |
-| latPoi | number ($float)  Latitude de l’adresse de référence   |
-| libelleTypePoi  { | object |
-| color | string  Couleur de l’adresse de référence   |
-| i18nKey | string  La clé d’internalisation (français / english / español)   |
-| id | integer ($int32)  Identifiant technique du libellé du type de l’adresse de référence   |
-| libelle | string (100)  Libellé de l’adresse de référence   |
-| ordre | integer ($int32)  Ordre d’affichage de l’adresse de référence   |
-| type | string - Enum  Type de l’adresse de référence   Enum : UNDEFINED, OFFICE, HOME, PROVIDER, CLIENT, PROSPECT, GAS\_STATION, RESTAURANT, OTHER   |
-| } |  |
-| longPoi | number ($float)  Longitude de l’adresse de référence   |
-| rayonPoi | integer ($int32)  Rayon en mètre de l’adresse de référence   |
-| suppressionLogique | boolean  L’adresse est complètement supprimée   |
-| villePoi | string (100)  Ville   |
-
+  "adressePoi": "string",      // Reference address (150)
+  "codePostalPoi": "string",  // Postal code of the reference address (20)
+  "complementAdresse1Poi": "string", // Address complement I (150)
+  "complementAdresse2Poi": "string", // Address complement II (150)
+  "denominationPoi": "string", // Name of the reference address (150)
+  "etatRegionPoi": "string",  // Region of the reference address (150)
+  "geom": "string",          // Polygon containing all points of the reference address
+  "groupePoi": {
+    "id": 0,                // Identifier of the reference address group
+    "libelle": "string"     // Label of the reference address
+  },
+  "id": 0,                  // Technical identifier of the reference address
+  "idPays": 0,              // Technical identifier of the country
+  "latPoi": 0,              // Latitude of the reference address
+  "libelleTypePoi": {
+    "color": "string",       // Color of the reference address
+    "i18nKey": "string",    // Internationalization key (French / English / Spanish)
+    "id": 0,                // Technical identifier of the reference address type label
+    "libelle": "string",     // Label of the reference address
+    "nomImage": "string",   // Image name
+    "ordre": 0,             // Display order of the reference address
+    "type": "string"        // Type of the reference address
+                             // Enum: UNDEFINED, OFFICE, HOME, PROVIDER, CLIENT, PROSPECT, GAS_STATION, RESTAURANT, OTHER
+  },
+  "longPoi": 0,             // Longitude of the reference address
+  "propSpecifiqueDTO": {
+    "id": 0,
+    "idClient": 0,
+    "idObjetRef": 0,
+    "proprietesSpecifiquesClient": {
+      "psValues": {
+        "additionalProp1": [
+          "string"
+        ],
+        "additionalProp2": [
+          "string"
+        ],
+        "additionalProp3": [
+          "string"
+        ]
+      }
+    },
+    "typeObjet": "CLIENT"
+  },
+  "rayonPoi": 0,            // Radius in meters of the reference address
+  "suppressionLogique": true, // The address is completely deleted
+  "villePoi": "string"      // City
 }
+```
 
-### Paramètres de la requête
+## Modify a Reference Address
 
-| Nom | Description |
-| --- | --- |
-| poi obligatoire | object  Objet JSON décrivant le point d’intérêt. Pour le format de l’objet se référer à sa description dans https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/poi/createPoiUsingPOST     |
-| externalId | string  Identifiant Externe (s’il provient d’un autre Système d’information)     |
-| source | string  Source de l’identifiant externe (champs libre, ex. nom d’un logiciel pour le stockage des adresses de référence)     |
+[Prior authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**.
 
-### Réponses
+ [Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/poi/updatePoiUsingPOST)
 
+### Definition {.tabset}
+
+#### Endpoint
+
+```
+post /restapi/pois/updatePoi
+```
+#### Request Parameters
+
+| Name        | Type             | Description                                                                                                                                                                  |
+| :--------- | :--------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| customerId * | integer ($int64) | Client identifier. Required only for multi-client users.                                                                                                                   |
+| poi *      | object           | JSON object describing the point of interest. For the object's format, refer to its description in https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/poi/createPoiUsingPOST |
+
+\* mandatory parameter
+
+#### Responses
+
+
+```application/json;charset=utf-8
+200 OK
+201 CREATED
+401 UNAUTHORIZED
+403 FORBIDDEN
+404 NOT FOUND
+```
+
+#### Result
+
+```json
 {
-
-| adressePoi | string (150)  Adresse de référence   |
-| --- | --- |
-| codePostalPoi | string (20)  Code postal de l’adresse de référence   |
-| complementAdresse1Poi | string (150)  Complément d’adresse I   |
-| complementAdresse2Poi | string (150)  Complément d’adresse II   |
-| denominationPoi | string (150)  Dénomination de l’adresse de référence   |
-| etatRegionPoi | string (100)  Région de l’adresse de référence   |
-| geom | string  Polygone contenant l’ensemble des points de l’adresse de référence   |
-| groupePoi  { | object |
-| id | integer ($int32)  Identifiant du groupe de l’adresse de référence   |
-| libelle | string  Libellé de l’adresse de référence   |
-| } |  |
-| id | integer ($int32)  Identifiant technique de l’adresse de référence   |
-| idPays | integer ($int32)  Identifiant technique du pays   |
-| latPoi | number ($float)  Latitude de l’adresse de référence   |
-| libelleTypePoi  { | object |
-| color | string  Couleur de l’adresse de référence   |
-| i18nKey | string  La clé d’internalisation (français / english / español)   |
-| id | integer ($int32)  Identifiant technique du libellé du type de l’adresse de référence   |
-| libelle | string (100)  Libellé de l’adresse de référence   |
-| ordre | integer ($int32)  Ordre d’affichage de l’adresse de référence   |
-| type | string - Enum  Type de l’adresse de référence   Enum : UNDEFINED, OFFICE, HOME, PROVIDER, CLIENT, PROSPECT, GAS\_STATION, RESTAURANT, OTHER   |
-| } |  |
-| longPoi | number ($float)  Longitude de l’adresse de référence   |
-| rayonPoi | integer ($int32)  Rayon en mètre de l’adresse de référence   |
-| suppressionLogique | boolean  Suppression en base de données oui/non   |
-| villePoi | string (100)  Ville   |
-
+  "adressePoi": "string",      // Reference address (150)
+  "codePostalPoi": "string",  // Postal code of the reference address (20)
+  "complementAdresse1Poi": "string", // Address complement I (150)
+  "complementAdresse2Poi": "string", // Address complement II (150)
+  "denominationPoi": "string", // Name of the reference address (150)
+  "etatRegionPoi": "string",  // Region of the reference address (150)
+  "geom": "string",          // Polygon containing all points of the reference address
+  "groupePoi": {
+    "id": 0,                // Identifier of the reference address group
+    "libelle": "string"     // Label of the reference address
+  },
+  "id": 0,                  // Technical identifier of the reference address
+  "idPays": 0,              // Technical identifier of the country
+  "latPoi": 0,              // Latitude of the reference address
+  "libelleTypePoi": {
+    "color": "string",       // Color of the reference address
+    "i18nKey": "string",    // Internationalization key (French / English / Spanish)
+    "id": 0,                // Technical identifier of the reference address type label
+    "libelle": "string",     // Label of the reference address
+    "nomImage": "string",   // Image name
+    "ordre": 0,             // Display order of the reference address
+    "type": "string"        // Type of the reference address
+                             // Enum: UNDEFINED, OFFICE, HOME, PROVIDER, CLIENT, PROSPECT, GAS_STATION, RESTAURANT, OTHER
+  },
+  "longPoi": 0,             // Longitude of the reference address
+  "propSpecifiqueDTO": {
+    "id": 0,
+    "idClient": 0,
+    "idObjetRef": 0,
+    "proprietesSpecifiquesClient": {
+      "psValues": {
+        "additionalProp1": [
+          "string"
+        ],
+        "additionalProp2": [
+          "string"
+        ],
+        "additionalProp3": [
+          "string"
+        ]
+      }
+    },
+    "typeObjet": "CLIENT"
+  },
+  "rayonPoi": 0,            // Radius in meters of the reference address
+  "suppressionLogique": true, // Database deletion (true/false)
+  "villePoi": "string"      // City
 }
+```
+## Delete a Reference Address
 
-### Paramètres de la requête
+[Prior authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**.
 
-| Nom | Description |
-| --- | --- |
-| searchCenterLongitudeX | number ($double)  Longitude     |
-| searchCenterLatitudeY | number ($double)  Latitude     |
-| searchRadius | integer ($int32)  Rayon (en mètre)     |
-| externalId | string  Identifiant Externe (s’il provient d’un autre Système d’information)     |
-| source | string  Source de l’identifiant externe (ex. POI Fleet)     |
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/poi/deletePoiUsingPOST)
 
-### Réponses
+### Definition {.tabset}
 
-\[ {
+#### Endpoint
 
-| adressePoi | string (150)  Adresse de référence   |
-| --- | --- |
-| codePostalPoi | string (20)  Code postal de l’adresse de référence   |
-| complementAdresse1Poi | string (150)  Complément d’adresse I   |
-| complementAdresse2Poi | string (150)  Complément d’adresse II   |
-| denominationPoi | string (150)  Dénomination de l’adresse de référence   |
-| etatRegionPoi | string (100)  Région de l’adresse de référence   |
-| geom | string  Polygone contenant l’ensemble des points de l’adresse de référence   |
-| groupePoi  { | object |
-| id | integer ($int32)  Identifiant du groupe de l’adresse de référence   |
-| libelle | string  Libellé de l’adresse de référence   |
-| } |  |
-| id | integer ($int32)  Identifiant technique de l’adresse de référence   |
-| idPays | number ($float)  Identifiant technique du pays   |
-| latPoi | number ($float)  Latitude de l’adresse de référence   |
-| libelleTypePoi  { | object |
-| color | string  Couleur de l’adresse de référence   |
-| i18nKey | string  La clé d’internalisation (français / english / español)   |
-| id | integer ($int32)  Identifiant technique du libellé du type de l’adresse de référence   |
-| libelle | string (100)  Libellé de l’adresse de référence   |
-| ordre | integer ($int32)  Ordre d’affichage de l’adresse de référence   |
-| type | string - Enum  Type de l’adresse de référence   Enum : UNDEFINED, OFFICE, HOME, PROVIDER, CLIENT, PROSPECT, GAS\_STATION, RESTAURANT, OTHER   |
-| } |  |
-| longPoi | number ($float)  Longitude de l’adresse de référence   |
-| rayonPoi | integer ($int32)  Rayon en mètre de l’adresse de référence   |
-| suppressionLogique | boolean  L’adresse est complètement supprimée   |
-| villePoi | string (100)  Ville   |
+```
+post /restapi/pois/deletePoi
+```
 
-} \]
+#### Request Parameters
 
-### Paramètres de la requête
+| Name     | Type             | Description                                                              |
+| ------- | ---------------- | ------------------------------------------------------------------------ |
+| customerId * | integer ($int64) | Client identifier. Required only for multi-client users.                |
+| idPoi * | integer ($int64) | Technical identifier of the reference address to be deleted.           |
 
-| Nom | Description |
-| --- | --- |
-| idPoi obligatoire | integer ($int64)  Identifiant technique de l’adresse de référence à supprimer     |
+\* mandatory parameter
 
-### Réponses
+#### Responses
+
+```application/json;charset=utf-8
+201 Created
+204 No Content
+401 UNAUTHORIZED
+403 FORBIDDEN
+404 NOT FOUND
+```
+
+## Retrieve the Entire List of Reference Addresses
+
+[Prior authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**.
+
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/poi/pois)
+### Definition {.tabset}
+
+#### Endpoint
+
+```
+get /restapi/pois/pois
+```
+
+#### Request Parameters
+
+| Name                    | Type             | Description                                                              |
+| ---------------------- | ---------------- | ------------------------------------------------------------------------ |
+| customerId *           | integer ($int64) | Client identifier. Required only for multi-client users.                |
+| searchCenterLongitudeX | number ($double) | Longitude                                                                |
+| searchCenterLatitudeY  | number ($double) | Latitude                                                                 |
+| searchRadius           | integer ($int32) | Radius (in meters)                                                       |
+| externalId             | string           | External identifier (if it comes from another Information System).        |
+| libelleTypePoiId       | integer ($int64) | Type label identifier                                                    |
+| source                 | string           | Source of the external identifier (e.g., POI Fleet).                    |
+| withZone               | boolean          | Whether or not to include zone POIs. Default value: false.              |
+
+\* mandatory parameter
+
+#### Responses
+
+```application/json;charset=utf-8
+200 OK
+401 UNAUTHORIZED
+403 FORBIDDEN
+404 NOT FOUND
+```
+
+#### Result
+
+```json
+ {
+    "adressePoi": "string",      // Reference address (150)
+    "codePostalPoi": "string",  // Postal code of the reference address (20)
+    "complementAdresse1Poi": "string", // Address complement I (150)
+    "complementAdresse2Poi": "string", // Address complement II (150)
+    "denominationPoi": "string", // Name of the reference address (150)
+    "etatRegionPoi": "string",  // Region of the reference address (150)
+    "geom": "string",          // Polygon containing all points of the reference address
+    "groupePoi": {
+      "id": 0,                // Identifier of the reference address group
+      "libelle": "string"     // Label of the reference address
+    },
+    "id": 0,                  // Technical identifier of the reference address
+    "idPays": 0,              // Technical identifier of the country
+    "latPoi": 0,              // Latitude of the reference address
+    "libelleTypePoi": {
+      "color": "string",       // Color of the reference address
+      "i18nKey": "string",    // Internationalization key (French / English / Spanish)
+      "id": 0,                // Technical identifier of the reference address type label
+      "libelle": "string",     // Label of the reference address
+      "nomImage": "string",   // Image name
+      "ordre": 0,             // Display order of the reference address
+      "type": "string"        // Type of the reference address
+                               // Enum: UNDEFINED, OFFICE, HOME, PROVIDER, CLIENT, PROSPECT, GAS_STATION, RESTAURANT, OTHER
+    },
+    "longPoi": 0,             // Longitude of the reference address
+    "propSpecifiqueDTO": {
+      "id": 0,
+      "idClient": 0,
+      "idObjetRef": 0,
+      "proprietesSpecifiquesClient": {
+        "psValues": {
+          "additionalProp1": [
+            "string"
+          ],
+          "additionalProp2": [
+            "string"
+          ],
+          "additionalProp3": [
+            "string"
+          ]
+        }
+      },
+      "typeObjet": "CLIENT"
+    },
+    "rayonPoi": 0,            // Radius in meters of the reference address
+    "suppressionLogique": true, // The address is completely deleted
+    "villePoi": "string"      // City
+  }
+```
+

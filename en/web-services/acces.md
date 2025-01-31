@@ -8,33 +8,33 @@ editor: markdown
 dateCreated: 2024-10-31T15:21:56.959Z
 ---
 
-# Gestion des accès
+# Access Management
 
-Cette API permet de :
+This API allows for:
 
--   Modification du mot de passe => authentification,
--   Réinitialisation du mode de passe => authentification,
--   Gestion des autorisations aux fonctionnalités par utilisateur => autorisation.
+- Password modification => authentication,
+- Password reset => authentication,
+- Management of feature permissions by user => authorization.
 
-## Modifier le mot de passe de l'utilisateur
+## Modify User Password
 
 ```
 post /restapi/auth/changePassword
 ```
 
-Authentification préalable nécessaire et passage du token dans le header **X-AUTH-TOKEN**
+Prior authentication is required, and the token must be passed in the header **X-AUTH-TOKEN**.
 
-> Attention : le token n’est valable que 12 heures. Au-delà de ce délai, il faudra en générer un nouveau.
+> Note: The token is only valid for 12 hours. After this period, a new one must be generated.
 
-### Paramètres de la requête
+### Request Parameters
 
-| Nom                  |             | type   | Description                      |
-| -------------------- | ----------- | ------ | -------------------------------- |
-| actualPassword       | obligatoire | string | Mot de passe actuel              |
-| newPassword          | obligatoire | string | Nouveau mot de passe             |
-| newPasswordConfirmed | obligatoire | string | Nouveau mot de passe à confirmer |
+| Name                  | Required    | Type   | Description                      |
+| --------------------- | ----------- | ------ | -------------------------------- |
+| actualPassword        | Yes         | string | Current password                 |
+| newPassword           | Yes         | string | New password                     |
+| newPasswordConfirmed  | Yes         | string | New password confirmation         |
 
-### Réponses
+### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -43,55 +43,50 @@ Authentification préalable nécessaire et passage du token dans le header **X-A
 404 NOT FOUND
 ```
 
-## Réinitialiser le mot de passe par l’envoi d’un email
+## Reset Password via Email
 
 ```
 post /restapi/auth/requestPasswordReset
 ```
-Authentification préalable nécessaire et passage du token dans le header **X-AUTH-TOKEN**
+Prior authentication is required, and the token must be passed in the header **X-AUTH-TOKEN**.
 
->Attention : le token n’est valable que 12 heures. Au-delà de ce délai, il faudra en générer un nouveau.
+> Note: The token is only valid for 12 hours. After this period, a new one must be generated.
 
-### Paramètres de la requête
+### Request Parameters
 
-| Nom | Description |
+| Name | Description |
 | --- | --- |
-| login obligatoire | boolean  Login de l’utilisateur pour lequel il y a une demande de réinitialisation du mot de passe     |
+| login | Required boolean - User's login for which the password reset request is made |
 
-### Réponses
+### Responses
 
-## Trouve les droits/fonctionnalités à l'application pour un utilisateur
+## Find User Rights/Functionalities in the Application
 
 get /restapi/authorization/functionalities\_detailed
 
-Authentification préalable nécessaire et passage du token dans le header **X-AUTH-TOKEN**
+Prior authentication is required, and the token must be passed in the header **X-AUTH-TOKEN**.
 
-Attention : le token n’est valable que 12 heures. Au-delà de ce délai, il faudra en générer un nouveau.
+> Note: The token is only valid for 12 hours. After this period, a new one must be generated.
 
-Ce web services permet de trouver tous les droits/fonctionnalités (avec un contenu détaillé) à l'application pour un utilisateur.
+This web service allows you to find all rights/functionalities (with detailed content) in the application for a user.
 
-### Paramètres de la requête
+### Request Parameters
 
-| Nom | Description |
+| Name | Description |
 | --- | --- |
-| elementType obligatoire | string - Enum  Type d’élément de l’application (Lien, Onglet, Web service, Action)     |
+| elementType | Required string - Enum Type of application element (Link, Tab, Web service, Action) |
 
-### Réponses
-
-[](https://grav.new-media.ovh/web-services/acces#detail-fonctionnalites-utilisateur-res-object-200)
+### Responses
+[](https://api-docs.oceansystem.com/fr/web-services/acces)
 
 #### [**200** OK](https://grav.new-media.ovh/web-services/acces#detail-fonctionnalites-utilisateur-res-object-200)
 
-[application/json;charset=utf-8](https://grav.new-media.ovh/web-services/acces#detail-fonctionnalites-utilisateur-res-object-200)
-
+```application/json;charset=utf-8
 {
-
-| enumCode | string  Code pour décrire la fonctionnalité   |
-| --- | --- |
-| fonctionnaliteDto  { | object |
-| description | string  Description de la fonctionnalité   |
-| idFonctionnalite | integer ($int32)  Identifiant unique de la fonctionnalité dans le système d’information Océan   |
-| typeElement | string  Action/Onglets/Lien/Menu/WsAction/Onglets/Lien/Menu/Ws   |
-| } |  |
-
+  "enumCode": "string",  // Code to describe the functionality
+  "fonctionnaliteDto": {
+    "description": "string",  // Description of the functionality
+    "idFonctionnalite": "integer ($int32)",  // Unique identifier of the functionality in the Ocean information system
+    "typeElement": "string"  // Action/Tabs/Link/Menu/WsAction/Tabs/Link/Menu/Ws
+  }
 }
