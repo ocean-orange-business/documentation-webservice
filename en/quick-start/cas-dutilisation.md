@@ -8,12 +8,12 @@ editor: markdown
 dateCreated: 2024-10-31T15:21:38.861Z
 ---
 
-# Cas d’utilisation
+# Use Cases
 
 ### Quick Start
 
-Le cas d’utilisation principal de l’API Océan est de pouvoir interagir et faire usage des données proposées par l’application principale sans pour autant avoir à s’y connecter directement.
+The main use case of the Ocean API is to interact with and utilize the data provided by the main application without having to connect directly to it.
 
-L’API Océan permet donc de coupler des données fournies à des besoins propres à l’utilisateur.
+The Ocean API allows for coupling the provided data with user-specific needs.
 
-Dans la section suivante (Documentation), une description des cas d’utilisation de l’application (géolocalisation, voitures, boîtiers, véhicules, abonnements à des rapports …) est détaillée.
+In the following section (Documentation), a description of the application use cases (geolocation, cars, devices, vehicles, subscription to reports, etc.) is detailed.

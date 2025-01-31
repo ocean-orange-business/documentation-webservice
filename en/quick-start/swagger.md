@@ -12,9 +12,9 @@ dateCreated: 2024-10-31T15:21:48.107Z
 
 ### Quick Start
 
-## 1\. S'authentifier
+## 1. Authenticate
 
-Avant d’accéder à tout service, une phase d’authentification est nécessaire sur le lien suivant :
+Before accessing any service, an authentication phase is required at the following link:
 
 ```
 /restapi/auth/authenticate2
@@ -22,51 +22,51 @@ Avant d’accéder à tout service, une phase d’authentification est nécessai
 
 ![](authenticate2.jpg)
 
-Pour s’authentifier, il suffit de :
+To authenticate, simply:
 
-1.  Dérouler le lien,
-2.  Cliquer sur le bouton « Try it out » en haut à droite 
-3.  Entrer votre login/password dans le champs "body" de la manière suivante:
+1. Expand the link,
+2. Click on the "Try it out" button in the top right corner,
+3. Enter your login/password in the "body" field as follows:
 
 ![](authenticate2_2.jpg)
 
-Ensuite pour valider l’authentification, il suffit de cliquer sur le bouton « Execute », en bas de l’écran.
+Then, to validate the authentication, click on the "Execute" button at the bottom of the screen.
 
-Une fois l’authentification réussie, l’écran suivant apparait :
+Once authentication is successful, the following screen appears:
 
-Les parties à considérer sont :
+The parts to consider are:
 
--   « **Curl** » : permet d’exécuter le service en utilisant directement la console sans passer par l’interface web
--   « **Response body** » : contient le token généré lors de l’invocation de ce service et qui peut aussi être généré en utilisant la commande ci-dessus.
+- **Curl**: allows you to execute the service directly using the console without going through the web interface.
+- **Response body**: contains the token generated during the invocation of this service, which can also be generated using the command above.
 
-## 2\. Ajouter l’extension "Modify header"
+## 2. Add the "Modify Header" Extension
 
-*Pour tester depuis votre navigateur*
+*To test from your browser*
 
-Cette section explique comment exploiter le token généré pour continuer à utiliser nos web services depuis un navigateur.  
-Tout d’abord, il est nécessaire de télécharger pour votre navigateur une extension du type « Modify header ».  
-(Pour notre exemple, nous utiliserons le navigateur Firefox, dont le lien pour le téléchargement est : https://addons.mozilla.org/fr/firefox/addon/modify-headers/)  
-Pour vérifier que le plugin a bien été ajouté au navigateur, cet icone doit apparaitre en haut à droite du navigateur.
+This section explains how to use the generated token to continue using our web services from a browser.  
+First, you need to download a "Modify Header" extension for your browser.  
+(For our example, we will use the Firefox browser, and the download link is: https://addons.mozilla.org/fr/firefox/addon/modify-headers/)  
+To verify that the plugin has been added to the browser, this icon should appear in the top right corner of the browser.
 
 ![](quickStart-swagger-2-icon.png)
 
-Une fois l’extension ajoutée, il faut cliquer sur « Open Modify Headers » et entrer les informations suivantes :
+Once the extension is added, click on "Open Modify Headers" and enter the following information:
 
-1.  « X-Auth-Token »
-2.  le token récupéré précédemment.
+1. **X-Auth-Token**
+2. The token retrieved previously.
 
 ![](quickStart-swagger-3-headers-notes.jpg)
 
-*NB : après avoir entré une première fois ces paramètres, à chaque authentification ou après l’expiration du token, il est nécessaire de générer un nouveau token en se reconnectant et modifiant le header et cliquant sur « Edit ».*
+*Note: After entering these parameters for the first time, each time you authenticate or after the token expires, you need to generate a new token by reconnecting and modifying the header, then clicking on "Edit".*
 
-## 3\. Construire une requête
+## 3. Build a Request
 
-Une requête à l‘API REST inclut l’élément basic figurant sur la table ci-dessous, et peut aussi contenir des paramètres spécifiques :
+A request to the REST API includes the basic element shown in the table below and may also contain specific parameters:
 
-| Elément | Exemple/Valeur | Description |
+| Element | Example/Value | Description |
 | --- | --- | --- |
-| **Url de base** | https://v3.oceansystem.com/ocean-3.0.0/apidocs | Environnement de production |
-| **Url spécifique (extension de l’url de base)** | /restapi/materiel |  |
-| **Resource** | /list/positionBetween | Spécifiez les détails de la demande via des paramètres de requête |
-| **Format** | Formats supportés : • JSON |  |
-| **Token** | &token={token} | Replacez votre propre unique token |
+| **Base URL** | https://v3.oceansystem.com/ocean-3.0.0/apidocs | Production environment |
+| **Specific URL (extension of the base URL)** | /restapi/materiel |  |
+| **Resource** | /list/positionBetween | Specify request details via query parameters |
+| **Format** | Supported formats: • JSON |  |
+| **Token** | &token={token} | Replace with your unique token |

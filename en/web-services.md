@@ -8,22 +8,22 @@ editor: markdown
 dateCreated: 2024-10-31T15:20:33.634Z
 ---
 
-# Les Web Services | Les Webservices Océan
+# Web Services | Ocean Web Services
 
-Une explication détaillée de chaque web service est fournie ainsi que les prérequis pour son exécution.
+A detailed explanation of each web service is provided along with the prerequisites for its execution.
 
-## 1. [Gestion des accès](web-services/acces.md)
+## 1. [Access Management](web-services/access.md)
 
-## 2. [Gestion des missions](missions.md)
+## 2. [Mission Management](missions.md)
 
-## 3. [Gestion des adresses de référence](web-services/adresses.md)
+## 3. [Reference Address Management](web-services/addresses.md)
 
-## 4. [Gestion de la flotte](web-services/flotte.md)
+## 4. [Fleet Management](web-services/fleet.md)
 
-## 5. [Trajets et positions](web-services/trajets-et-positions.md)
+## 5. [Routes and Positions](web-services/routes-and-positions.md)
 
-## 6. [Boitiers non communicants](web-services/boitiers-non-communicants.md)
+## 6. [Non-Communicating Devices](web-services/non-communicating-devices.md)
 
-## 7. [Equipement auxiliaire](web-services/equipement-auxiliaire.md)
+## 7. [Auxiliary Equipment](web-services/auxiliary-equipment.md)
 
-## 8. [Eco-Conduite](web-services/eco-conduite.md)
+## 8. [Eco-Driving](web-services/eco-driving.md)
