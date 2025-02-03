@@ -8,24 +8,24 @@ editor: markdown
 dateCreated: 2024-12-05T13:02:09.334Z
 ---
 
-# Gestion des missions
+# Mission Management
 
-Cette API permet de :
+This API allows you to:
 
--   Créer une nouvelle mission,
--   Modifier une mission en cours,
--   Retrouver le statut d’une mission,
--   Supprimer une mission.
+-   Create a new mission
+-   Modify an ongoing mission
+-   Retrieve the status of a mission
+-   Delete a mission
 
-Cette fonctionnalité n’est disponible que pour les clients ayant souscrit aux web services en complément d’une solution GéoPack ou GéoPro.
+Note: This feature is only available to clients who have subscribed to web services in addition to a GéoPack or GéoPro solution..
 
-## Créer une nouvelle mission
+## Create a New Mission
 
- [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/geomission/ajouterMissionUsingPOST)
+ [Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/geomission/ajouterMissionUsingPOST)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required.](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header.
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 
@@ -33,29 +33,30 @@ Cette fonctionnalité n’est disponible que pour les clients ayant souscrit aux
 post /restapi/geomission/ajoutMission
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom             | Type               | Description                                                                                                          |
-| --------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| customerId   *  | integer ($int64)   | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                                      |
-| idMission       | string             | Identifiant client de la mission                                                                                     |
-| jourHeureInter  | string ($dateTime) | Date d'intervention, elle doit être au format UTC : "dd/MM/yyyy HH:mm". Seul ce format est pris en compte par notre API.                                   |
-| jourHeurePeremp | string ($dateTime) | Date de suppression automatique de la mission sur l’écran, elle doit être au format UTC : "dd/MM/yyyyHH:mm". Seul ce format est pris en compte par notre API. |
-| typeMission     | string             | Type de la mission                                                                                                   |
-| nomVeh          | string             | Nom du véhicule                                                                                                      |
-| nomIndi         | string             | Nom de l'individu (si aucun véhicule sélectionné, le destinataire cible est un individu avec nom prénom)             |
-| prenomIndi      | string             | Prénom de l'individu (si aucun véhicule sélectionné, le destinataire cible est un individu avec nom prénom)          |
-| nomPrenom       | string             | Nom et prénom de l'individu                                                                                          |
-| commentaire     | string             | Commentaire de la mission                                                                                            |
-| adrRefCli       | string             | Nom de l’adresse de référence client (tronquée à 20 caractères sur l’affichage site et écran)                        |
-| rue             | string             | Rue de destination                                                                                                   |
-| codPost         | string             | Code postal de destination                                                                                           |
-| ville           | string             | Ville de destination                                                                                                 |
-| aEnvoyer        | boolean            | TRUE si la mission est à envoyer   FALSE si la mission est seulement préparée                                        |
-| longitude       | number ($double)   | Longitude de la destination                                                                                          |
-| latitude        | number ($double)   | Latitude de la destination                                                                                           |
+| Name            | Type               | Description                                                                                                          |
+| --------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| customerId   *  | integer ($int64)   | Client ID. Required only for multi-client users.                                                                     |
+| idMission       | string             | Client-specific mission ID.                                                                                          |
+| jourHeureInter  | string ($dateTime) | Intervention date, must be in UTC format: "dd/MM/yyyy HH:mm". Only this format is supported by our API.              |
+| jourHeurePeremp | string ($dateTime) | Automatic deletion date on the screen, must be in UTC format: "dd/MM/yyyy HH:mm". Only this format is supported.     |
+| typeMission     | string             | Mission type.                                                                                                        |
+| nomVeh          | string             | Vehicle name.                                                                                                        |
+| nomIndi         | string             | Individual's last name (if no vehicle is selected, the target recipient is an individual with first and last name).  |
+| prenomIndi      | string             | Individual's first name (if no vehicle is selected, the target recipient is an individual with first and last name). |
+| nomPrenom       | string             | Full name of the individual.                                                                                         |
+| commentaire     | string             | Mission comment.                                                                                                     |
+| adrRefCli       | string             | Client reference address name (truncated to 20 characters on site and screen display).                               |
+| rue             | string             | Destination street.                                                                                                  |
+| codPost         | string             | Destination postal code.                                                                                             |
+| ville           | string             | Destination city.                                                                                                    |
+| aEnvoyer        | boolean            | **TRUE** if the mission is to be sent, **FALSE** if the mission is only prepared.                                    |
+| longitude       | number ($double)   | Destination longitude.                                                                                               |
+| latitude        | number ($double)   | Destination latitude.                                                                                                |
 
-#### Réponses
+
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -65,22 +66,22 @@ post /restapi/geomission/ajoutMission
 404 NOT FOUND
 ```
 
-#### Résultat
+#### Result
 
 ```JSON
 {
   "message": "string"
-  Message de retour du WS (succès/échec)
+  Return message from the WS (success/failure)
 }
 ```
 
-## Modifier une mission en cours
+## Modify an ongoing mission
 
- [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/geomission/modifierMissionUsingPOST)
+ [Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/geomission/modifierMissionUsingPOST)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header.
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 
@@ -88,29 +89,29 @@ post /restapi/geomission/ajoutMission
 post /restapi/geomission/modifierMission
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom             | Type               | Description                                                                                                          |
-| --------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| customerId *    | integer ($int64)   | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                                      |
-| idMission       | string             | Identifiant client de la mission                                                                                     |
-| jourHeureInter  | string ($dateTime) | Date d'intervention, elle doit être au format UTC : "dd/MM/yyyy HH:mm". Seul ce format est pris en compte par notre API.                                |
-| jourHeurePeremp | string ($dateTime) | Date de suppression automatique de la mission sur l’écran, elle doit être au format UTC : "dd/MM/yyyyHH:mm". Seul ce format est pris en compte par notre API. |
-| typeMission     | string             | Type de la mission                                                                                                   |
-| nomVeh          | string             | Nom du véhicule                                                                                                      |
-| nomIndi         | string             | Nom de l'individu (si aucun véhicule sélectionné, le destinataire cible est un individu avec nom prénom)             |
-| prenomIndi      | string             | Prénom de l'individu (si aucun véhicule sélectionné, le destinataire cible est un individu avec nom prénom)          |
-| nomPrenom       | string             | Nom et prénom de l'individu                                                                                          |
-| commentaire     | string             | Commentaire de la mission                                                                                            |
-| adrRefCli       | string             | Nom de l’adresse de référence client (tronquée à 20 caractères sur l’affichage site et écran)                        |
-| rue             | string             | Rue de destination                                                                                                   |
-| codPost         | string             | Code postal de destination                                                                                           |
-| ville           | string             | Ville de destination                                                                                                 |
-| aEnvoyer        | boolean            | TRUE si la mission est à envoyer   FALSE si la mission est seulement préparée                                        |
-| longitude       | number ($double)   | Longitude de la destination                                                                                          |
-| latitude        | number ($double)   | Latitude de la destination                                                                                           |
+| Name            | Type               | Description                                                                                                          |
+| --------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| customerId *    | integer ($int64)   | Client ID. Required only for multi-client users.                                                                     |
+| idMission       | string             | Client-specific mission ID.                                                                                          |
+| jourHeureInter  | string ($dateTime) | Intervention date, must be in UTC format: "dd/MM/yyyy HH:mm". Only this format is supported by our API.              |
+| jourHeurePeremp | string ($dateTime) | Automatic deletion date on the screen, must be in UTC format: "dd/MM/yyyy HH:mm". Only this format is supported.     |
+| typeMission     | string             | Mission type.                                                                                                        |
+| nomVeh          | string             | Vehicle name.                                                                                                        |
+| nomIndi         | string             | Individual's last name (if no vehicle is selected, the target recipient is an individual with first and last name).  |
+| prenomIndi      | string             | Individual's first name (if no vehicle is selected, the target recipient is an individual with first and last name). |
+| nomPrenom       | string             | Full name of the individual.                                                                                         |
+| commentaire     | string             | Mission comment.                                                                                                     |
+| adrRefCli       | string             | Client reference address name (truncated to 20 characters on site and screen display).                               |
+| rue             | string             | Destination street.                                                                                                  |
+| codPost         | string             | Destination postal code.                                                                                             |
+| ville           | string             | Destination city.                                                                                                    |
+| aEnvoyer        | boolean            | **TRUE** if the mission is to be sent, **FALSE** if the mission is only prepared.                                    |
+| longitude       | number ($double)   | Destination longitude.                                                                                               |
+| latitude        | number ($double)   | Destination latitude.                                                                                                |
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -120,22 +121,22 @@ post /restapi/geomission/modifierMission
 404 Not Found
 ```
 
-#### Résultat
+#### Result
 
 ```JSON
 {
   "message": "string"
-  Message de retour du WS (succès/échec)
+  Return message from the WS (success/failure)
 }
 ```
 
-## Retrouver le statut d’une mission
+## Retrieve the status of a mission
 
- [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/geomission/getStatutMissionUsingGET)
+ [Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/geomission/getStatutMissionUsingGET)
  
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header.
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 
@@ -143,15 +144,15 @@ post /restapi/geomission/modifierMission
 get /restapi/geomission/statutMission
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom         | Type   | Description                      |
-| ----------- | ------ | -------------------------------- |
-| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
-| idMission * | string | Identifiant client de la mission |
-\* paramètre mandataire 
+| Name         | Type               | Description                                                                 |
+| -------------| ------------------ | --------------------------------------------------------------------------- |
+| customerId * | integer ($int64)   | Client ID. Required only for multi-client users.                            |
+| idMission *  | string             | Client-specific mission ID.                                                 |
+\* mandatory parameter
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -160,33 +161,32 @@ get /restapi/geomission/statutMission
 404 Not Found
 ```
 
-#### Résultat
+#### Result
 
 ```JSON
 {
-  "commentRefuseReason": "string",
-  Raison de refus
-  "complement": "string",
-  Complément d’information
-  "externalMissionId": "string",
-  Identifiant technique de la mission
-  "status": "string",
-  Statut de la mission
-  "statusCode": "string",
-  Code statut de la mission
-  "time": "string"
-  Date de la mission
+  "commentRefuseReason": "string", 
+   Reason for refusal
+  "complement": "string",          
+   Additional information
+  "externalMissionId": "string",   
+   Technical mission ID
+  "status": "string",              
+   Mission status
+  "statusCode": "string",          
+   Mission status code
+  "time": "string"                 
+   Mission date
 }
 ```
 
+## Delete a mission
 
-## Supprimer une mission
+ [Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/geomission/supprimerMissionUsingPOST)
 
- [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/geomission/supprimerMissionUsingPOST)
-
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header.
  
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 
@@ -194,15 +194,15 @@ get /restapi/geomission/statutMission
 post /restapi/geomission/supprimerMission
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom         | Type   | Description                      |
-| ----------- | ------ | -------------------------------- |
-| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
-| idMission * | string | Identifiant client de la mission |
-\* paramètre mandataire
+| Name         | Type               | Description                                                                 |
+| -------------| ------------------ | --------------------------------------------------------------------------- |
+| customerId * | integer ($int64)   | Client ID. Required only for multi-client users.                            |
+| idMission *  | string             | Client-specific mission ID.                                                 |
+\* mandatory parameter
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -212,10 +212,10 @@ post /restapi/geomission/supprimerMission
 404 NOT FOUND
 ```
 
-#### Résultat
+#### Result
 ```
 {
  "message": "string"
-  Message de retour du WS (succès/échec)
+  Return message from the WS (success/failure)
 }
 ```
