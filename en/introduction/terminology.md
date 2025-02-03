@@ -1,5 +1,5 @@
 ---
-title: terminologie
+title: Terminology
 description: 
 published: true
 date: 2024-10-31T15:21:37.274Z
