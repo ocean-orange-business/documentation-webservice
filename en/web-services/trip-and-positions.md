@@ -20,13 +20,13 @@ This API allows retrieval of:
 
 
 
-## Récupérer les positions d'un ou plusieurs véhicules entre deux dates : 2
+## Retrieve the positions of one or more vehicles between two dates : 
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/obtention-positions-vehicules/getTabPosVehUsingGET)
+[Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/obtention-positions-vehicules/getTabPosVehUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 
@@ -34,21 +34,22 @@ This API allows retrieval of:
 get /restapi/positions/search
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
 
-| Nom             | Type              | Description                                                                                                                                                                |
-| --------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| byStorageDate   | boolean           | Permet de rechercher les positions sur les horodates de stockage et non pas les horodates des positions                            |
-| customerId      | integer ($int64)  | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                                                    |
-| endDate         | string            | La date de fin doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API.                 |
-| immatriculation | array (of string) | Liste des immatriculations des véhicules                                                                                           |
-| startDate       | string            | La date de début au format DateHeure ISO le plus courant ‘yyyy-MM-dd’T’HH:mm:ss.SSSXXX’ (exemple : “2000-10-30T01:30:00.000Z”). Ne doit pas être plus ancienne que 2 mois. |
-| withPrivacy     | boolean           | Indique si les positions doivent être renvoyées en VP. Valeur par défaut = true                                                    |
+|| Name            | Type              | Description                                                                                                                      |
+|------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| byStorageDate    | boolean           | Allows searching positions based on storage timestamps instead of position timestamps.                                           |
+| customerId       | integer ($int64)  | Client ID. Mandatory only for multi-client users.                                                                                |
+| endDate          | string            | End date in UTC format: "dd/MM/yyyy HH:mm:ss Z". Only this format is accepted by the API.                                        |
+| immatriculation  | array (of string) | List of vehicle registrations.                                                                                                   |
+| startDate        | string            | Start date in ISO DateTime format: 'yyyy-MM-dd'T'HH:mm:ss.SSSXXX' (e.g., "2000-10-30T01:30:00.000Z"). Must not be older than 2 months. |
+| withPrivacy      | boolean           | Indicates if positions should be returned in VP (privacy mode). Default value = true.                                                                                             |
 
-\* paramètre mandataire 
+* mandatory parameter
 
-#### Réponses
+
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -98,16 +99,16 @@ get /restapi/positions/search
 }
 ```
 
-## Récupérer les positions d'un ou plusieurs véhicules entre deux dates 
+## Retrieve the positions of one or more vehicles between two dates
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/obtention-positions-vehicules/getTabPosVehUsingGET)
+[Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/obtention-positions-vehicules/getTabPosVehUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header
 
-> Version obsolète
+> Outdated version
 {.is-warning}
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 
@@ -115,20 +116,20 @@ get /restapi/positions/search
 get /restapi/positionsVehicles/betweenDate
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom             | Type              | Description                                                                                                                  |
-| --------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| immatsVeh       | array (of string) | Liste des immatriculations des véhicules                                                                                     |
-| login *         | string            | Identifiant                                                                                                                  |
-| password *      | string            | Mot de passe                                                                                                                 |
-| dateDebut       | string            | La date de début doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API. Elle ne doit pas être plus ancienne que 2 mois. |
-| dateFin         | string            | La date de fin doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API.           |
-| parDateStockage | boolean           | Si « vrai », la méthode va chercher les positions sur les horodates des positions.                                           |
+| Name             | Type              | Description                                                                                                                  |
+| ---------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| immatsVeh        | array (of string) | List of vehicle registrations.                                                                                               |
+| login *          | string            | User identifier.                                                                                                             |
+| password *       | string            | Password.                                                                                                                    |
+| dateDebut        | string            | Start date in UTC format: "dd/MM/yyyy HH:mm:ss Z". Must not be older than 2 months.                                          |
+| dateFin          | string            | End date in UTC format: "dd/MM/yyyy HH:mm:ss Z".                                                                             |
+| parDateStockage  | boolean           | If **true**, the method retrieves positions based on the timestamps of the positions.                                        |
 
-\* paramètre mandataire 
+\* mandatory parameter 
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -178,34 +179,34 @@ get /restapi/positionsVehicles/betweenDate
 }
 ```
 
-## Récupérer la dernière position d'un ou plusieurs véhicules
+## Retrieve the last position of one or more vehicles
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/obtention-positions-vehicules/getPosAndStatusVehUsingGET)
+[Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/obtention-positions-vehicules/getPosAndStatusVehUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header
 
-> Version obsolète
+> Outdated version
 {.is-warning}
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 ```
 get /restapi/positionsVehicles/lastPosition
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
 
-| Nom        | Type              | Description                                                                                   |
-| ---------- | ----------------- | --------------------------------------------------------------------------------------------- |
-| immatsVeh  | array (of string) | Liste des immatriculations des véhiculesListe des immatriculations des véhicules (50 maximum) |
-| login *    | string            | Identifiant                                                                                   |
-| password * | string            | Mot de passe                                                                                  |
+| Name        | Type              | Description                                                                                   |
+| ----------- | ----------------- | --------------------------------------------------------------------------------------------- |
+| immatsVeh   | array (of string) | List of vehicle registrations (maximum 50).                                                   |
+| login *     | string            | User identifier.                                                                              |
+| password *  | string            | Password.                                                                                     |
 
-\* paramètre mandataire 
+\* mandatory parameter 
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -214,28 +215,28 @@ get /restapi/positionsVehicles/lastPosition
 404 NOT FOUND
 ```
 
-## Récupérer tous les véhicules autorisés pour l'utilisateur avec leurs positions
+## Retrieve all vehicles authorized for the user along with their positions
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/mobility/getPositionsVehiclesUsingGET)
+[Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/mobility/getPositionsVehiclesUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 ```
 get /restapi/mobility/v1/vehiclePositions
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom          | Type             | Description                                                                     |
-| ------------ | ---------------- | ------------------------------------------------------------------------------- |
-| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| Name          | Type             | Description                                                                     |
+| ------------- | ---------------- | ------------------------------------------------------------------------------- |
+| customerId *  | integer ($int64) | Client ID. Mandatory only for multi-client users.                               |
 
-\* paramètre mandataire 
+\* mandatory parameter 
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -290,30 +291,30 @@ get /restapi/mobility/v1/vehiclePositions
 }
 ```
 
-## Récupérer le trajet d’un véhicule
+## Retrieve the route of a vehicle.
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/mobility/getTrajetUsingGET)
+[Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/mobility/getTrajetUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 ```
 get /restapi/mobility/v1/trajet
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
 
-| Nom        | Type             | Description                       |
-| ---------- | ---------------- | --------------------------------- |
-| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
-| travelId * | integer ($int64) | Identifiant du trajet du véhicule |
+| Name         | Type             | Description                                                                     |
+| ------------ | ---------------- | ------------------------------------------------------------------------------- |
+| customerId * | integer ($int64) | Client ID. Mandatory only for multi-client users.                               |
+| travelId *   | integer ($int64) | Vehicle travel ID.                                                              |
 
-\* paramètre mandataire 
+\* mandatory parameter 
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -335,13 +336,13 @@ get /restapi/mobility/v1/trajet
 }
 ```
 
-## Récupérer la fiche journalière d’un véhicule pour une date donnée
+## Retrieve the daily report of a vehicle for a given date.
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/mobility/getFicheJourUsingGET)
+[Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/mobility/getFicheJourUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 
@@ -349,17 +350,17 @@ get /restapi/mobility/v1/trajet
 get /restapi/mobility/v1/ficheJour
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom   | Type             | Description                                                                         |
-| ----- | ---------------- | ----------------------------------------------------------------------------------- |
-| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
-| vehId | integer ($int64) | Identifiant du véhicule pour lequel la fiche journalière est récupérée              |
-| date  | string           | Date au format UTC : "dd/MM/yyyy". Seul ce format est pris en compte par notre API. |
+| Name         | Type             | Description                                                                     |
+| ------------ | ---------------- | ------------------------------------------------------------------------------- |
+| customerId * | integer ($int64) | Client ID. Mandatory only for multi-client users.                               |
+| vehId        | integer ($int64) | Vehicle ID for which the daily report is retrieved.                             |
+| date         | string           | Date in UTC format: "dd/MM/yyyy". Only this format is accepted by the API.      |
 
-\* paramètre mandataire 
+\* mandatory parameter 
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -433,16 +434,17 @@ get /restapi/mobility/v1/ficheJour
     }
   ]
 }
-*Valeur possibe du champ etat :  « start D » / « waiting T » / « traveling R » / « stop A»
+*Possible values for the field `etat` :  « start D » / « waiting T » / « traveling R » / « stop A»
+
 ```
 
 ## Récupérer les positions d'un ou plusieurs matériels entre deux dates
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/materiel/getMaterielPosBetweenDateUsingGET)
+[Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/materiel/getMaterielPosBetweenDateUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 
@@ -450,18 +452,19 @@ get /restapi/mobility/v1/ficheJour
 get /restapi/materiel/positionBetween
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom         | Type           | Description                                                                                                                                                |
-| ----------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                                                                         |
-| materielIds | array (of int) | Liste des identifiants des matériels (nombre illimité)                                                                                                     |
-| dateDebut   | string         | La date de début doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API.                                       |
-| dateFin     | string         | La date de fin doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API. La période ne doit pas dépasser 1 jour. |
+| Name          | Type           | Description                                                                                                                                                |
+| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| customerId *  | integer ($int64) | Client ID. Mandatory only for multi-client users.                                                                                                        |
+| materielIds   | array (of int)  | List of equipment IDs (unlimited number).                                                                                                                 |
+| dateDebut     | string         | Start date in UTC format: "dd/MM/yyyy HH:mm:ss Z". Only this format is accepted by the API.                                                                |
+| dateFin       | string         | End date in UTC format: "dd/MM/yyyy HH:mm:ss Z". Only this format is accepted by the API. The period must not exceed 1 day.                                |
 
-\* paramètre mandataire 
+\* mandatory parameter
 
-#### Réponses
+
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -568,16 +571,16 @@ get /restapi/materiel/positionBetween
 ]
 ```
 
-## Récupérer la dernière position d'un ou plusieurs matériels
+## Retrieve the last position of one or more pieces of equipment.
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/materiel/getMaterialLastPositionUsingGET)
+[Additional SWAGGER Documentation](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/materiel/getMaterialLastPositionUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header
 
-> Version obsolète
+> Outdated version
 {.is-warning}
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 
@@ -585,16 +588,16 @@ get /restapi/materiel/positionBetween
 get /restapi/materiel/lastPosition
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom         | Type           | Description                                            |
-| ----------- | -------------- | ------------------------------------------------------ |
-| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
-| materielIds | array (of int) | Liste des identifiants des matériels (nombre illimité) |
+| Name          | Type           | Description                                                                 |
+| ------------- | -------------- | --------------------------------------------------------------------------- |
+| customerId *  | integer ($int64) | Client ID. Mandatory only for multi-client users.                          |
+| materielIds   | array (of int)  | List of equipment IDs (unlimited number).                                  |
 
-\* paramètre mandataire 
+\* mandatory parameter
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
