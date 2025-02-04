@@ -1,5 +1,5 @@
 ---
-title: exemples-de-codes
+title: Code Examples
 description: 
 published: true
 date: 2024-10-31T15:21:46.507Z

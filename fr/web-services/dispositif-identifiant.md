@@ -1,5 +1,5 @@
 ---
-title: dispositif-identifiant
+title: Gestion des dispositifs identifiants
 description: 
 published: true
 date: 2024-12-18T16:09:00.000Z

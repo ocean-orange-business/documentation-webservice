@@ -1,5 +1,5 @@
 ---
-title: chronotachygraphe
+title: Tachograph
 description: 
 published: true
 date: 2024-12-17T15:17:00.000Z
@@ -8,34 +8,33 @@ editor: markdown
 dateCreated: 2024-12-17T15:17:00.000Z
 ---
 
-# Contrôlleur de chronotachygraphe(s)
+# Tachograph Controller
 
-Cette API permet d'ajouter de(s) nouvelle(s) affectation(s) étape individu Chronotachygraphe.
+This API allows you to add new assignments for an individual tachograph.
 
-## Ajouter de(s) nouvelle(s) affectation(s) étape individu Chronotachygraphe
+## Add New Assignments for Individual Tachograph
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 ```
 put /restapi/chronotachygraphe/affect
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
+| Name         | Type   | Description                                                                 |
+|--------------|--------|-----------------------------------------------------------------------------|
+| bdgSerial    | string | Badge serial number.                                                        |
+| boxNumber    | string | Box serial number (field numero_serie_boi, this is not the SN).           |
+| endDate      | string | End date in the format “dd/MM/yyyy HH:mm:ss Z”.                           |
+| startDate    | string | Start date in the format “dd/MM/yyyy HH:mm:ss Z”.                         |
 
-| Nom            | Type             | Description                |
-| -------------- | ---------------- | -------------------------- |
-| bdgSerial      | string           | Numéro de série du badge   |
-| boxNumber      | string           | Numéro de série du boîtier (champ numero_serie_boi, ce n’est pas le SN)                |
-| endDate        | string           | La date de fin au format “dd/MM/yyyy HH:mm:ss Z”             |
-| startDate      | string           | La date de début au format “dd/MM/yyyy HH:mm:ss Z”              |
-
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
-201 CREATED
+400 BAD REQUEST
 401 UNAUTHORIZED
 403 FORBIDDEN
 404 NOT FOUND

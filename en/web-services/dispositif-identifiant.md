@@ -1,5 +1,5 @@
 ---
-title: dispositif-identifiant
+title: Management of Identification Devices
 description: 
 published: true
 date: 2024-12-18T16:09:00.000Z
@@ -8,32 +8,32 @@ editor: markdown
 dateCreated: 2024-12-13T13:40:00.000Z
 ---
 
-# Gestion des dispositifs identifiants
+# Management of Identification Devices
 
-Cette permet d'affecter un dispositif identifiant / badge à un constructeur
+This allows for the assignment of an identification device/badge to a manufacturer.
 
-## Affecter un dispositif identifiant/badge à un conducteur
+## Assign an Identification Device/Badge to a Driver
 
-Authentification préalable nécessaire et passage du token dans le header **X-AUTH-TOKEN**
+Prior authentication is required, and the token must be passed in the header **X-AUTH-TOKEN**.
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 ```
 post /restapi/dispositifIdentifiant/affectation/create-affectation
 ```
-#### Paramètres de la requête
-| Nom            | Type             | Description                |
-| -------------- | ---------------- | -------------------------- |
-| customerId*    | integer ($int64) | Obligatoire seulement pour un user multi clients.              |
-| personId*      | integer ($int64) | Identifiant de l'individu                                      |
-| identifierId*  | integer ($int64) | Identifiant du dispositif                                      |
-| date_debut     | date             | La date de début au format “yyyy-MM-ddTHH:mm:ss.SSSZ”          |
-| date_fin*      | date             | La date de fin au format “yyyy-MM-ddTHH:mm:ss.SSSZ”            |
+#### Request Parameters
+| Name            | Type             | Description                                                                                  |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------- |
+| customerId*     | integer ($int64) | Required only for multi-client users.                                                       |
+| personId*       | integer ($int64) | Identifier of the individual.                                                                |
+| identifierId*   | integer ($int64) | Identifier of the device.                                                                    |
+| date_debut      | date             | Start date in the format “yyyy-MM-ddTHH:mm:ss.SSSZ”.                                       |
+| date_fin*       | date             | End date in the format “yyyy-MM-ddTHH:mm:ss.SSSZ”.                                         |
 
-\* paramètre mandataire
+\* mandatory parameter 
 
-#### Corps de la requête
+#### Request Body
 ```JSON
 {
     "identifierId": 0,
@@ -44,7 +44,7 @@ post /restapi/dispositifIdentifiant/affectation/create-affectation
     }
 }
 ```
-#### Réponses
+#### Responses
 ```application/json;charset=utf-8
 200 OK
 201 CREATED
