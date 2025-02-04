@@ -94,7 +94,7 @@ get /restapi/ecoAttitude/v1/get_datas
 
 \* mandatory parameter
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK

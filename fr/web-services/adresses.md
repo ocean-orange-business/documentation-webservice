@@ -1,5 +1,5 @@
 ---
-title: adresses
+title: Gestion des adresses de référence
 description: 
 published: true
 date: 2025-01-27T15:44:17.333Z

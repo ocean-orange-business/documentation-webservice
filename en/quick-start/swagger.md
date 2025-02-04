@@ -1,5 +1,5 @@
 ---
-title: swagger
+title: Swagger
 description: 
 published: true
 date: 2024-10-31T15:21:51.175Z

@@ -10,6 +10,8 @@ dateCreated: 2024-10-31T14:18:55.046Z
 
 # Web Services FAQ
 
+### Quick Start
+
 ## 1. What is the status of the `/positionsVehicles/lastPosition` web service?
 The `/positionsVehicles/lastPosition` web service is deprecated. Its use is not recommended.
 
