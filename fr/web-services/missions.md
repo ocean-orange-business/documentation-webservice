@@ -1,5 +1,5 @@
 ---
-title: missions
+title: Gestion des missions
 description: 
 published: true
 date: 2025-01-24T15:05:20.256Z
