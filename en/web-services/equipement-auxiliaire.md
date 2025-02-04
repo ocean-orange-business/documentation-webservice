@@ -1,5 +1,5 @@
 ---
-title: equipement-auxiliaire
+title: Auxiliary Equipment
 description: 
 published: true
 date: 2024-10-31T14:45:29.845Z
@@ -8,42 +8,42 @@ editor: markdown
 dateCreated: 2024-10-24T13:16:13.661Z
 ---
 
-# Equipement auxiliaire
+# Auxiliary Equipment
 
-Cette API permet de récupérer :
+This API allows you to retrieve:
 
-- La durée totale d’utilisation des équipements auxiliaires par engin.
+- The total usage duration of auxiliary equipment by vehicle.
 
-## Récupérer la durée totale d’utilisation des équipements auxiliaires par engin
+## Retrieve Total Usage Duration of Auxiliary Equipment by Vehicle
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/dioutilisation/getDureeUsingGET)
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/dioutilisation/getDureeUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication required](./acces.md#authentication-via-post-request) and passing the token in the header **X-AUTH-TOKEN**
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 ```
 get /restapi/dioUtilisation/duree
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom           | Type              | Description                                                                                                                   |
-| ------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| customerId ** | integer ($int64)  | Identifiant du client. Obligatoire pour un utilisateur multi-client                                                           |
-| vehIds        | array (of int)    | Liste des identifiants des véhicules                                                                                          |
-| startDate     | string            | La date de début de la période. Elle doit être au format UTC : “dd/MM/yyyy”. Seul ce format est pris en compte par notre API. |
-| endDate       | string            | La date de fin de la période. Elle doit être au format UTC : “dd/MM/yyyy”. Seul ce format est pris en compte par notre API.   |
-| includeFields | array (of string) | Champs à inclure (cf. Facebook Graph API)                                                                                     |
+| Name           | Type              | Description                                                                                                                   |
+| -------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| customerId **  | integer ($int64)  | Customer identifier. Required for multi-client users                                                                         |
+| vehIds         | array (of int)    | List of vehicle identifiers                                                                                                   |
+| startDate      | string            | Start date of the period. Must be in UTC format: "dd/MM/yyyy". Only this format is accepted by our API.                    |
+| endDate        | string            | End date of the period. Must be in UTC format: "dd/MM/yyyy". Only this format is accepted by our API.                      |
+| includeFields  | array (of string) | Fields to include (see Facebook Graph API)                                                                                    |
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
-401 UNAUTHORIZED
-403 FORBIDDEN
-404 NOT FOUND
+401 Unauthorized
+403 Forbidden
+404 Not Found
 ```
 
 #### Résultat

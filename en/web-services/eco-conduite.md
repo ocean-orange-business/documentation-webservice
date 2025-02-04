@@ -1,5 +1,5 @@
 ---
-title: eco-conduite
+title: Eco-Driving
 description: 
 published: true
 date: 2024-10-31T14:45:29.845Z
@@ -8,39 +8,39 @@ editor: markdown
 dateCreated: 2024-10-24T13:16:09.120Z
 ---
 
-Cette API permet de récupérer :
+This API allows you to retrieve:
 
-- Les données liées à l’éco conduite des chauffeurs pour une période donnée,
-- Les notes de « Sécurité » et « Consommation » par mois ou semaine.
+- Data related to the eco-driving of drivers for a given period,
+- "Safety" and "Consumption" scores by month or week.
 
-## Récupérer les notes de sécurité et consommation par mois ou semaine
+## Retrieve Safety and Consumption Scores by Month or Week
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getEchoattitudeGraphUsingGET)
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getEchoattitudeGraphUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication required](./acces.md#authentication-via-post-request) and passing the token in the header **X-AUTH-TOKEN**
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 ```
 get /restapi/ecoAttitude/v1/get_ecoattitude_graph
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
-| Nom            | Type             | Description                |
-| -------------- | ---------------- | -------------------------- |
-| customerId *   | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
-| individuId     | integer ($int64) | Identifiant du conducteur. |
-| EC_MONTH_START | integer ($int32) | Mois de début              |
-| EC_MONTH_END   | integer ($int32) | Mois de fin                |
-| EC_YEAR_START  | integer ($int32) | Année de début             |
-| EC_YEAR_END    | integer ($int32) | Année de fin               |
-| EC_MODE        | string           | Au choix : semaine ou mois |
+| Name            | Type             | Description                                                                                  |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------- |
+| customerId *    | integer ($int64) | Customer identifier. Required only for multi-client users                                   |
+| individuId      | integer ($int64) | Driver identifier.                                                                          |
+| EC_MONTH_START  | integer ($int32) | Start month                                                                                |
+| EC_MONTH_END    | integer ($int32) | End month                                                                                  |
+| EC_YEAR_START   | integer ($int32) | Start year                                                                                 |
+| EC_YEAR_END     | integer ($int32) | End year                                                                                   |
+| EC_MODE         | string           | Choose: week or month                                                                      |
 
-\* paramètre mandataire 
+\* mandatory parameter 
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -49,7 +49,7 @@ get /restapi/ecoAttitude/v1/get_ecoattitude_graph
 404 NOT FOUND
 ```
 
-#### Résultat
+#### Result
 
 ```JSON
 {
@@ -68,32 +68,31 @@ get /restapi/ecoAttitude/v1/get_ecoattitude_graph
 }
 ```
 
-## Récupérer les données liées à l’éco conduite des chauffeurs pour une période donnée
+## Retrieve Data Related to Eco-Driving of Drivers for a Given Period
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getDatasUsingGET)
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getDatasUsingGET)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Prior authentication required](./acces.md#authentication-via-post-request) and passing the token in the header **X-AUTH-TOKEN**
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 ```
 get /restapi/ecoAttitude/v1/get_datas
 ```
 
-#### Paramètres de la requête
+#### Request Parameters
 
+| Name            | Type             | Description                                                                                  |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------- |
+| customerId *    | integer ($int64) | Customer identifier. Required only for multi-client users                                   |
+| EC_MONTH_START  | integer ($int32) | Start month                                                                                |
+| EC_MONTH_END    | integer ($int32) | End month                                                                                  |
+| EC_YEAR_START   | integer ($int32) | Start year                                                                                 |
+| EC_YEAR_END     | integer ($int32) | End year                                                                                   |
+| EC_MODE         | string           | Choose: week or month                                                                      |
 
-| Nom            | Type             | Description                |
-| -------------- | ---------------- | -------------------------- |
-| customerId *   | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
-| EC_MONTH_START | integer ($int32) | Mois de début              |
-| EC_MONTH_END   | integer ($int32) | Mois de fin                |
-| EC_YEAR_START  | integer ($int32) | Année de début             |
-| EC_YEAR_END    | integer ($int32) | Année de fin               |
-| EC_MODE        | string           | Au choix : semaine ou mois |
-
-\* paramètre mandataire 
+\* mandatory parameter
 
 #### Réponses
 

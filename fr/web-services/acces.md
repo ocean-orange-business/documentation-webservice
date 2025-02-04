@@ -1,5 +1,5 @@
 ---
-title: acces
+title: Gestion des accès
 description: 
 published: true
 date: 2025-01-23T16:26:10.725Z
