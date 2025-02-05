@@ -20,7 +20,7 @@ Avant d’accéder à tout service, une phase d’authentification est nécessai
 /restapi/auth/authenticate2
 ```
 
-![](authenticate2.jpg)
+![authenticate2.jpg](/authenticate2.jpg)
 
 Pour s’authentifier, il suffit de :
 
@@ -28,16 +28,20 @@ Pour s’authentifier, il suffit de :
 2.  Cliquer sur le bouton « Try it out » en haut à droite 
 3.  Entrer votre login/password dans le champs "body" de la manière suivante:
 
-![](authenticate2_2.jpg)
+![authenticate2_2.jpg](/authenticate2_2.jpg)
+**Example dans le json** 
+```JSON
+{"login":"monLogin","password":"password123!"}
+```
 
 Ensuite pour valider l’authentification, il suffit de cliquer sur le bouton « Execute », en bas de l’écran.
 
-Une fois l’authentification réussie, l’écran suivant apparait :
+Une fois l’authentification réussie, l’écran suivant apparaît :
 
 Les parties à considérer sont :
 
--   « **Curl** » : permet d’exécuter le service en utilisant directement la console sans passer par l’interface web
--   « **Response body** » : contient le token généré lors de l’invocation de ce service et qui peut aussi être généré en utilisant la commande ci-dessus.
+-   « **Curl** » : permet d’exécuter le service en utilisant directement la console sans passer par l’interface web.
+-   « **Response body** » : contient le token généré lors de l’invocation de ce service, qui peut également être généré en utilisant la commande ci-dessus.
 
 ## 2\. Ajouter l’extension "Modify header"
 
@@ -48,14 +52,14 @@ Tout d’abord, il est nécessaire de télécharger pour votre navigateur une ex
 (Pour notre exemple, nous utiliserons le navigateur Firefox, dont le lien pour le téléchargement est : https://addons.mozilla.org/fr/firefox/addon/modify-headers/)  
 Pour vérifier que le plugin a bien été ajouté au navigateur, cet icone doit apparaitre en haut à droite du navigateur.
 
-![](quickStart-swagger-2-icon.png)
+![quickStart-swagger-2-icon.png](/quickStart-swagger-2-icon.png)
 
 Une fois l’extension ajoutée, il faut cliquer sur « Open Modify Headers » et entrer les informations suivantes :
 
 1.  « X-Auth-Token »
 2.  le token récupéré précédemment.
 
-![](quickStart-swagger-3-headers-notes.jpg)
+![quickStart-swagger-3-headers-notes.jpg](/quickStart-swagger-3-headers-notes.jpg)
 
 *NB : après avoir entré une première fois ces paramètres, à chaque authentification ou après l’expiration du token, il est nécessaire de générer un nouveau token en se reconnectant et modifiant le header et cliquant sur « Edit ».*
 

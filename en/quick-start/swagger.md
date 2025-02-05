@@ -20,7 +20,11 @@ Before accessing any service, an authentication phase is required at the followi
 /restapi/auth/authenticate2
 ```
 
-![](authenticate2.jpg)
+![authenticate2.jpg](/authenticate2.jpg)
+**Example in the json** 
+```JSON
+{"login":"myLogin","password":"password123!"}
+```
 
 To authenticate, simply:
 
@@ -28,7 +32,7 @@ To authenticate, simply:
 2. Click on the "Try it out" button in the top right corner,
 3. Enter your login/password in the "body" field as follows:
 
-![](authenticate2_2.jpg)
+![authenticate2_2.jpg](/authenticate2_2.jpg)
 
 Then, to validate the authentication, click on the "Execute" button at the bottom of the screen.
 
@@ -48,14 +52,14 @@ First, you need to download a "Modify Header" extension for your browser.
 (For our example, we will use the Firefox browser, and the download link is: https://addons.mozilla.org/fr/firefox/addon/modify-headers/)  
 To verify that the plugin has been added to the browser, this icon should appear in the top right corner of the browser.
 
-![](quickStart-swagger-2-icon.png)
+![quickStart-swagger-2-icon.png](/quickStart-swagger-2-icon.png)
 
 Once the extension is added, click on "Open Modify Headers" and enter the following information:
 
 1. **X-Auth-Token**
 2. The token retrieved previously.
 
-![](quickStart-swagger-3-headers-notes.jpg)
+![quickStart-swagger-3-headers-notes.jpg](/quickStart-swagger-3-headers-notes.jpg)
 
 *Note: After entering these parameters for the first time, each time you authenticate or after the token expires, you need to generate a new token by reconnecting and modifying the header, then clicking on "Edit".*
 
