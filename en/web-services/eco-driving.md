@@ -10,7 +10,7 @@ dateCreated: 2024-10-24T13:16:09.120Z
 
 This API allows you to retrieve:
 
-- Data related to the eco-driving of drivers for a given period,
+- Data related to the eco-driving of drivers for a given period.
 - "Safety" and "Consumption" scores by month or week.
 
 ## Retrieve Safety and Consumption Scores by Month or Week

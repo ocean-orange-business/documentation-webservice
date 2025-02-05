@@ -12,8 +12,8 @@ dateCreated: 2024-10-31T15:21:38.861Z
 
 ### Quick Start
 
-The main use case of the Ocean API is to interact with and utilize the data provided by the main application without having to connect directly to it.
+The main use case of the Océan API is to interact with the data provided by the main application without having to connect directly to it. 
 
-The Ocean API allows for coupling the provided data with user-specific needs.
+The Océan API allows users to match the provided data to their specific needs. 
 
-In the following section (Documentation), a description of the application use cases (geolocation, cars, devices, vehicles, subscription to reports, etc.) is detailed.
+In the following section (Documentation), a description of the application use cases (geolocation, cars, devices, vehicles, subscriptions to reports, etc.) is detailed.
