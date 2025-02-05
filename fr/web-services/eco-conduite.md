@@ -8,10 +8,10 @@ editor: markdown
 dateCreated: 2024-10-24T13:16:09.120Z
 ---
 
-Cette API permet de récupérer :
+Cette API permet de récupérer :
 
-- Les données liées à l’éco conduite des chauffeurs pour une période donnée,
-- Les notes de « Sécurité » et « Consommation » par mois ou semaine.
+- Les données liées à l’éco-conduite des chauffeurs pour une période donnée.
+- Les notes de « Sécurité » et « Consommation » par mois ou par semaine.
 
 ## Récupérer les notes de sécurité et consommation par mois ou semaine
 

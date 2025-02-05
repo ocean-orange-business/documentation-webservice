@@ -8,9 +8,9 @@ editor: markdown
 dateCreated: 2024-12-17T15:17:00.000Z
 ---
 
-# Contrôlleur de chronotachygraphe(s)
+# Contrôleur de chronotachygraphe(s)
 
-Cette API permet d'ajouter de(s) nouvelle(s) affectation(s) étape individu Chronotachygraphe.
+Cette API permet d'ajouter de nouvelles affectations pour l'étape individuelle du Chronotachygraphe.
 
 ## Ajouter de(s) nouvelle(s) affectation(s) étape individu Chronotachygraphe
 

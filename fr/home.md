@@ -10,7 +10,8 @@ dateCreated: 2024-10-31T15:25:44.553Z
 
 # Introduction | Les Webservices Océan
 
-Découvrez notre catalogue d’API disponibles pour toutes nos solutions de gestions d’ activités mobiles afin d’intégrer les données à vos systèmes ERP, ….
+Océan, une entité d'Orange Business Services, propose des solutions de gestion des activités mobiles pour les entreprises disposant de véhicules et d'objets, avec ou sans géolocalisation. 
+Une API est disponible pour permettre aux utilisateurs d'ajouter, modifier, supprimer ou consulter des données de leur compte, accompagnée d'explications détaillées et des prérequis pour chaque web service.
 
 ## 1. [Les Webservices Océan](introduction/les-webservices-ocean.md)
 

@@ -10,7 +10,7 @@ dateCreated: 2024-12-13T13:40:00.000Z
 
 # Gestion des dispositifs identifiants
 
-Cette permet d'affecter un dispositif identifiant / badge à un constructeur
+Cette api permet d'affecter un dispositif identifiant / badge à un constructeur
 
 ## Affecter un dispositif identifiant/badge à un conducteur
 
@@ -25,11 +25,11 @@ post /restapi/dispositifIdentifiant/affectation/create-affectation
 #### Paramètres de la requête
 | Nom            | Type             | Description                |
 | -------------- | ---------------- | -------------------------- |
-| customerId*    | integer ($int64) | Obligatoire seulement pour un user multi clients.              |
+| customerId*    | integer ($int64) | Obligatoire seulement pour un utilisateur multi clients.       |
 | personId*      | integer ($int64) | Identifiant de l'individu                                      |
 | identifierId*  | integer ($int64) | Identifiant du dispositif                                      |
-| date_debut     | date             | La date de début au format “yyyy-MM-ddTHH:mm:ss.SSSZ”          |
-| date_fin*      | date             | La date de fin au format “yyyy-MM-ddTHH:mm:ss.SSSZ”            |
+| date_debut *   | date             | La date de début au format “yyyy-MM-ddTHH:mm:ss.SSSZ”          |
+| date_fin      | date             | La date de fin au format “yyyy-MM-ddTHH:mm:ss.SSSZ”            |
 
 \* paramètre mandataire
 
