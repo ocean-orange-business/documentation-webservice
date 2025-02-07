@@ -19,7 +19,7 @@ The `/positionsVehicles/lastPosition` web service is deprecated. Its use is not 
 Although its use is discouraged, if necessary, this web service only works via a list of license plates. It is not designed to work by entity.
 
 ### Example Usage:
-*(See attached screenshot)*
+![last_position.png](/last_position.png)
 
 ## 3. Which web service should I use instead?
 It is recommended to use the following web service:

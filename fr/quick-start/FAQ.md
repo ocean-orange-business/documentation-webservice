@@ -19,7 +19,7 @@ Le webservice `/positionsVehicles/lastPosition` est déprécié. Il n'est pas re
 Bien que son utilisation ne soit pas encouragée, si nécessaire, ce webservice fonctionne uniquement via une liste d'immatriculations. Il n'est pas prévu par entité.
 
 ### Exemple d'utilisation :
-*(Voir capture d'écran jointe)*
+![last_position.png](/last_position.png)
 
 ## 3. Quel webservice devrais-je utiliser à la place ?
 Il est recommandé d'utiliser le webservice suivant :
