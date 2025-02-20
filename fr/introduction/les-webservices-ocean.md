@@ -8,13 +8,13 @@ editor: markdown
 dateCreated: 2024-10-24T13:15:32.447Z
 ---
 
-# Les Webservices Océan
+# Les Web services Océan
 
 ### Introduction
 
 Océan est l’entité d’Orange Business Services proposant aux entreprises disposant d’un parc de véhicules (VL, VUL, engins) et d’objets (matériels) des solutions de gestion des activités mobiles, avec ou sans géolocalisation.
 
-Une API est mise à disposition de nos clients exposant l’ensemble de nos web services.
+Une API est mise à disposition de nos clients, exposant l’ensemble de nos web services.
 
 Les web services permettent à l’utilisateur d’ajouter, modifier, supprimer ou simplement consulter des données de son compte Océan.
 
