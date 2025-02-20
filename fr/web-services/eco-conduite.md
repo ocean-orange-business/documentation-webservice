@@ -68,7 +68,7 @@ get /restapi/ecoAttitude/v1/get_ecoattitude_graph
 }
 ```
 
-## Récupérer les données liées à l’éco conduite des chauffeurs pour une période donnée
+## Récupérer les données liées à l’éco-conduite des chauffeurs pour une période donnée
 
 [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getDatasUsingGET)
 

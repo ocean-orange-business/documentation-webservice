@@ -14,19 +14,19 @@ dateCreated: 2024-10-24T13:15:36.781Z
 
 **Arrêt**
 
-Désigne le lapse de temps entre le moment où le contact est éteint sur un véhicule et le moment où le contact est allumé
+Désigne le laps de temps entre le moment où le contact est éteint sur un véhicule et le moment où le contact est allumé
 
 **Entité**
 
-Désigne un lieu géographique de rattachement (ex. filiale, … )
+Désigne un lieu géographique de rattachement (ex. filiale,…)
 
 **Equipement auxiliaire**
 
-Désigne un outil embarqué sur un engin (ex. pelle, grue, toupie, …).
+Désigne un outil embarqué sur un engin (ex. pelle, grue, toupie,…)
 
 **Evénement**
 
-Désigne toute information anormale ou particulière qui peut survenir sur un véhicule ou matériel (ex. anomalie, ….)
+Désigne toute information anormale ou particulière qui peut survenir sur un véhicule ou matériel (ex. anomalie,…)
 
 **Matériel**
 

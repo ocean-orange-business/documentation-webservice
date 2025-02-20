@@ -37,7 +37,7 @@ post /restapi/auth/authenticate * Deprecated
 | ------------------- | ------ | -------------------------------- |
 | login *             | string | Identifiant                      |
 | password *          | string | Mot de passe                     |
-\* paramètre mandataire
+\* paramètre mandatory
 
 #### Réponses
 ```application/json;charset=utf-8
@@ -119,7 +119,7 @@ post /restapi/auth/changePassword
 | actualPassword *       | string | Mot de passe actuel              |
 | newPassword *          | string | Nouveau mot de passe             |
 | newPasswordConfirmed * | string | Nouveau mot de passe à confirmer |
-\* paramètre mandataire
+\* paramètre mandatory
 
 #### Réponses
 
@@ -133,7 +133,7 @@ post /restapi/auth/changePassword
 
 ## Réinitialiser le mot de passe par l’envoi d’un email
 
-[Authentification préalable nécessaire](#authentification-par-requête-post)et passage du token dans le header **X-AUTH-TOKEN**
+[Authentification préalable nécessaire](#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
 [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/authentification/requestPasswordResetUsingPOST)
 
@@ -150,7 +150,7 @@ post /restapi/auth/requestPasswordReset
 | ------ | ------- | ----------------------------------------------------------------------------------------- |
 | login * | boolean | Login de l’utilisateur pour lequel il y a une demande de réinitialisation du mot de passe |
 | url    | string  | Url de l’application                                                                      |
-\* paramètre mandataire 
+\* paramètre mandatory 
 
 #### Réponses
 ```application/json;charset=utf-8
@@ -161,9 +161,9 @@ post /restapi/auth/requestPasswordReset
 404 NOT FOUND
 ```
 
-## Trouve les droits/fonctionnalités à l'application pour un utilisateur
+## Trouver les droits/fonctionnalités à l'application pour un utilisateur
 
-[Authentification préalable nécessaire](#authentification-par-requête-post)et passage du token dans le header **X-AUTH-TOKEN**
+[Authentification préalable nécessaire](#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
 Ce web services permet de trouver tous les droits/fonctionnalités (avec un contenu détaillé) à l'application pour un utilisateur.
 
@@ -181,9 +181,9 @@ get /restapi/authorization/functionalities_detailed
 
 | Nom    | Type    | Description                        |
 | ------ | ------- | ---------------------------------- |
-| customerId    | integer ($int64)| Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| customerId    | integer ($int64)| Identifiant du client. Obligatoire uniquement pour un utilisateur multi-client |
 | elementType * | string - Enum | Type d’élément de l’application (Lien, Onglet, Web service, Action)  |
-\* paramètre mandataire 
+\* paramètre mandatory 
 
 #### Réponses
 
@@ -217,7 +217,7 @@ get /restapi/authorization/functionalities_detailed
 
 ## Récupérer les contrats de location des véhicules
 
-[Authentification préalable nécessaire](#authentification-par-requête-post)et passage du token dans le header **X-AUTH-TOKEN**
+[Authentification préalable nécessaire](#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
 [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/)
 
@@ -236,7 +236,7 @@ get /restapi/contrat_location/contrats
 | customerId ** | integer ($int64) | Identifiant du client. Obligatoire pour un utilisateur multi-client                                                                                     |
 | date          | string           | Filtre sur les contrats actifs à cette date. La date doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API |
 | vehicleIds    | array (of int)   | Filtre sur les véhicules identifiés (nombre illimité)                                                                                                   |
-\* paramètre mandataire 
+\* paramètre mandatory 
 
 #### Réponses
 
@@ -265,7 +265,7 @@ get /restapi/contrat_location/contrats
 
 ## Récupérer les derniers événements
 
-[Authentification préalable nécessaire](#authentification-par-requête-post)et passage du token dans le header **X-AUTH-TOKEN**
+[Authentification préalable nécessaire](#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
 [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/)
 
@@ -287,7 +287,7 @@ get /restapi/evenement/lastEvent
 | dateDebut      | string           | La date de début doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API. |
 | dateFin        | string           | La date de fin doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API.   |
 | codeEvenements * | array (of int)   | Identifiant de l’événement                                                                                         |
-\* paramètre mandataire 
+\* paramètre mandatory 
 
 #### Réponses
 
@@ -718,7 +718,7 @@ get /restapi/evenement/lastEvent
 
 ## Récupérer les données des matériels
 
-[Authentification préalable nécessaire](#authentification-par-requête-post)et passage du token dans le header **X-AUTH-TOKEN**
+[Authentification préalable nécessaire](#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
 [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/materiel/getMaterielsUsingGET)
 
@@ -734,10 +734,10 @@ get /restapi/materiel/list
 
 | Nom         | Type           | Description                                            |
 | ----------- | -------------- | ------------------------------------------------------ |
-| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-client |
 | materielIds | array (of int) | Liste des identifiants des matériels (nombre illimité) |
 
-\* paramètre mandataire 
+\* paramètre mandatory 
 
 #### Réponses
 

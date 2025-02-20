@@ -14,7 +14,7 @@ Cette API permet de :
 
 - Créer une adresse de référence.
 - Modifier une adresse de référence.
-- Supprimer une adresses de référence.
+- Supprimer une adresse de référence.
 - Récupérer toute la liste des adresses de référence.
 
 ## Créer une adresse de référence
@@ -35,10 +35,10 @@ post /restapi/pois/createPoi
 | :--------- | :----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                                                                                 |
 | poi *      | object | Objet JSON décrivant le point d’intérêt. Pour le format de l’objet se référer à sa description dans https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/poi/createPoiUsingPOST |
-| externalId | string | Identifiant Externe (s’il provient d’un autre Système d’information)                                                                                                        |
+| externalId | string | Identifiant externe (s’il provient d’un autre système d’information)                                                                                                        |
 | source     | string | Source de l’identifiant externe (champs libre, ex. nom d’un logiciel pour le stockage des adresses de référence)                                                            |
 
-\* paramètre mandataire
+\* paramètre mandatory
 
 #### Réponses
 
@@ -146,7 +146,7 @@ post /restapi/pois/updatePoi
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                                                                           |
 | poi * | object | Objet JSON décrivant le point d’intérêt. Pour le format de l’objet se référer à sa description dans https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/poi/createPoiUsingPOST  |
 
-\* paramètre mandataire
+\* paramètre mandatory
 
 #### Réponses
 
@@ -255,7 +255,7 @@ post /restapi/pois/deletePoi
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 | idPoi * | integer ($int64) | Identifiant technique de l’adresse de référence à supprimer |
 
-\* paramètre mandataire
+\* paramètre mandatory
 
 #### Réponses
 
@@ -293,7 +293,7 @@ get /restapi/pois/pois
 | source                 | string           | Source de l’identifiant externe (ex. POI Fleet)                      |
 | withZone               | boolean          | Ajout des POIs zones ou non. Valeur par défaut : false               |
 
-\* paramètre mandataire
+\* paramètre mandatory
 
 #### Réponses
 
