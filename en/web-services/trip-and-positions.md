@@ -41,7 +41,7 @@ get /restapi/positions/search
 |------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | byStorageDate    | boolean           | Allows searching positions based on storage timestamps instead of position timestamps.                                           |
 | customerId       | integer ($int64)  | Client ID. Mandatory only for multi-client users.                                                                                |
-| endDate          | string            | End date in UTC format: "dd/MM/yyyy HH:mm:ss Z". Only this format is accepted by the API.                                        |
+| endDate          | string            | End date in ISO DateTime format: 'yyyy-MM-dd'T'HH:mm:ss.SSSXXX' (e.g., "2000-10-30T01:30:00.000Z"). Must not be older than 2 months.                                    |
 | immatriculation  | array (of string) | List of vehicle registrations.                                                                                                   |
 | startDate        | string            | Start date in ISO DateTime format: 'yyyy-MM-dd'T'HH:mm:ss.SSSXXX' (e.g., "2000-10-30T01:30:00.000Z"). Must not be older than 2 months. |
 | withPrivacy      | boolean           | Indicates if positions should be returned in VP (privacy mode). Default value = true.                                                                                             |

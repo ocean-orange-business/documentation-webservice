@@ -40,7 +40,7 @@ get /restapi/positions/search
 | --------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | byStorageDate   | boolean           | Permet de rechercher les positions sur les horodates de stockage et non pas les horodates des positions                            |
 | customerId      | integer ($int64)  | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                                                    |
-| endDate         | string            | La date de fin doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API.                 |
+| endDate         | string            | La date de fin au format DateHeure ISO le plus courant ‘yyyy-MM-dd’T’HH:mm:ss.SSSXXX’ (exemple : “2000-10-30T01:30:00.000Z”). Ne doit pas être plus ancienne que 2 mois.          |
 | immatriculation | array (of string) | Liste des immatriculations des véhicules                                                                                           |
 | startDate       | string            | La date de début au format DateHeure ISO le plus courant ‘yyyy-MM-dd’T’HH:mm:ss.SSSXXX’ (exemple : “2000-10-30T01:30:00.000Z”). Ne doit pas être plus ancienne que 2 mois. |
 | withPrivacy     | boolean           | Indique si les positions doivent être renvoyées en VP. Valeur par défaut = true                                                    |
