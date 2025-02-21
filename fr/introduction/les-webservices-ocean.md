@@ -22,3 +22,4 @@ Une explication détaillée de chaque web service est fournie ainsi que les pré
 
 1.  Description
 2.  Web services concernés, avec leurs spécificités techniques
+3.  Quick Start
