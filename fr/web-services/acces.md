@@ -37,7 +37,7 @@ post /restapi/auth/authenticate * Deprecated
 | ------------------- | ------ | -------------------------------- |
 | login *             | string | Identifiant                      |
 | password *          | string | Mot de passe                     |
-\* paramètre mandatory
+\* paramètre obligatoire
 
 #### Réponses
 ```application/json;charset=utf-8
@@ -119,7 +119,7 @@ post /restapi/auth/changePassword
 | actualPassword *       | string | Mot de passe actuel              |
 | newPassword *          | string | Nouveau mot de passe             |
 | newPasswordConfirmed * | string | Nouveau mot de passe à confirmer |
-\* paramètre mandatory
+\* paramètre obligatoire
 
 #### Réponses
 
@@ -150,7 +150,7 @@ post /restapi/auth/requestPasswordReset
 | ------ | ------- | ----------------------------------------------------------------------------------------- |
 | login * | boolean | Login de l’utilisateur pour lequel il y a une demande de réinitialisation du mot de passe |
 | url    | string  | Url de l’application                                                                      |
-\* paramètre mandatory 
+\* paramètre obligatoire 
 
 #### Réponses
 ```application/json;charset=utf-8
@@ -183,7 +183,7 @@ get /restapi/authorization/functionalities_detailed
 | ------ | ------- | ---------------------------------- |
 | customerId    | integer ($int64)| Identifiant du client. Obligatoire uniquement pour un utilisateur multi-client |
 | elementType * | string - Enum | Type d’élément de l’application (Lien, Onglet, Web service, Action)  |
-\* paramètre mandatory 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -236,7 +236,7 @@ get /restapi/contrat_location/contrats
 | customerId ** | integer ($int64) | Identifiant du client. Obligatoire pour un utilisateur multi-client                                                                                     |
 | date          | string           | Filtre sur les contrats actifs à cette date. La date doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API |
 | vehicleIds    | array (of int)   | Filtre sur les véhicules identifiés (nombre illimité)                                                                                                   |
-\* paramètre mandatory 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -287,7 +287,7 @@ get /restapi/evenement/lastEvent
 | dateDebut      | string           | La date de début doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API. |
 | dateFin        | string           | La date de fin doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API.   |
 | codeEvenements * | array (of int)   | Identifiant de l’événement                                                                                         |
-\* paramètre mandatory 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -737,7 +737,7 @@ get /restapi/materiel/list
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-client |
 | materielIds | array (of int) | Liste des identifiants des matériels (nombre illimité) |
 
-\* paramètre mandatory 
+\* paramètre obligatoire 
 
 #### Réponses
 

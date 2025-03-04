@@ -36,7 +36,7 @@ get /restapi/mobility/v1/entities
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -81,7 +81,7 @@ get /restapi/vehicule_engin/vehicles
 | immatriculation | string          | Immatriculation du véhicule               |
 | includeFields   | Array of string | Champs à inclure (cf. Facebook Graph API) |
 
-\* paramètre mandataire
+\* paramètre obligatoire
 
 #### Réponses
 

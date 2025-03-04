@@ -31,7 +31,7 @@ post /restapi/dispositifIdentifiant/affectation/create-affectation
 | date_debut *   | date             | La date de début au format “yyyy-MM-ddTHH:mm:ss.SSSZ”          |
 | date_fin      | date             | La date de fin au format “yyyy-MM-ddTHH:mm:ss.SSSZ”            |
 
-\* paramètre mandataire
+\* paramètre obligatoire
 
 #### Corps de la requête
 ```JSON
