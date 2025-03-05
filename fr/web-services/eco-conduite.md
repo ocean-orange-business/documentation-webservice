@@ -8,10 +8,13 @@ editor: markdown
 dateCreated: 2024-10-24T13:16:09.120Z
 ---
 
+# Gestion de l'écoconduite
+
 Cette API permet de récupérer :
 
 - Les données liées à l’éco-conduite des chauffeurs pour une période donnée.
 - Les notes de « Sécurité » et « Consommation » par mois ou par semaine.
+- Les notes affichées sur l'écran "Synthèse de flotte" de la webApp
 
 ## Récupérer les notes de sécurité et consommation par mois ou semaine
 
@@ -204,4 +207,222 @@ get /restapi/ecoAttitude/v1/get_datas
     }
   }
 }
+```
+
+## Récupérer les notes affichées sur l'écran "Synthèse de flotte" de la webApp
+
+[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+
+### Définition {.tabset}
+
+#### Endpoint
+```
+post /restapi/ecoAtecoconduitetitude/syntheseFlotte
+```
+
+#### Paramètres de la requête
+
+| Nom            | Type             | Description                |
+| -------------- | ---------------- | -------------------------- |
+| customerId *   | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| mode *         | AnalysisMode     | Mode d'analyse de la flotte (DEATIL ou SYNTHESIS) |
+
+\* paramètre mandataire 
+
+#### Corps de la requête
+```JSON
+{
+	"filter": {
+		"categorieVehicle": [
+			"ALL"
+		],
+		"displayMode": "string",
+		"ecoConduiteVehicleCategory": "string",
+		"filterBean": {
+			"entities": [0],
+			"persons": [0],
+			"vehicleIds": [0]
+		},
+		"periodeBean": {
+			"debut": "date",
+			"fin": "date"
+		},
+		"timeUnit": "string",
+		"version": "string"
+	}
+}
+```
+**Voici les différentes valeurs que peuvent avoir les paramètres du corps de cette requête** :
+* displayMode: ENTITY, DRIVER, VEHICLE. Sélectionne les données d'entités, de conducteurs **ou** de véhicules.
+* ecoConduiteVehicleCategory: UL (Utilitaire Léger), U (Utilitaire (- de 3,5T)), CITADINE, ALL (tout type de véhicule), NONE (pour n'avoir aucune données). Pour choisir le profil de véhicules dont vous voulez les données. *Ce qui est écrit entre paranthèse est ce à quoi ça correspond sur le site.*
+* filterBean: En fonction du displayMode choisi, vous pourrez remplir un des trois tableaux d'identifiants d'entité, conducteur ou véhicule dont vous voulez les données. Laissez vide le tableau adéquat si vous voulez toutes les données (en dehors des critères sélectionnés ci-dessous).
+* periodeBean: Les dates doivent être notées selon le format YYYY-MM-ddTHH:mm:ss.SSSZ
+* timeUnit: DAY, WEEK, MONTH. Permet l'affichage par jour, semaine **ou** mois respectivement.
+* version: ALL, ERCO, RENAULT_FAM, PSABTA, BUC, FLEET, CKUA (Cloud Kuantic), F2M (Stellantis). Afin de déterminer la version Écoconduite des véhicules que vous allez recevoir. *Ce qui est écrit entre paranthèse est ce à quoi ça correspond sur le site*.
+
+
+#### Résultat de la requête **en mode DETAIL**
+```JSON
+{
+	"challenges": {
+		"map": [
+			{
+				"key": {
+					"id": 0,
+					"categorie": "string",
+					"description": "string",
+					"geosecuriteEnabled": boolean,
+					"suppressionLogique": boolean,
+					"dispositifIdentifiant": boolean,
+					"privacyEnabled": boolean,
+					"dioEnabled": boolean,
+					"immobilisationCablee": boolean,
+					"geolocalise": boolean,
+					"nomImage": "string",
+					"odirectMode": "string",
+					"libelleTypeAsset": {
+						"id": 0,
+						"libelle": "string",
+						"categorie": "string",
+						"nomIcone": "string",
+						"ordre": 0
+					},
+					"typeMotorisation": "string",
+					"detectionPorteEnabled": boolean,
+					"immatriculation": "string",
+					"marque": "string",
+					"modele": "string",
+					"couleur": null,
+					"numeroEmbarque": 0,
+					"numeroSerie": null,
+					"numeroParc": "string"
+				},
+				"value": [
+					{
+						"key": {
+							"debut": 1709247600000,
+							"fin": 1712008799999,
+							"timeDuration": 0,
+							"daysDuration": 0
+						},
+						"value": {
+							"id": 0,
+							"dateDebut": 1709251200000,
+							"versionEcoConduite": "string",
+							"uniteTemps": "string",
+							"categorieVehiculeEco": "string",
+							"moyenneNoteEcoConduiteRefOcean": 0,
+							"moyenneNoteEcoConduiteRefClient": 0,
+							"moyenneNoteSecuriteRefOcean": 0,
+							"moyenneNoteSecuriteRefClient": 0,
+							"distanceParcourueThermiqueM": 0,
+							"distanceParcourueElectriqueM": 0,
+							"dureeEffectiveCumuleeThermiqueS": 0,
+							"dureeEffectiveCumuleeElectriqueS": 0,
+							"consommationCumuleeL": 0,
+							"consommationCumuleeKWh": 0,
+							"emissionCo2Total": 0,
+							"emissionCo2EviteTotal": 0
+						}
+					}
+				]
+			}
+		]
+	},
+	"challengeAverageByDto": [
+		{
+			"key": {
+				"id": 0,
+				"categorie": "string",
+				"description": "string",
+				"geosecuriteEnabled": boolean,
+				"suppressionLogique": boolean,
+				"dispositifIdentifiant": boolean,
+				"privacyEnabled": boolean,
+				"dioEnabled": boolean,
+				"immobilisationCablee": boolean,
+				"geolocalise": boolean,
+				"nomImage": "string",
+				"odirectMode": "string",
+				"libelleTypeAsset": {
+					"id": 0,
+					"libelle": "string",
+					"categorie": "string",
+					"nomIcone": "string",
+					"ordre": 0
+				},
+				"typeMotorisation": "string",
+				"detectionPorteEnabled": boolean,
+				"immatriculation": "string",
+				"marque": "string",
+				"modele": "string",
+				"couleur": null,
+				"numeroEmbarque": 0,
+				"numeroSerie": null,
+				"numeroParc": ""
+			},
+			"value": {
+				"id": null,
+				"dateDebut": null,
+				"versionEcoConduite": "string",
+				"uniteTemps": null,
+				"categorieVehiculeEco": null,
+				"moyenneNoteEcoConduiteRefOcean": 0,
+				"moyenneNoteEcoConduiteRefClient": 0,
+				"moyenneNoteSecuriteRefOcean": 0,
+				"moyenneNoteSecuriteRefClient": 0,
+				"distanceParcourueThermiqueM": 0,
+				"distanceParcourueElectriqueM": 0,
+				"dureeEffectiveCumuleeThermiqueS": 0,
+				"dureeEffectiveCumuleeElectriqueS": 0,
+				"consommationCumuleeL": 0,
+				"consommationCumuleeKWh": 0,
+				"emissionCo2Total": 0,
+				"emissionCo2EviteTotal": 0
+			}
+		}
+	],
+	"challengeAverageByPeriod": [
+		{
+			"key": {
+				"debut": 1709247600000,
+				"fin": 1712008799999,
+				"timeDuration": 0,
+				"daysDuration": 0
+			},
+			"value": {
+				"id": null,
+				"dateDebut": null,
+				"versionEcoConduite": "string",
+				"uniteTemps": null,
+				"categorieVehiculeEco": null,
+				"moyenneNoteEcoConduiteRefOcean": 0,
+				"moyenneNoteEcoConduiteRefClient": 0,
+				"moyenneNoteSecuriteRefOcean": 0,
+				"moyenneNoteSecuriteRefClient": 0,
+				"distanceParcourueThermiqueM": 0,
+				"distanceParcourueElectriqueM": 0,
+				"dureeEffectiveCumuleeThermiqueS": 0,
+				"dureeEffectiveCumuleeElectriqueS": 0,
+				"consommationCumuleeL": null,
+				"consommationCumuleeKWh": null,
+				"emissionCo2Total": null,
+				"emissionCo2EviteTotal": null
+			}
+		}
+	]
+}
+```
+**Voici les différentes valeurs que peuvent avoir les paramètres du résultat de cette requête** :
+* challenges: Tableau d'objet qui représente des lignes, chaque ligne correspondant à un(e) entité, conducteur ou véhicule. Cet objet en contient deux autres, un qui possède les informations du type de données choisi, le second qui contient un tableau qui possède la note de la donnée pour chaque mois.
+* challengeAverageByDto: Tableau d'objet qui représente la moyenne de chaque ligne (donc la moyenne sur toute la sélection temporelle pour chaque donnée). Structuré de façon similaire à challenges, le paramètre value ne contient qu'un objet puiqu'il n'y a qu'un moyenne par donnée sur la sélection temporelle.
+* challengeAverageByPeriod: Structuré de façon similaire à challengeAverageByDto, au lieu de contenir la moyenne de chaque entité/conducteur/véhicule, il contient la moyenne de toutes les notes sur chaque période de la sélection temporelle (ex: vous avez sélectionné les notes de véhicules par mois sur Mars et Avril 2024, alors le tableau contiendra deux cases, une pour chaque mois, qui fera la moyenne des notes de tous les véhicules).
+
+#### Réponses
+
+```application/json;charset=utf-8
+200 OK
+401 UNAUTHORIZED
+403 FORBIDDEN
+404 NOT FOUND
 ```
