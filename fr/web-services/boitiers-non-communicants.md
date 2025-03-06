@@ -35,7 +35,7 @@ get /restapi/noncommunicant/list
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
