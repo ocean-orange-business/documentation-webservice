@@ -38,7 +38,7 @@ get /restapi/ecoAttitude/v1/get_ecoattitude_graph
 | EC_YEAR_END    | integer ($int32) | Année de fin               |
 | EC_MODE        | string           | Au choix : semaine ou mois |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -92,7 +92,7 @@ get /restapi/ecoAttitude/v1/get_datas
 | EC_YEAR_END    | integer ($int32) | Année de fin               |
 | EC_MODE        | string           | Au choix : semaine ou mois |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 

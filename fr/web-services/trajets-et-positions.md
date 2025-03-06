@@ -45,7 +45,7 @@ get /restapi/positions/search
 | startDate       | string            | La date de début au format DateHeure ISO le plus courant ‘yyyy-MM-dd’T’HH:mm:ss.SSSXXX’ (exemple : “2000-10-30T01:30:00.000Z”). Ne doit pas être plus ancienne que 2 mois. |
 | withPrivacy     | boolean           | Indique si les positions doivent être renvoyées en VP. Valeur par défaut = true                                                    |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -125,7 +125,7 @@ get /restapi/positionsVehicles/betweenDate
 | dateFin         | string            | La date de fin doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API.           |
 | parDateStockage | boolean           | Si « vrai », la méthode va chercher les positions sur les horodates des positions.                                           |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -202,7 +202,7 @@ get /restapi/positionsVehicles/lastPosition
 | login *    | string            | Identifiant                                                                                   |
 | password * | string            | Mot de passe                                                                                  |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -232,7 +232,7 @@ get /restapi/mobility/v1/vehiclePositions
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -310,7 +310,7 @@ get /restapi/mobility/v1/trajet
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 | travelId * | integer ($int64) | Identifiant du trajet du véhicule |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -356,7 +356,7 @@ get /restapi/mobility/v1/ficheJour
 | vehId | integer ($int64) | Identifiant du véhicule pour lequel la fiche journalière est récupérée              |
 | date  | string           | Date au format UTC : "dd/MM/yyyy". Seul ce format est pris en compte par notre API. |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -458,7 +458,7 @@ get /restapi/materiel/positionBetween
 | dateDebut   | string         | La date de début doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API.                                       |
 | dateFin     | string         | La date de fin doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API. La période ne doit pas dépasser 1 jour. |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -591,7 +591,7 @@ get /restapi/materiel/lastPosition
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 | materielIds | array (of int) | Liste des identifiants des matériels (nombre illimité) |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 

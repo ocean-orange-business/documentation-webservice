@@ -149,7 +149,7 @@ get /restapi/geomission/statutMission
 | ----------- | ------ | -------------------------------- |
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 | idMission * | string | Identifiant client de la mission |
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -200,7 +200,7 @@ post /restapi/geomission/supprimerMission
 | ----------- | ------ | -------------------------------- |
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 | idMission * | string | Identifiant client de la mission |
-\* paramètre mandataire
+\* paramètre obligatoire
 
 #### Réponses
 
