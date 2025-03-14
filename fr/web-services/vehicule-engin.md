@@ -21,7 +21,7 @@ Authentification préalable nécessaire et passage du token dans le header **X-A
 
 #### Endpoint
 ```
-get /restapi/vehicule_engin/get-vehicle-id-from-immat
+get /restapi/vehicule_engin/ids-from-immats
 ```
 
 #### Paramètres de la requête
@@ -29,7 +29,7 @@ get /restapi/vehicule_engin/get-vehicle-id-from-immat
 | Nom            | Type             | Description                |
 | -------------- | ---------------- | -------------------------- |
 | customerId *   | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
-| immatriculation* | String         | Immatriculation            |
+| immatriculations* | Array(String) | Immatriculations           |
 
 \* paramètre mandataire 
 
@@ -43,6 +43,10 @@ get /restapi/vehicule_engin/get-vehicle-id-from-immat
 ```
 
 #### Résultat
-```text
-ID du véhicule
+```JSON
+{
+  "immatriculation": 0,
+  "immatriculation": 0,
+  "immatriculation": 0
+}
 ```
