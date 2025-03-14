@@ -11,7 +11,7 @@ dateCreated: 2025-02-20T17:02:29.845Z
 # Gestion des véhicules
 
 Cette API permet de récupérer :
-* L'identifiant d'un véhicule depuis son immatriculation
+* L'identifiant de plusieurs véhicules depuis leur immatriculation
 
 ## Récupérer l'identifiant d'un véhicule depuis son immatriculation
 
