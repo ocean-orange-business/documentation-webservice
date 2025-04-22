@@ -29,9 +29,9 @@ get /restapi/vehicule_engin/ids-from-immats
 | Nom            | Type             | Description                |
 | -------------- | ---------------- | -------------------------- |
 | customerId *   | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
-| immatriculations* | Array(String) | Immatriculations           |
+| immatriculations* | Array(String) | Immatriculations des véhicules dont on veut récupérer l'identifiant             |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
