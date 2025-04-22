@@ -41,7 +41,7 @@ get /restapi/ecoAttitude/v1/get_ecoattitude_graph
 | EC_YEAR_END    | integer ($int32) | Année de fin               |
 | EC_MODE        | string           | Au choix : semaine ou mois |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -95,7 +95,7 @@ get /restapi/ecoAttitude/v1/get_datas
 | EC_YEAR_END    | integer ($int32) | Année de fin               |
 | EC_MODE        | string           | Au choix : semaine ou mois |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Réponses
 
@@ -225,9 +225,9 @@ post /restapi/ecoAtecoconduitetitude/syntheseFlotte
 | Nom            | Type             | Description                |
 | -------------- | ---------------- | -------------------------- |
 | customerId *   | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
-| mode *         | AnalysisMode     | Mode d'analyse de la flotte (DEATIL ou SYNTHESIS) |
+| mode *         | AnalysisMode     | Mode d'analyse de la flotte (DETAIL ou SYNTHESIS) |
 
-\* paramètre mandataire 
+\* paramètre obligatoire 
 
 #### Corps de la requête
 ```JSON
