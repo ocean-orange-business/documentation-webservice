@@ -8,16 +8,19 @@ editor: markdown
 dateCreated: 2024-10-24T13:16:09.120Z
 ---
 
+# Eco-Driving Management
+
 This API allows you to retrieve:
 
-- Data related to the eco-driving of drivers for a given period.
+- Data related to drivers' eco-driving for a given period.
 - "Safety" and "Consumption" scores by month or week.
+- Scores displayed on the "Fleet Summary" screen of the webApp.
 
 ## Retrieve Safety and Consumption Scores by Month or Week
 
 [Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getEchoattitudeGraphUsingGET)
 
-[Prior authentication required](./acces.md#authentication-via-post-request) and passing the token in the header **X-AUTH-TOKEN**
+[Prior authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**.
 
 ### Definition {.tabset}
 
@@ -28,17 +31,17 @@ get /restapi/ecoAttitude/v1/get_ecoattitude_graph
 
 #### Request Parameters
 
-| Name            | Type             | Description                                                                                  |
-| --------------- | ---------------- | -------------------------------------------------------------------------------------------- |
-| customerId *    | integer ($int64) | Customer identifier. Required only for multi-client users                                   |
-| individuId      | integer ($int64) | Driver identifier.                                                                          |
-| EC_MONTH_START  | integer ($int32) | Start month                                                                                |
-| EC_MONTH_END    | integer ($int32) | End month                                                                                  |
-| EC_YEAR_START   | integer ($int32) | Start year                                                                                 |
-| EC_YEAR_END     | integer ($int32) | End year                                                                                   |
-| EC_MODE         | string           | Choose: week or month                                                                      |
+| Name            | Type             | Description                |
+| -------------- | ---------------- | -------------------------- |
+| customerId *   | integer ($int64) | Client identifier. Required only for multi-client users |
+| individuId     | integer ($int64) | Driver identifier. |
+| EC_MONTH_START | integer ($int32) | Start month              |
+| EC_MONTH_END   | integer ($int32) | End month                |
+| EC_YEAR_START  | integer ($int32) | Start year             |
+| EC_YEAR_END    | integer ($int32) | End year               |
+| EC_MODE        | string           | Choose: week or month |
 
-\* mandatory parameter 
+\* required parameter 
 
 #### Responses
 
@@ -49,7 +52,7 @@ get /restapi/ecoAttitude/v1/get_ecoattitude_graph
 404 NOT FOUND
 ```
 
-#### Result
+#### Résultat
 
 ```JSON
 {
@@ -68,11 +71,11 @@ get /restapi/ecoAttitude/v1/get_ecoattitude_graph
 }
 ```
 
-## Retrieve Data Related to Eco-Driving of Drivers for a Given Period
+## Retrieve Data Related to Drivers' Eco-Driving for a Given Period
 
-[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getDatasUsingGET)
+[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/monecoattitude/getDatasUsingGET)
 
-[Prior authentication required](./acces.md#authentication-via-post-request) and passing the token in the header **X-AUTH-TOKEN**
+[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**
 
 ### Definition {.tabset}
 
@@ -204,4 +207,222 @@ get /restapi/ecoAttitude/v1/get_datas
     }
   }
 }
+```
+
+## Retrieve Scores Displayed on the "Fleet Summary" Screen of the WebApp
+
+[Prior authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**.
+
+### Definition {.tabset}
+
+#### Endpoint
+```
+post /restapi/ecoAtecoconduitetitude/syntheseFlotte
+```
+
+#### Request Parameters
+
+| Nom            | Type             | Description                |
+| -------------- | ---------------- | -------------------------- |
+| customerId *   | integer ($int64) | Client identifier. Required only for multi-client users |
+| mode *         | AnalysisMode     | Fleet analysis mode (DETAIL or SYNTHESIS) |
+
+\* required parameter 
+
+#### Request Body
+```JSON
+{
+	"filter": {
+		"categorieVehicle": [
+			"ALL"
+		],
+		"displayMode": "string",
+		"ecoConduiteVehicleCategory": "string",
+		"filterBean": {
+			"entities": [0],
+			"persons": [0],
+			"vehicleIds": [0]
+		},
+		"periodeBean": {
+			"debut": "date",
+			"fin": "date"
+		},
+		"timeUnit": "string",
+		"version": "string"
+	}
+}
+```
+**Here are the different values that the parameters in the body of this request can have**:
+* **displayMode**: ENTITY, DRIVER, VEHICLE. Selects data for entities, drivers **or** vehicles.
+* **ecoConduiteVehicleCategory**: UL (Light Utility), U (Utility (- under 3.5T)), CITADINE, ALL (any type of vehicle), NONE (to have no data). To choose the vehicle profile for which you want data. *What is written in parentheses corresponds to what it means on the site.*
+* **filterBean**: Depending on the chosen displayMode, you can fill one of the three arrays of entity, driver, or vehicle identifiers for which you want data. Leave the appropriate array empty if you want all data (outside the selected criteria below).
+* **periodeBean**: Dates must be noted in the format YYYY-MM-ddTHH:mm:ss.SSSZ.
+* **timeUnit**: DAY, WEEK, MONTH. Allows display by day, week **or** month respectively.
+* **version**: ALL, ERCO, RENAULT_FAM, PSABTA, BUC, FLEET, CKUA (Cloud Kuantic), F2M (Stellantis). To determine the eco-driving version of the vehicles you will receive. *What is written in parentheses corresponds to what it means on the site*.
+
+
+#### Result of the Request **in DETAIL mode**
+```JSON
+{
+	"challenges": {
+		"map": [
+			{
+				"key": {
+					"id": 0,
+					"categorie": "string",
+					"description": "string",
+					"geosecuriteEnabled": boolean,
+					"suppressionLogique": boolean,
+					"dispositifIdentifiant": boolean,
+					"privacyEnabled": boolean,
+					"dioEnabled": boolean,
+					"immobilisationCablee": boolean,
+					"geolocalise": boolean,
+					"nomImage": "string",
+					"odirectMode": "string",
+					"libelleTypeAsset": {
+						"id": 0,
+						"libelle": "string",
+						"categorie": "string",
+						"nomIcone": "string",
+						"ordre": 0
+					},
+					"typeMotorisation": "string",
+					"detectionPorteEnabled": boolean,
+					"immatriculation": "string",
+					"marque": "string",
+					"modele": "string",
+					"couleur": null,
+					"numeroEmbarque": 0,
+					"numeroSerie": null,
+					"numeroParc": "string"
+				},
+				"value": [
+					{
+						"key": {
+							"debut": 1709247600000,
+							"fin": 1712008799999,
+							"timeDuration": 0,
+							"daysDuration": 0
+						},
+						"value": {
+							"id": 0,
+							"dateDebut": 1709251200000,
+							"versionEcoConduite": "string",
+							"uniteTemps": "string",
+							"categorieVehiculeEco": "string",
+							"moyenneNoteEcoConduiteRefOcean": 0,
+							"moyenneNoteEcoConduiteRefClient": 0,
+							"moyenneNoteSecuriteRefOcean": 0,
+							"moyenneNoteSecuriteRefClient": 0,
+							"distanceParcourueThermiqueM": 0,
+							"distanceParcourueElectriqueM": 0,
+							"dureeEffectiveCumuleeThermiqueS": 0,
+							"dureeEffectiveCumuleeElectriqueS": 0,
+							"consommationCumuleeL": 0,
+							"consommationCumuleeKWh": 0,
+							"emissionCo2Total": 0,
+							"emissionCo2EviteTotal": 0
+						}
+					}
+				]
+			}
+		]
+	},
+	"challengeAverageByDto": [
+		{
+			"key": {
+				"id": 0,
+				"categorie": "string",
+				"description": "string",
+				"geosecuriteEnabled": boolean,
+				"suppressionLogique": boolean,
+				"dispositifIdentifiant": boolean,
+				"privacyEnabled": boolean,
+				"dioEnabled": boolean,
+				"immobilisationCablee": boolean,
+				"geolocalise": boolean,
+				"nomImage": "string",
+				"odirectMode": "string",
+				"libelleTypeAsset": {
+					"id": 0,
+					"libelle": "string",
+					"categorie": "string",
+					"nomIcone": "string",
+					"ordre": 0
+				},
+				"typeMotorisation": "string",
+				"detectionPorteEnabled": boolean,
+				"immatriculation": "string",
+				"marque": "string",
+				"modele": "string",
+				"couleur": null,
+				"numeroEmbarque": 0,
+				"numeroSerie": null,
+				"numeroParc": ""
+			},
+			"value": {
+				"id": null,
+				"dateDebut": null,
+				"versionEcoConduite": "string",
+				"uniteTemps": null,
+				"categorieVehiculeEco": null,
+				"moyenneNoteEcoConduiteRefOcean": 0,
+				"moyenneNoteEcoConduiteRefClient": 0,
+				"moyenneNoteSecuriteRefOcean": 0,
+				"moyenneNoteSecuriteRefClient": 0,
+				"distanceParcourueThermiqueM": 0,
+				"distanceParcourueElectriqueM": 0,
+				"dureeEffectiveCumuleeThermiqueS": 0,
+				"dureeEffectiveCumuleeElectriqueS": 0,
+				"consommationCumuleeL": 0,
+				"consommationCumuleeKWh": 0,
+				"emissionCo2Total": 0,
+				"emissionCo2EviteTotal": 0
+			}
+		}
+	],
+	"challengeAverageByPeriod": [
+		{
+			"key": {
+				"debut": 1709247600000,
+				"fin": 1712008799999,
+				"timeDuration": 0,
+				"daysDuration": 0
+			},
+			"value": {
+				"id": null,
+				"dateDebut": null,
+				"versionEcoConduite": "string",
+				"uniteTemps": null,
+				"categorieVehiculeEco": null,
+				"moyenneNoteEcoConduiteRefOcean": 0,
+				"moyenneNoteEcoConduiteRefClient": 0,
+				"moyenneNoteSecuriteRefOcean": 0,
+				"moyenneNoteSecuriteRefClient": 0,
+				"distanceParcourueThermiqueM": 0,
+				"distanceParcourueElectriqueM": 0,
+				"dureeEffectiveCumuleeThermiqueS": 0,
+				"dureeEffectiveCumuleeElectriqueS": 0,
+				"consommationCumuleeL": null,
+				"consommationCumuleeKWh": null,
+				"emissionCo2Total": null,
+				"emissionCo2EviteTotal": null
+			}
+		}
+	]
+}
+```
+**Here are the different values that the parameters in the result of this request can have**:
+* **challenges**: An array of objects representing rows, each row corresponding to an entity, driver, or vehicle. This object contains two others: one with the information of the chosen data type, and the second containing an array with the score of the data for each month.
+* **challengeAverageByDto**: An array of objects representing the average of each row (thus the average over the entire time selection for each data). Structured similarly to challenges, the value parameter contains only one object since there is only one average per data over the time selection.
+* **challengeAverageByPeriod**: Structured similarly to challengeAverageByDto, instead of containing the average of each entity/driver/vehicle, it contains the average of all scores over each period of the time selection (e.g., if you selected vehicle scores by month for March and April 2024, then the array will contain two entries, one for each month, averaging the scores of all vehicles).
+
+#### Responses
+
+```application/json;charset=utf-8
+200 OK
+401 UNAUTHORIZED
+403 FORBIDDEN
+404 NOT FOUND
 ```
