@@ -1,5 +1,5 @@
 ---
-title: Eco-Conduite
+title: Éco-conduite
 description: 
 published: true
 date: 2024-10-31T14:45:29.845Z
@@ -8,7 +8,7 @@ editor: markdown
 dateCreated: 2024-10-24T13:16:09.120Z
 ---
 
-# Gestion de l'écoconduite
+# Gestion de l'Éco-conduite
 
 Cette API permet de récupérer :
 
@@ -253,12 +253,12 @@ post /restapi/ecoAtecoconduitetitude/syntheseFlotte
 }
 ```
 **Voici les différentes valeurs que peuvent avoir les paramètres du corps de cette requête** :
-* displayMode: ENTITY, DRIVER, VEHICLE. Sélectionne les données d'entités, de conducteurs **ou** de véhicules.
-* ecoConduiteVehicleCategory: UL (Utilitaire Léger), U (Utilitaire (- de 3,5T)), CITADINE, ALL (tout type de véhicule), NONE (pour n'avoir aucune données). Pour choisir le profil de véhicules dont vous voulez les données. *Ce qui est écrit entre paranthèse est ce à quoi ça correspond sur le site.*
+* displayMode : ENTITY, DRIVER, VEHICLE. Sélectionne les données d'entités, de conducteurs **ou** de véhicules.
+* ecoConduiteVehicleCategory: UL (Utilitaire Léger), U (Utilitaire (- de 3,5T)), CITADINE, ALL (tout type de véhicule), NONE (pour n'avoir aucune donnée). Pour choisir le profil de véhicules dont vous voulez les données. *Ce qui est écrit entre parenthèse est ce à quoi ça correspond sur le site.*
 * filterBean: En fonction du displayMode choisi, vous pourrez remplir un des trois tableaux d'identifiants d'entité, conducteur ou véhicule dont vous voulez les données. Laissez vide le tableau adéquat si vous voulez toutes les données (en dehors des critères sélectionnés ci-dessous).
 * periodeBean: Les dates doivent être notées selon le format YYYY-MM-ddTHH:mm:ss.SSSZ
 * timeUnit: DAY, WEEK, MONTH. Permet l'affichage par jour, semaine **ou** mois respectivement.
-* version: ALL, ERCO, RENAULT_FAM, PSABTA, BUC, FLEET, CKUA (Cloud Kuantic), F2M (Stellantis). Afin de déterminer la version Écoconduite des véhicules que vous allez recevoir. *Ce qui est écrit entre paranthèse est ce à quoi ça correspond sur le site*.
+* version: ALL, ERCO, RENAULT_FAM, PSABTA, BUC, FLEET, CKUA (Cloud Kuantic), F2M (Stellantis). Afin de déterminer la version Écoconduite des véhicules que vous allez recevoir. *Ce qui est écrit entre parenthèse est ce à quoi ça correspond sur le site*.
 
 
 #### Résultat de la requête **en mode DETAIL**
@@ -415,7 +415,7 @@ post /restapi/ecoAtecoconduitetitude/syntheseFlotte
 ```
 **Voici les différentes valeurs que peuvent avoir les paramètres du résultat de cette requête** :
 * challenges: Tableau d'objet qui représente des lignes, chaque ligne correspondant à un(e) entité, conducteur ou véhicule. Cet objet en contient deux autres, un qui possède les informations du type de données choisi, le second qui contient un tableau qui possède la note de la donnée pour chaque mois.
-* challengeAverageByDto: Tableau d'objet qui représente la moyenne de chaque ligne (donc la moyenne sur toute la sélection temporelle pour chaque donnée). Structuré de façon similaire à challenges, le paramètre value ne contient qu'un objet puiqu'il n'y a qu'un moyenne par donnée sur la sélection temporelle.
+* challengeAverageByDto: Tableau d'objet qui représente la moyenne de chaque ligne (donc la moyenne sur toute la sélection temporelle pour chaque donnée). Structuré de façon similaire à challenges, le paramètre value ne contient qu'un objet puiqu'il n'y a qu'une moyenne par donnée sur la sélection temporelle.
 * challengeAverageByPeriod: Structuré de façon similaire à challengeAverageByDto, au lieu de contenir la moyenne de chaque entité/conducteur/véhicule, il contient la moyenne de toutes les notes sur chaque période de la sélection temporelle (ex: vous avez sélectionné les notes de véhicules par mois sur Mars et Avril 2024, alors le tableau contiendra deux cases, une pour chaque mois, qui fera la moyenne des notes de tous les véhicules).
 
 #### Réponses
