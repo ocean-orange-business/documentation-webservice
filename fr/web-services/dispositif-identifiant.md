@@ -11,7 +11,7 @@ dateCreated: 2024-12-13T13:40:00.000Z
 # Gestion des dispositifs identifiants
 
 Cette API permet de :
-- Affecter un dispositif identifiant / badge à un constructeur
+- Affecter un dispositif identifiant / badge à un conducteur
 
 ## Affecter un dispositif identifiant/badge à un conducteur
 
