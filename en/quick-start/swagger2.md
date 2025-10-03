@@ -24,7 +24,7 @@ Before accessing any service, an authentication phase is required at the followi
 **It is possible to test authentication directly on Swagger:**
 https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer?onlyPubliclyDocumented=true&usePathInNavBar=false&renderStyle=read#?route=auth
 
-![test_authentificate.png](/test_authentificate.png)
+![create_file.png](/contributing_img/create_file.png)
 
 To authenticate, simply:
 
@@ -32,7 +32,7 @@ To authenticate, simply:
 2. Click on the "Try it out" button in the top right corner,
 3. Enter your login/password in the "body" field as follows:
 
-![connexion_new_swagger.png](/connexion_new_swagger.png)
+![connexion_new_swagger.png](/contributing_img/connexion_new_swagger.png)
 **Example in the json** 
 ```JSON
 {"login":"myLogin","password":"password123!"}
