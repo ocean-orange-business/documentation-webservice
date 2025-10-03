@@ -24,7 +24,7 @@ Avant d’accéder à tout service, une phase d’authentification est nécessai
 **Il est possible de tester l'authentification directement sur le Swagger :**
 https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer?onlyPubliclyDocumented=true&usePathInNavBar=false&renderStyle=read#?route=auth
 
-![create_file.png](/contributing_img/create_file.png)
+![create_file.png](/contributing_img/test_authentificate.png)
 
 Pour s’authentifier, il suffit de :
 
