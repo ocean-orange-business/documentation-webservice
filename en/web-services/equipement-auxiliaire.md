@@ -35,7 +35,6 @@ get /restapi/dioUtilisation/duree
 | vehIds         | array (of int)    | List of vehicle identifiers                                                                                                   |
 | startDate      | string            | Start date of the period. Must be in UTC format: "dd/MM/yyyy". Only this format is accepted by our API.                    |
 | endDate        | string            | End date of the period. Must be in UTC format: "dd/MM/yyyy". Only this format is accepted by our API.                      |
-| includeFields  | array (of string) | Fields to include (see Facebook Graph API)                                                                                    |
 
 #### Responses
 

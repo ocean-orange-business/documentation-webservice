@@ -79,7 +79,6 @@ get /restapi/vehicule_engin/vehicles
 | --------------- | --------------- | ----------------------------------------- |
 | customerId *    | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                                                                           |
 | immatriculation | string          | Immatriculation du véhicule               |
-| includeFields   | Array of string | Champs à inclure (cf. Facebook Graph API) |
 
 \* paramètre obligatoire
 
