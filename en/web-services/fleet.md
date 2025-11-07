@@ -81,7 +81,6 @@ get /restapi/vehicule_engin/vehicles
 |-----------------|-----------------|-------------------------------------------------------------------------------------------------------------|
 | customerId *    | integer ($int64)| Client identifier. Required only for multi-client users.                                                    |
 | immatriculation | string          | Vehicle registration/license plate.                                                                         |
-| includeFields   | Array of string | Fields to include (see Facebook Graph API).                                                                 |
 
 \* mandatory parameter
 
