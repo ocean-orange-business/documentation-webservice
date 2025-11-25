@@ -1,5 +1,5 @@
 ---
-title: Usage Pro/Privee
+title: Pro/Private Usage
 description: 
 published: true
 date: 2025-11-25T11:45:29.845Z
@@ -8,18 +8,20 @@ editor: markdown
 dateCreated: 2025-11-25T11:16:09.120Z
 ---
 
-# Gestion des Usages pro / privée 
+# Management of Professional/Private Usage
 
-Ces API permettent de gérer les horaires de vie privée et d'analyser l'usage privé/professionnel des véhicules et conducteurs.
--Récupération des horaires de vie privée récurrentes
--Création/Modification des horaires de vie privée
--Gestion des demandes de passage vie privée/pro à posteriori
--Analyses de vie privée/usage privé
+These APIs allow managing private life schedules and analyzing private/professional vehicle and driver usage.
 
-## Récupération des horaires de vie privée récurrentes
+-Retrieval of recurring private life schedules
+-Creation/Modification of private life schedules
+-Management of requests for private/professional passage retroactively
+-Private life/private usage analyses
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=get-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+## Retrieval of recurring private life schedules
+
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=get-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
+
+[Pre-authentication required](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
 ### Définition {.tabset}
 
@@ -28,23 +30,23 @@ Ces API permettent de gérer les horaires de vie privée et d'analyser l'usage p
 GET /restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu
 ```
 
-#### Paramètres de la requête
+#### Request parameters
 
-| Nom          | Type             | Description                                                                     |
+| Name          | Type             | Description                                                                     |
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 | individuId   | integer ($int64) | Identifiant du conducteur.                                                      |
 
 
-\* paramètre obligatoire 
+\* mandatory parameter
 
-Réponse : Liste des horaires récurrents contenant :
+Response: List of recurring schedules containing:
 
-Horaire : Heures de début/fin, jour de la semaine, type d'horaire
-Individu : Informations personnelles (nom, prénom, email, GSM, etc.)
-Dates : Début et fin de validité
+Schedule: Start/end hours, day of the week, schedule type
+Individual: Personal information (name, first name, email, mobile, etc.)
+Dates: Start and end validity
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -56,7 +58,7 @@ Dates : Début et fin de validité
 500 INTERNAL SERVER ERROR
 ```
 
-#### Résultat
+#### Result
 
 ```JSON
 [
@@ -90,9 +92,9 @@ Dates : Début et fin de validité
 
 ## Création/Modification des horaires de vie privée
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Pre-authentication required](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
 ### Définition {.tabset}
 
@@ -101,9 +103,9 @@ Dates : Début et fin de validité
 POST /restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu
 ```
 
-#### Paramètres de la requête
+#### Request parameters
 
-| Nom          | Type             | Description                                                                     |
+| Name          | Type             | Description                                                                     |
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId  | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 | individuId *  | integer ($int64) | Identifiant du conducteur.                                                      |
@@ -111,12 +113,12 @@ POST /restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu
 | dateFin   | date | La date de fin au format "dd/MM/yyyy HH:mm:ss Z" (Format: dd/MM/yyyy HH:mm:ss Z)               |
 
 
-\* paramètre obligatoire 
+\* mandatory parameter
 
-Réponse : Boolean (succès/échec de l'opération)
+Response : Boolean (success/failure of the operation)
 
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -127,7 +129,7 @@ Réponse : Boolean (succès/échec de l'opération)
 500 INTERNAL SERVER ERROR
 ```
 
-#### Résultat
+#### Result
 
 ```JSON
 {
@@ -137,24 +139,24 @@ Réponse : Boolean (succès/échec de l'opération)
 }
 ```
 
-## Gestion des demandes de passage vie privée/pro à posteriori
+## Management of requests for private/professional passage retroactively
 
-Enregistre/Supprime une demande de passage en vie privée/vie pro à posteriori pour une étape
+Records/Deletes a request for private/professional life passage retroactively for a step
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/etapeViePriveePosteriori)
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/etapeViePriveePosteriori)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Pre-authentication required](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
-### Définition {.tabset}
+### Definition {.tabset}
 
 #### Endpoint
 ```
 POST /restapi/vieprivee/v1/etapeViePriveePosteriori
 ```
 
-#### Paramètres de la requête
+#### Request parameters
 
-| Nom          | Type             | Description                                                                     |
+| Name          | Type             | Description                                                                     |
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | idEtape  | integer ($int64) | Identifiant de l'étape |
 | numeroEmbarque *  | integer ($int64) | Numéro d'embarquement                                                     |
@@ -162,12 +164,12 @@ POST /restapi/vieprivee/v1/etapeViePriveePosteriori
 | privacy   | boolean |  true / false |
 
 
-\* paramètre obligatoire 
+\* mandatory parameter 
 
-Réponse : Boolean (succès/échec de l'opération)
+Response : Boolean (success/failure of the operation)
 
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -179,9 +181,9 @@ Réponse : Boolean (succès/échec de l'opération)
 ```
 ## Analyses de vie privée/usage privé
 
-[Documentation supplémentaire sur SWAGGER](ocean/restapi/common/openapi/explorer#?route=post-/analyse/preformattedPrivacy)
+[Additional documentation on SWAGGER](ocean/restapi/common/openapi/explorer#?route=post-/analyse/preformattedPrivacy)
 
-[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Pre-authentication required](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
 ### Définition {.tabset}
 
@@ -190,24 +192,24 @@ Réponse : Boolean (succès/échec de l'opération)
 POST /restapi/analyse/preformattedPrivacy
 ```
 
-#### Paramètres de la requête
+#### Request parameters
 
-| Nom          | Type             | Description                                                                     |
+| Name          | Type             | Description                                                                     |
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId  | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 
 
-\* paramètre obligatoire 
+\* mandatory parameter 
 
-Réponse : Analyses détaillées incluant :
+Response: Detailed analyses including:
 
-Synthèses par conducteur/véhicule
-Consommations (carburant, électricité)
-Distances et durées
-Coûts
-Informations véhicules (motorisation, équipements)
+Summaries by driver/vehicle
+Consumptions (fuel, electricity)
+Distances and durations
+Costs
+Vehicle information (engine type, equipment)
 
-#### Réponses
+#### Responses
 
 ```application/json;charset=utf-8
 200 OK
@@ -218,7 +220,7 @@ Informations véhicules (motorisation, équipements)
 500 INTERNAL SERVER ERROR
 ```
 
-#### Résultat
+#### Result
 
 ```JSON
 [
