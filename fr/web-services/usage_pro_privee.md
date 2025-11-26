@@ -11,10 +11,12 @@ dateCreated: 2025-11-25T11:16:09.120Z
 # Gestion des Usages pro / privée 
 
 Ces API permettent de gérer les horaires de vie privée et d'analyser l'usage privé/professionnel des véhicules et conducteurs.
--Récupération des horaires de vie privée récurrentes
--Création/Modification des horaires de vie privée
--Gestion des demandes de passage vie privée/pro à posteriori
--Analyses de vie privée/usage privé
+
+- [Récupération des horaires de vie privée récurrentes](#récupération-des-horaires-de-vie-privée-récurrentes)
+- [Création/Modification des horaires de vie privée](#créationmodification-des-horaires-de-vie-privée)
+- [Gestion des demandes de passage vie privée/pro à posteriori](#gestion-des-demandes-de-passage-vie-privéepro-à-posteriori)
+- [Analyses de vie privée/usage privé](#analyses-de-vie-privéeusage-privé)
+
 
 ## Récupération des horaires de vie privée récurrentes
 

@@ -12,10 +12,11 @@ dateCreated: 2025-11-25T11:16:09.120Z
 
 These APIs allow managing private life schedules and analyzing private/professional vehicle and driver usage.
 
--Retrieval of recurring private life schedules
--Creation/Modification of private life schedules
--Management of requests for private/professional passage retroactively
--Private life/private usage analyses
+- [Retrieval of recurring private life schedules](#rretrieval-of-recurring-private-life-schedules)
+- [Creation/Modification of private life schedules](#creationmodification-of-private-life-schedules)
+- [Management of requests for private/professional passage retroactively](#management-of-requests-for-private/professional-passage-retroactively)
+- [Private life/private usage analyses](#private-life/private-usage-analyses)
+
 
 ## Retrieval of recurring private life schedules
 
@@ -90,7 +91,7 @@ Dates: Start and end validity
 ]
 ```
 
-## Création/Modification des horaires de vie privée
+## Creation/Modification of private life schedules
 
 [Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
 
@@ -179,7 +180,7 @@ Response : Boolean (success/failure of the operation)
 429 TOO MANY REQUEST 
 500 INTERNAL SERVER ERROR
 ```
-## Analyses de vie privée/usage privé
+## Private life/private usage analyses
 
 [Additional documentation on SWAGGER](ocean/restapi/common/openapi/explorer#?route=post-/analyse/preformattedPrivacy)
 
