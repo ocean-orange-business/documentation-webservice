@@ -17,6 +17,11 @@ These APIs allow managing private life schedules and analyzing private/professio
 - [Management of requests for private/professional passage retroactively](#management-of-requests-for-private/professional-passage-retroactively)
 - [Private life/private usage analyses](#private-life/private-usage-analyses)
 
+To use the various web services, it is necessary to use internal identifiers for your individuals (for example, idChauffeur) or for the steps (idEtape, corresponding to the daily record).
+These elements are easily accessible via the following web services:
+
+[Vehicles](/en/web-services/flotte#récupérer_les_données_des_véhicules) GET /vehicule_engin/vehicles
+[trajets-et-positions](/en/web-services/trajets-et-positions#récupérer-la-fiche−journalière-d’un-véhicule-pour-une-date-donnée) GET /mobility/v1/ficheJour
 
 ## Retrieval of recurring private life schedules
 
@@ -90,7 +95,11 @@ Dates: Start and end validity
   }
 ]
 ```
+#### Curl
 
+```JSON
+curl -X GET "https:/https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu?customerId=1110000000&individuId=1110000004"
+```
 ## Creation/Modification of private life schedules
 
 [Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
@@ -139,7 +148,16 @@ Response : Boolean (success/failure of the operation)
         }
 }
 ```
+#### Curl
 
+```JSON
+curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu?customerId=1110000000&individuId=1110000004&dateDebut=24%2F11%2F2025+00%3A00%3A00+Z&dateFin=30%2F11%2F2025+00%3A00%3A00+Z" \
+  -H "content-type: application/json" \
+  -d '{
+    "innerMap": {   "map": {}
+    }
+}'
+```
 ## Management of requests for private/professional passage retroactively
 
 Records/Deletes a request for private/professional life passage retroactively for a step
@@ -169,7 +187,6 @@ POST /restapi/vieprivee/v1/etapeViePriveePosteriori
 
 Response : Boolean (success/failure of the operation)
 
-
 #### Responses
 
 ```application/json;charset=utf-8
@@ -180,6 +197,22 @@ Response : Boolean (success/failure of the operation)
 429 TOO MANY REQUEST 
 500 INTERNAL SERVER ERROR
 ```
+#### Result
+```JSON
+[
+  {
+  boolean:true/false
+  }
+]
+```
+#### Curl
+
+```JSON
+curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/etapeViePriveePosteriori?idEtape=1110000401&numeroEmbarque=2&codeExploitant=1110000001&privacy=false"
+```
+
+
+
 ## Private life/private usage analyses
 
 [Additional documentation on SWAGGER](ocean/restapi/common/openapi/explorer#?route=post-/analyse/preformattedPrivacy)
@@ -199,6 +232,37 @@ POST /restapi/analyse/preformattedPrivacy
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId  | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 
+> **Input data model :**
+
+```JSON
+{
+filter: {
+persons: [integer]
+An array of driver/person IDs (e.g., [7001, 7002, 7003]) for filtering specific drivers. Can be empty if not needed.
+
+entities: [integer]
+An array of entity IDs (e.g., [123, 456, 789]) for filtering entities. Can be empty if not needed.
+
+groups: [integer]
+An array of group IDs (e.g., [1001, 1002, 1003]) for filtering organizational groups. Can be empty if not needed.
+
+vehicleIds: [integer]
+An array of vehicle IDs (e.g., [5001, 5002, 5003]) for filtering specific vehicles. Can be empty if not needed.
+
+}
+renderMode: string enum
+Allowed: BY_DRIVER_WITHOUT_HORAIRE_SYNTHESIS ┃ BY_DRIVER_WITH_HORAIRE_SYNTHESIS ┃ BY_VEHICLE_WITHOUT_HORAIRE_SYNTHESIS ┃ BY_VEHICLE_WITH_HORAIRE_SYNTHESIS ┃ BY_DRIVER_WITHOUT_HORAIRE_DETAIL ┃ BY_DRIVER_WITH_HORAIRE_DETAIL ┃ BY_VEHICLE_WITHOUT_HORAIRE_DETAIL ┃ BY_VEHICLE_WITH_HORAIRE_DETAIL ┃ BY_DRIVER_VEHICLE_FUNCTION_WITH_HORAIRE_SYNTHESIS ┃ BY_DRIVER_VEHICLE_FUNCTION_WITH_HORAIRE_DETAIL
+criteria: string enum
+Allowed: GEOLOCATION ┃ WIHOUT_GEOLOCATION ┃ ALL
+periode: {
+debut: date-time
+A start date. Can be an epoch timestamp in milliseconds (e.g., 1747063827938) or an ISO-8601 date string (e.g., "2025-05-12T15:30:27.938+00:00")
+
+fin: date-time
+An end date. Can be an epoch timestamp in milliseconds (e.g., 1747063827938) or an ISO-8601 date string (e.g., "2025-05-12T15:30:27.938+00:00")
+}
+}
+```
 
 \* mandatory parameter 
 
@@ -579,4 +643,18 @@ Vehicle information (engine type, equipment)
     "bean": {}
   }
 ]
+```
+#### Curl
+
+```JSON
+curl -X POST "https://v3.oceansystem.com/ocean/restapi/analyse/preformattedPrivacy?customerId=1110000000" \
+  -H "content-type: application/json" \
+  -d '{
+    "filter": {   "persons": [       0   ],   "entities": [       0   ],   "groups": [       0   ],   "vehicleIds": [       0   ]
+    },
+    "renderMode": "BY_DRIVER_WITHOUT_HORAIRE_SYNTHESIS",
+    "criteria": "GEOLOCATION",
+    "periode": {   "debut": "2025-11-28T14:51:37.798Z",   "fin": "2025-11-28T14:51:37.799Z"
+    }
+}'
 ```
