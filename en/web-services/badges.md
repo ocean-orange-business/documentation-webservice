@@ -171,7 +171,7 @@ Deletes an individual from the system
 
 #### Endpoint
 ```
-POST /restapi/vieprivee/v1/etapeViePriveePosteriori
+POST /restapi/individus/delete
 ```
 
 #### Request parameters
