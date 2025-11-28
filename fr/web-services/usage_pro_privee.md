@@ -17,6 +17,13 @@ Ces API permettent de gérer les horaires de vie privée et d'analyser l'usage p
 - [Gestion des demandes de passage vie privée/pro à posteriori](#gestion-des-demandes-de-passage-vie-privéepro-à-posteriori)
 - [Analyses de vie privée/usage privé](#analyses-de-vie-privéeusage-privé)
 
+Pour utiliser les différents webservices, il est nécessaire d'utiliser des identifiants internes pour vos individus 
+(par exemple, idChauffeur) ou pour les étapes (idEtape, correspondant à la fiche jour). 
+Ces éléments sont facilement accessibles via les webservices suivants :
+
+[Vehicles](/fr/web-services/flotte#récupérer_les_données_des_véhicules) GET /vehicule_engin/vehicles
+[trajets-et-positions](/fr/web-services/trajets-et-positions#récupérer-la-fiche−journalière-d’un-véhicule-pour-une-date-donnée) GET /mobility/v1/ficheJour
+
 
 ## Récupération des horaires de vie privée récurrentes
 
@@ -89,6 +96,11 @@ Dates : Début et fin de validité
   }
 ]
 ```
+#### Curl
+
+```JSON
+curl -X GET "https:/https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu?customerId=1110000000&individuId=1110000004"
+```
 
 ## Création/Modification des horaires de vie privée
 
@@ -138,6 +150,16 @@ Réponse : Boolean (succès/échec de l'opération)
         }
 }
 ```
+#### Curl
+
+```JSON
+curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu?customerId=1110000000&individuId=1110000004&dateDebut=24%2F11%2F2025+00%3A00%3A00+Z&dateFin=30%2F11%2F2025+00%3A00%3A00+Z" \
+  -H "content-type: application/json" \
+  -d '{
+    "innerMap": {   "map": {}
+    }
+}'
+```
 
 ## Gestion des demandes de passage vie privée/pro à posteriori
 
@@ -179,6 +201,20 @@ Réponse : Boolean (succès/échec de l'opération)
 429 TOO MANY REQUEST 
 500 INTERNAL SERVER ERROR
 ```
+#### Résultat
+```JSON
+[
+  {
+  boolean:true/false
+  }
+]
+```
+#### Curl
+
+```JSON
+curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/etapeViePriveePosteriori?idEtape=1110000401&numeroEmbarque=2&codeExploitant=1110000001&privacy=false"
+```
+
 ## Analyses de vie privée/usage privé
 
 [Documentation supplémentaire sur SWAGGER](ocean/restapi/common/openapi/explorer#?route=post-/analyse/preformattedPrivacy)
@@ -198,6 +234,37 @@ POST /restapi/analyse/preformattedPrivacy
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId  | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 
+> **Modèle de données en entrée :**
+
+```JSON
+{
+filter: {
+persons: [integer]
+An array of driver/person IDs (e.g., [7001, 7002, 7003]) for filtering specific drivers. Can be empty if not needed.
+
+entities: [integer]
+An array of entity IDs (e.g., [123, 456, 789]) for filtering entities. Can be empty if not needed.
+
+groups: [integer]
+An array of group IDs (e.g., [1001, 1002, 1003]) for filtering organizational groups. Can be empty if not needed.
+
+vehicleIds: [integer]
+An array of vehicle IDs (e.g., [5001, 5002, 5003]) for filtering specific vehicles. Can be empty if not needed.
+
+}
+renderMode: string enum
+Allowed: BY_DRIVER_WITHOUT_HORAIRE_SYNTHESIS ┃ BY_DRIVER_WITH_HORAIRE_SYNTHESIS ┃ BY_VEHICLE_WITHOUT_HORAIRE_SYNTHESIS ┃ BY_VEHICLE_WITH_HORAIRE_SYNTHESIS ┃ BY_DRIVER_WITHOUT_HORAIRE_DETAIL ┃ BY_DRIVER_WITH_HORAIRE_DETAIL ┃ BY_VEHICLE_WITHOUT_HORAIRE_DETAIL ┃ BY_VEHICLE_WITH_HORAIRE_DETAIL ┃ BY_DRIVER_VEHICLE_FUNCTION_WITH_HORAIRE_SYNTHESIS ┃ BY_DRIVER_VEHICLE_FUNCTION_WITH_HORAIRE_DETAIL
+criteria: string enum
+Allowed: GEOLOCATION ┃ WIHOUT_GEOLOCATION ┃ ALL
+periode: {
+debut: date-time
+A start date. Can be an epoch timestamp in milliseconds (e.g., 1747063827938) or an ISO-8601 date string (e.g., "2025-05-12T15:30:27.938+00:00")
+
+fin: date-time
+An end date. Can be an epoch timestamp in milliseconds (e.g., 1747063827938) or an ISO-8601 date string (e.g., "2025-05-12T15:30:27.938+00:00")
+}
+}
+```
 
 \* paramètre obligatoire 
 
@@ -578,4 +645,18 @@ Informations véhicules (motorisation, équipements)
     "bean": {}
   }
 ]
+```
+#### Curl
+
+```JSON
+curl -X POST "https://v3.oceansystem.com/ocean/restapi/analyse/preformattedPrivacy?customerId=1110000000" \
+  -H "content-type: application/json" \
+  -d '{
+    "filter": {   "persons": [       0   ],   "entities": [       0   ],   "groups": [       0   ],   "vehicleIds": [       0   ]
+    },
+    "renderMode": "BY_DRIVER_WITHOUT_HORAIRE_SYNTHESIS",
+    "criteria": "GEOLOCATION",
+    "periode": {   "debut": "2025-11-28T14:51:37.798Z",   "fin": "2025-11-28T14:51:37.799Z"
+    }
+}'
 ```
