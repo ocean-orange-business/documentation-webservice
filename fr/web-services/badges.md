@@ -172,7 +172,7 @@ Supprime un individu du système
 
 #### Endpoint
 ```
-POST /restapi/vieprivee/v1/etapeViePriveePosteriori
+POST /restapi/individus/delete
 ```
 
 #### Paramètres de la requête
