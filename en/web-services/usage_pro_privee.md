@@ -12,22 +12,190 @@ dateCreated: 2025-11-25T11:16:09.120Z
 
 These APIs allow managing private life schedules and analyzing private/professional vehicle and driver usage.
 
-- [Retrieval of recurring private life schedules](#rretrieval-of-recurring-private-life-schedules)
+- [Retrieval of individu list](#retrieval-individu-list)
+- [Retrieval of recurring private life schedules](#retrieval-of-recurring-private-life-schedules)
 - [Creation/Modification of private life schedules](#creationmodification-of-private-life-schedules)
 - [Management of requests for private/professional passage retroactively](#management-of-requests-for-private/professional-passage-retroactively)
 - [Private life/private usage analyses](#private-life/private-usage-analyses)
 
-To use the various web services, it is necessary to use internal identifiers for your individuals (for example, idChauffeur) or for the steps (idEtape, corresponding to the daily record).
+To use the various web services, it is necessary to use internal identifiers for your individuals 
+(for example, idChauffeur) or for the steps (idEtape, corresponding to the daily record).
 These elements are easily accessible via the following web services:
 
 [Vehicles](/en/web-services/flotte#récupérer_les_données_des_véhicules) GET /vehicule_engin/vehicles
 [trajets-et-positions](/en/web-services/trajets-et-positions#récupérer-la-fiche−journalière-d’un-véhicule-pour-une-date-donnée) GET /mobility/v1/ficheJour
 
+## Retrival individus list
+
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/individus/list)
+[Pre-authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**
+
+### Définition {.tabset}
+
+#### Endpoint
+```
+POST /restapi/individus/list
+```
+
+#### Request parameters
+
+| Nom          | Type             | Description                                                                     |
+| ------------ | ---------------- | ------------------------------------------------------------------------------- |
+| customerId * | integer ($int64) | Customer ID. Required only for a multi-client user. |
+| criteria   | integer ($int64) | Filtering criteria for individuals in the system |
+
+List of possible criteria:
+- WITHOUT_USER: individual without a created user
+- WITH_USER: with an associated user
+- WITH_ENTITE: with an attached organizational entity
+- WITH_GSM: with mobile phone information
+- WITH_VEHICLE: with associated vehicle(s)
+
+Allowed: WITHOUT_USER | WITH_USER | WITH_ENTITE | WITH_GSM | WITH_VEHICLE                                                |
+
+
+\* parameter is mandatory
+
+Response: List of the client's individuals
+
+
+#### Respond
+
+```application/json;charset=utf-8
+200 OK
+400 BAD REQUEST - Invalid input parameters
+401 UNAUTHORIZED
+403 FORBIDDEN
+429 TOO MANY REQUEST 
+500 INTERNAL SERVER ERROR
+```
+
+#### Result
+
+```JSON
+[
+  {
+    "individu": {
+      "nomInd": "nomInd",
+      "gsm": "gsm",
+      "matriculeInd": "matriculeInd",
+      "initialesInd": "initialesInd",
+      "prenomInd": "prenomInd",
+      "id": 0,
+      "email": "email",
+      "suppressionLogique": false,
+      "idCivilite": 0
+    },
+    "entite": {
+      "id": 0,
+      "nom": "nom",
+      "suppressionLogique": false
+    },
+    "utilisateur": {
+      "emailUti": "emailUti",
+      "prenomUti": "prenomUti",
+      "loginUti": "loginUti",
+      "individu": {
+        "nomInd": "nomInd",
+        "gsm": "gsm",
+        "matriculeInd": "matriculeInd",
+        "initialesInd": "initialesInd",
+        "prenomInd": "prenomInd",
+        "id": 0,
+        "email": "email",
+        "suppressionLogique": false,
+        "idCivilite": 0
+      },
+      "nomUti": "nomUti",
+      "id": 0,
+      "dateFinValidite": "2026-01-21T15:35:19.720Z",
+      "suppressionLogique": false,
+      "utilisateurType": "CLASSIC"
+    },
+    "groupe": {
+      "descriptionGrp": "descriptionGrp",
+      "id": 0,
+      "suppressionLogique": false
+    },
+    "fonctionnalites": [
+      {
+        "idFonctionnalite": 0
+      }
+    ],
+    "propSpecifiqueDTO": {
+      "proprietesSpecifiquesClient": {
+        "psValues": {}
+      },
+      "ville": "ville",
+      "dateFCO": "2026-01-21T15:35:19.721Z",
+      "objectifMensuel": 0,
+      "dateNaissanceConducteur": "2026-01-21T15:35:19.721Z",
+      "nationalitePermis": 0,
+      "idClient": 0,
+      "lieuNaissanceConducteur": "lieuNaissanceConducteur",
+      "numeroVoieAdresse": "numeroVoieAdresse",
+      "typeObjet": "CLIENT",
+      "idObjetRef": 0,
+      "objectifHebdo": 0,
+      "codePostal": "codePostal",
+      "keyUser": "keyUser",
+      "lieuDelivrancePermis": "lieuDelivrancePermis",
+      "complementAdresse": "complementAdresse",
+      "dateVisiteMedicale": "2026-01-21T15:35:19.721Z",
+      "categoriePermis": [
+        "A"
+      ],
+      "dateValiditePermis": "2026-01-21T15:35:19.721Z",
+      "numeroPermis": "numeroPermis",
+      "adresse": "adresse",
+      "dateDelivrancePermis": "2026-01-21T15:35:19.721Z",
+      "id": 0,
+      "pays": 0
+    },
+    "vehicleFieldsDTO": {
+      "numeroSerie": "numeroSerie",
+      "typeMotorisation": "MONO",
+      "categorie": "UNDEFINED",
+      "nomImage": "nomImage",
+      "odirectMode": "ODIRECT_UNIVERSEL",
+      "couleur": "couleur",
+      "description": "description",
+      "numeroParc": "numeroParc",
+      "marque": "marque",
+      "suppressionLogique": false,
+      "privacyEnabled": false,
+      "geolocalise": false,
+      "libelleTypeAsset": {
+        "categorie": "UNDEFINED",
+        "ordre": 0,
+        "libelle": "libelle",
+        "nomIcone": "nomIcone",
+        "id": 0
+      },
+      "modele": "modele",
+      "dispositifIdentifiant": false,
+      "immobilisationCablee": false,
+      "id": 0,
+      "dioEnabled": false,
+      "immatriculation": "immatriculation",
+      "numeroEmbarque": 0,
+      "geosecuriteEnabled": false,
+      "detectionPorteEnabled": false
+    }
+  }
+]
+```
+#### Curl
+
+```JSON
+curl -X POST "https:/https://v3.oceansystem.com/ocean/restapi/individus/list?customerId=21"
+```
+
 ## Retrieval of recurring private life schedules
 
 [Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=get-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
 
-[Pre-authentication required](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Pre-authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**
 
 ### Définition {.tabset}
 
@@ -104,7 +272,7 @@ curl -X GET "https:/https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horair
 
 [Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
 
-[Pre-authentication required](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Pre-authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**
 
 ### Définition {.tabset}
 
@@ -164,7 +332,7 @@ Records/Deletes a request for private/professional life passage retroactively fo
 
 [Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/etapeViePriveePosteriori)
 
-[Pre-authentication required](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Pre-authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**
 
 ### Definition {.tabset}
 
@@ -217,20 +385,28 @@ curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/etapeViePriv
 
 [Additional documentation on SWAGGER](ocean/restapi/common/openapi/explorer#?route=post-/analyse/preformattedPrivacy)
 
-[Pre-authentication required](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+[Pre-authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**
 
 ### Définition {.tabset}
 
 #### Endpoint
 ```
-POST /restapi/analyse/preformattedPrivacy
+GET /restapi/analyse/preformattedPrivacy
 ```
 
-#### Request parameters
+#### Request Parameters
 
-| Name          | Type             | Description                                                                     |
+| Nom          | Type             | Description                                                                     |
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
-| customerId  | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| customerId   | integer ($int64) | Customer ID. Required only for a multi-client user.                          |
+| dateDebut    | string           | In UTC format: "dd/MM/yyyy". Only this format is accepted by our API.        |
+| dateFin      | string           | In UTC format: "dd/MM/yyyy". Only this format is accepted by our API.        |
+| entites      | integer ($int64) | List of the client's entities.                                                 |
+| vehicleId    | integer ($int64) | List of vehicle IDs.                                                           |
+| persons      | integer ($int64) | List of person/driver IDs.                                                     |
+| renderMode   | ENUM             | Choice of rendering mode.                                                      |
+| criteria     | ENUM             | With or without / or both geolocation options.                                |
+
 
 > **Input data model :**
 

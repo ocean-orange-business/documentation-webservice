@@ -12,6 +12,7 @@ dateCreated: 2025-11-25T11:16:09.120Z
 
 Ces API permettent de gérer les horaires de vie privée et d'analyser l'usage privé/professionnel des véhicules et conducteurs.
 
+- [Récupération la liste des individus](#récupération-list-des-individus)
 - [Récupération des horaires de vie privée récurrentes](#récupération-des-horaires-de-vie-privée-récurrentes)
 - [Création/Modification des horaires de vie privée](#créationmodification-des-horaires-de-vie-privée)
 - [Gestion des demandes de passage vie privée/pro à posteriori](#gestion-des-demandes-de-passage-vie-privéepro-à-posteriori)
@@ -24,6 +25,170 @@ Ces éléments sont facilement accessibles via les webservices suivants :
 [Vehicles](/fr/web-services/flotte#récupérer_les_données_des_véhicules) GET /vehicule_engin/vehicles
 [trajets-et-positions](/fr/web-services/trajets-et-positions#récupérer-la-fiche−journalière-d’un-véhicule-pour-une-date-donnée) GET /mobility/v1/ficheJour
 
+## Récupération list des individus
+
+[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/individus/list)
+[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+
+### Définition {.tabset}
+
+#### Endpoint
+```
+POST /restapi/individus/list
+```
+
+#### Paramètres de la requête
+
+| Nom          | Type             | Description                                                                     |
+| ------------ | ---------------- | ------------------------------------------------------------------------------- |
+| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| criteria   | integer ($int64) | Critères de filtrage des individus dans le système|
+
+liste des criteres possible :
+WITHOUT_USER : individu sans utilisateur de créé
+WITH_USER : avec utilisateur associé
+WITH_ENTITE : avec entité organisationnelle rattachée
+WITH_GSM : avec informations de téléphonie mobile
+WITH_VEHICLE : avec véhicule(s) associé(s)
+Allowed: WITHOUT_USER | WITH_USER | WITH_ENTITE | WITH_GSM | WITH_VEHICLE|                                                     |
+
+
+\* paramètre obligatoire 
+
+Réponse : Liste des individus du client 
+
+
+#### Réponses
+
+```application/json;charset=utf-8
+200 OK
+400 BAD REQUEST - Invalid input parameters
+401 UNAUTHORIZED
+403 FORBIDDEN
+429 TOO MANY REQUEST 
+500 INTERNAL SERVER ERROR
+```
+
+#### Résultat
+
+```JSON
+[
+  {
+    "individu": {
+      "nomInd": "nomInd",
+      "gsm": "gsm",
+      "matriculeInd": "matriculeInd",
+      "initialesInd": "initialesInd",
+      "prenomInd": "prenomInd",
+      "id": 0,
+      "email": "email",
+      "suppressionLogique": false,
+      "idCivilite": 0
+    },
+    "entite": {
+      "id": 0,
+      "nom": "nom",
+      "suppressionLogique": false
+    },
+    "utilisateur": {
+      "emailUti": "emailUti",
+      "prenomUti": "prenomUti",
+      "loginUti": "loginUti",
+      "individu": {
+        "nomInd": "nomInd",
+        "gsm": "gsm",
+        "matriculeInd": "matriculeInd",
+        "initialesInd": "initialesInd",
+        "prenomInd": "prenomInd",
+        "id": 0,
+        "email": "email",
+        "suppressionLogique": false,
+        "idCivilite": 0
+      },
+      "nomUti": "nomUti",
+      "id": 0,
+      "dateFinValidite": "2026-01-21T15:35:19.720Z",
+      "suppressionLogique": false,
+      "utilisateurType": "CLASSIC"
+    },
+    "groupe": {
+      "descriptionGrp": "descriptionGrp",
+      "id": 0,
+      "suppressionLogique": false
+    },
+    "fonctionnalites": [
+      {
+        "idFonctionnalite": 0
+      }
+    ],
+    "propSpecifiqueDTO": {
+      "proprietesSpecifiquesClient": {
+        "psValues": {}
+      },
+      "ville": "ville",
+      "dateFCO": "2026-01-21T15:35:19.721Z",
+      "objectifMensuel": 0,
+      "dateNaissanceConducteur": "2026-01-21T15:35:19.721Z",
+      "nationalitePermis": 0,
+      "idClient": 0,
+      "lieuNaissanceConducteur": "lieuNaissanceConducteur",
+      "numeroVoieAdresse": "numeroVoieAdresse",
+      "typeObjet": "CLIENT",
+      "idObjetRef": 0,
+      "objectifHebdo": 0,
+      "codePostal": "codePostal",
+      "keyUser": "keyUser",
+      "lieuDelivrancePermis": "lieuDelivrancePermis",
+      "complementAdresse": "complementAdresse",
+      "dateVisiteMedicale": "2026-01-21T15:35:19.721Z",
+      "categoriePermis": [
+        "A"
+      ],
+      "dateValiditePermis": "2026-01-21T15:35:19.721Z",
+      "numeroPermis": "numeroPermis",
+      "adresse": "adresse",
+      "dateDelivrancePermis": "2026-01-21T15:35:19.721Z",
+      "id": 0,
+      "pays": 0
+    },
+    "vehicleFieldsDTO": {
+      "numeroSerie": "numeroSerie",
+      "typeMotorisation": "MONO",
+      "categorie": "UNDEFINED",
+      "nomImage": "nomImage",
+      "odirectMode": "ODIRECT_UNIVERSEL",
+      "couleur": "couleur",
+      "description": "description",
+      "numeroParc": "numeroParc",
+      "marque": "marque",
+      "suppressionLogique": false,
+      "privacyEnabled": false,
+      "geolocalise": false,
+      "libelleTypeAsset": {
+        "categorie": "UNDEFINED",
+        "ordre": 0,
+        "libelle": "libelle",
+        "nomIcone": "nomIcone",
+        "id": 0
+      },
+      "modele": "modele",
+      "dispositifIdentifiant": false,
+      "immobilisationCablee": false,
+      "id": 0,
+      "dioEnabled": false,
+      "immatriculation": "immatriculation",
+      "numeroEmbarque": 0,
+      "geosecuriteEnabled": false,
+      "detectionPorteEnabled": false
+    }
+  }
+]
+```
+#### Curl
+
+```JSON
+curl -X POST "https:/https://v3.oceansystem.com/ocean/restapi/individus/list?customerId=21"
+```
 
 ## Récupération des horaires de vie privée récurrentes
 
@@ -225,7 +390,7 @@ curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/etapeViePriv
 
 #### Endpoint
 ```
-POST /restapi/analyse/preformattedPrivacy
+GET /restapi/analyse/preformattedPrivacy
 ```
 
 #### Paramètres de la requête
@@ -233,6 +398,14 @@ POST /restapi/analyse/preformattedPrivacy
 | Nom          | Type             | Description                                                                     |
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId  | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| dateDebut  | string	Date |  au format UTC : "dd/MM/yyyy". Seul ce format est pris en compte par notre API. |
+| dateFin  | string	Date |  au format UTC : "dd/MM/yyyy". Seul ce format est pris en compte par notre API. |
+| entites  | integer ($int64) | Liste des Entites du client|
+| vehicleId  | integer ($int64) | Liste des véhicules Id|
+| persons  | integer ($int64) | Liste des persons/chauffeur Id |
+| renderMode  | ENUM | choix du mode de rendu |
+| criteria  | ENUM | avec ou sans/ ou les deux geolocalisation |
+
 
 > **Modèle de données en entrée :**
 
