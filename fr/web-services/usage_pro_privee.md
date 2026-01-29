@@ -390,7 +390,7 @@ curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/etapeViePriv
 
 #### Endpoint
 ```
-GET /restapi/analyse/preformattedPrivacy
+POST /restapi/analyse/preformattedPrivacy
 ```
 
 #### Paramètres de la requête
