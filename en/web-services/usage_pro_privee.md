@@ -383,7 +383,7 @@ curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/etapeViePriv
 
 ## Private life/private usage analyses
 
-[Additional documentation on SWAGGER](ocean/restapi/common/openapi/explorer#?route=post-/analyse/preformattedPrivacy)
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#lo?route=post-/analyse/preformattedPrivacy)
 
 [Pre-authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**
 
@@ -399,14 +399,6 @@ GET /restapi/analyse/preformattedPrivacy
 | Nom          | Type             | Description                                                                     |
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId   | integer ($int64) | Customer ID. Required only for a multi-client user.                          |
-| dateDebut    | string           | In UTC format: "dd/MM/yyyy". Only this format is accepted by our API.        |
-| dateFin      | string           | In UTC format: "dd/MM/yyyy". Only this format is accepted by our API.        |
-| entites      | integer ($int64) | List of the client's entities.                                                 |
-| vehicleId    | integer ($int64) | List of vehicle IDs.                                                           |
-| persons      | integer ($int64) | List of person/driver IDs.                                                     |
-| renderMode   | ENUM             | Choice of rendering mode.                                                      |
-| criteria     | ENUM             | With or without / or both geolocation options.                                |
-
 
 > **Input data model :**
 
