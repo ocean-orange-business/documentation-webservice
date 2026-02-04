@@ -15,7 +15,7 @@ Ces API permettent de gérer les horaires de vie privée et d'analyser l'usage p
 - [Récupération la liste des individus](#récupération-list-des-individus)
 - [Récupération des horaires de vie privée récurrentes](#récupération-des-horaires-de-vie-privée-récurrentes)
 - [Création/Modification des horaires de vie privée](#créationmodification-des-horaires-de-vie-privée)
-- [Supprime des horaires de vie privée récurrentes d'un individu)(#supprime-des-horaires-de-vie-privée-récurrentes-d'un-individu)
+- [Supprime des horaires de vie privée récurrentes d'un individu](#supprime-des-horaires-de-vie-privée-récurrentes-d'un-individu)
 - [Gestion des demandes de passage vie privée/pro à posteriori](#gestion-des-demandes-de-passage-vie-privéepro-à-posteriori)
 - [Analyses de vie privée/usage privé](#analyses-de-vie-privéeusage-privé)
 
