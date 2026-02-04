@@ -15,6 +15,7 @@ These APIs allow managing private life schedules and analyzing private/professio
 - [Retrieval of individu list](#retrieval-individu-list)
 - [Retrieval of recurring private life schedules](#retrieval-of-recurring-private-life-schedules)
 - [Creation/Modification of private life schedules](#creationmodification-of-private-life-schedules)
+- [Delete recurring private life schedules for an individual](#delete-recurring-private-life-schedules-for-an-individual)
 - [Management of requests for private/professional passage retroactively](#management-of-requests-for-private/professional-passage-retroactively)
 - [Private life/private usage analyses](#private-life/private-usage-analyses)
 
@@ -237,30 +238,55 @@ Dates: Start and end validity
 ```JSON
 [
   {
-    "horaire": {
-      "finHeure": 0,
-      "idJourSemaine": "LUNDI",
-      "finMinute": 0,
-      "typeHoraires": "IMMOBILISATION",
-      "debutMinute": 0,
-      "id": 0,
-      "debutHeure": 0
-    },
-    "debut": "2025-11-25T13:49:33.102Z",
+    "id": 1110000002,
     "individu": {
-      "nomInd": "nomInd",
-      "gsm": "gsm",
-      "matriculeInd": "matriculeInd",
-      "initialesInd": "initialesInd",
-      "prenomInd": "prenomInd",
-      "id": 0,
-      "email": "email",
+      "id": 1110000403,
+      "nomInd": "Individu",
+      "prenomInd": "Vie privée",
+      "matriculeInd": null,
+      "gsm": null,
+      "email": null,
       "suppressionLogique": false,
-      "idCivilite": 0
+      "idCivilite": 1,
+      "initialesInd": null
     },
-    "fin": "2025-11-25T13:49:33.102Z",
-    "id": 0
-  }
+    "horaire": {
+      "id": 1110000087,
+      "idJourSemaine": "LUNDI",
+      "typeHoraires": "VIE_PRIVEE",
+      "debutHeure": 0,
+      "finHeure": 8,
+      "debutMinute": 0,
+      "finMinute": 0
+    },
+    "debut": 1767222000000,
+    "fin": null
+  },
+  {
+    "id": 1110000004,
+    "individu": {
+      "id": 1110000403,
+      "nomInd": "Individu",
+      "prenomInd": "Vie privée",
+      "matriculeInd": null,
+      "gsm": null,
+      "email": null,
+      "suppressionLogique": false,
+      "idCivilite": 1,
+      "initialesInd": null
+    },
+    "horaire": {
+      "id": 1110000089,
+      "idJourSemaine": "MARDI",
+      "typeHoraires": "VIE_PRIVEE",
+      "debutHeure": 0,
+      "finHeure": 8,
+      "debutMinute": 0,
+      "finMinute": 0
+    },
+    "debut": 1767222000000,
+    "fin": null
+  }  
 ]
 ```
 #### Curl
@@ -294,7 +320,7 @@ POST /restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu
 \* mandatory parameter
 
 Response : Boolean (success/failure of the operation)
-
+Warning! In the body of the request, make sure to include the schedules as defined in the "innerMap" data.
 
 #### Responses
 
@@ -311,9 +337,38 @@ Response : Boolean (success/failure of the operation)
 
 ```JSON
 {
-        "innerMap": {
-                "map": {}
-        }
+  "innerMap": {
+    "map": {
+      "LUNDI": {
+        "VIE_PRIVEE": [
+          {
+            "idJourSemaine": "LUNDI",
+            "typeHoraires": "VIE_PRIVEE",
+            "debutHeure": 0,
+            "finHeure": 8,
+            "debutMinute": 0,
+            "finMinute": 0
+          },
+          {
+            "idJourSemaine": "LUNDI",
+            "typeHoraires": "VIE_PRIVEE",
+            "debutHeure": 12,
+            "finHeure": 13,
+            "debutMinute": 0,
+            "finMinute": 30
+          },
+          {
+            "idJourSemaine": "LUNDI",
+            "typeHoraires": "VIE_PRIVEE",
+            "debutHeure": 18,
+            "finHeure": 23,
+            "debutMinute": 0,
+            "finMinute": 59
+          }
+        ]
+      }
+    }
+  }
 }
 ```
 #### Curl
@@ -326,6 +381,58 @@ curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesVieP
     }
 }'
 ```
+
+## Delete recurring private life schedules for an individual
+
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=delete-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
+
+[Pre-authentication required](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+
+### Définition {.tabset}
+
+#### Endpoint
+```
+delete /restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu
+```
+
+#### Paramètres de la requête
+
+| Nom          | Type             | Description                                                                     |
+| ------------ | ---------------- | ------------------------------------------------------------------------------- |
+| customerId  | integer ($int64) | ICustomer identifier. Required only for multi-client users |
+| individuId *  | integer ($int64) | Driver identifier.                                               |
+| horaireIndividuIds   | integer ($int64 | Individual schedule identifier corresponding to the Id field in the GET horairesViePriveeRecurrentesIndividu     |
+
+
+* required parameter
+
+Response: 204 OK or none
+#### Réponses
+
+```application/json;charset=utf-8
+204 OK
+400 BAD REQUEST - Invalid input parameters
+401 UNAUTHORIZED
+403 FORBIDDEN
+429 TOO MANY REQUEST 
+500 INTERNAL SERVER ERROR
+```
+
+#### Résultat
+
+```JSON
+{
+  
+}
+```
+#### Curl
+
+```JSON
+curl -X DELETE "http://localhost:8080/ocean/restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu?customerId=1110000000&individuId=1110000403&horaireIndividuIds=90359" \
+  -H "x-auth-token: 7fd67be08f1cca392dfd5d0cda4377eabae1cdacce54237538cd8aad3d6575396fe92cedc528389a37bbf1486cf56ee5eceee9f210b3c32f0a66d704bab8239b"
+}'
+```
+
 ## Management of requests for private/professional passage retroactively
 
 Records/Deletes a request for private/professional life passage retroactively for a step
