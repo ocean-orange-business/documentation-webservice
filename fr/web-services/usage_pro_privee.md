@@ -20,7 +20,7 @@ Ces API permettent de gérer les horaires de vie privée et d'analyser l'usage p
 > - [Supprime des horaires de vie privée récurrentes d'un individu](#supprime-des-horaires-de-vie-privée-récurrentes-dun-individu)
 
 > *Horaire vie privée exceptionnelle*
-> - [Récupération des horaires de vie privée exceptionnelle](#récupération-des-horaires-de-vie-privée-exceptionnelle)
+> - [Récupération des horaires de vie privée exceptionnelles](#récupération-des-horaires-de-vie-privée-exceptionnelles)
 > - [Création/Modification des horaires de vie privée exceptionnelles](#créationmodification-des-horaires-de-vie-privée)
 > - [Supprime des horaires de vie privée exceptionnelles d'un individu](#supprime-des-horaires-de-vie-privée-récurrentes-dun-individu)
 {.is-info}
@@ -382,8 +382,37 @@ Attention ! Dans le corps de l'appel, bien mettre les horaires définis comme do
 curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu?customerId=1110000000&individuId=1110000004&dateDebut=24%2F11%2F2025+00%3A00%3A00+Z&dateFin=30%2F11%2F2025+00%3A00%3A00+Z" \
   -H "content-type: application/json" \
   -d '{
-    "innerMap": {   "map": {}
+    "innerMap": {   "map": {
+      "LUNDI": {
+        "VIE_PRIVEE": [
+          {
+            "idJourSemaine": "LUNDI",
+            "typeHoraires": "VIE_PRIVEE",
+            "debutHeure": 0,
+            "finHeure": 8,
+            "debutMinute": 0,
+            "finMinute": 0
+          },
+          {
+            "idJourSemaine": "LUNDI",
+            "typeHoraires": "VIE_PRIVEE",
+            "debutHeure": 12,
+            "finHeure": 13,
+            "debutMinute": 0,
+            "finMinute": 30
+          },
+          {
+            "idJourSemaine": "LUNDI",
+            "typeHoraires": "VIE_PRIVEE",
+            "debutHeure": 18,
+            "finHeure": 23,
+            "debutMinute": 0,
+            "finMinute": 59
+          }
+        ]
+      }
     }
+   }
 }'
 ```
 
