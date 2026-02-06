@@ -434,7 +434,7 @@ curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesVieP
 delete /restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu
 ```
 
-#### Paramètres de la requête
+#### Request parameters
 
 | Nom          | Type             | Description                                                                     |
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
@@ -442,10 +442,16 @@ delete /restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu
 | individuId *  | integer ($int64) | Driver identifier.                                               |
 | horaireIndividuIds   | integer ($int64 | Individual schedule identifier corresponding to the Id field in the GET horairesViePriveeRecurrentesIndividu     |
 
+> If there is still at least one VP time slot remaining:
+> - Close the previous schedule at the date and time when the deletion was performed.
+> - Create a new schedule starting at the date and time when the deletion was performed, containing only the remaining time slots.
+> - Close the schedule at the date and time when the deletion was performed.
+> - Major rule: we never impact the past. NEVER.
 
 * required parameter
 
 Response: 204 OK or none
+
 #### Réponses
 
 ```application/json;charset=utf-8
@@ -679,6 +685,8 @@ delete /restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu
 | customerId  | integer ($int64) | ICustomer identifier. Required only for multi-client users |
 | horaireExtensionIds   | integer ($int64 | Identifier of the exceptional schedule, corresponding to the "Id" field in the GET response of horairesViePriveeExceptionnellesIndividu -> extension -> id |
 
+> - Only schedules entirely in the future can be deleted.
+> - Major rule: we never impact the past. NEVER.
 
 * required parameter
 

@@ -437,10 +437,16 @@ delete /restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu
 | individuId *  | integer ($int64) | Identifiant du conducteur.                                                      |
 | horaireIndividuIds   | integer ($int64 | Identifiant de l'horaire individu correspond au champ Id dans le GET de horairesViePriveeRecurrentesIndividu     |
 
+> S'il reste encore au moins une plage horaire VP
+> - Clôture l'horaire précédent à la date et heure où le delete est passé
+> - Crée un nouvel horaire qui commence à la date et heure où le delete est passé et qui ne contient que les plages restantes s'il ne reste plus aucune plage horaire VP
+> - Clôture l'horaire à la date et heure où le delete est passé
+> - Grande règle : on n'impacte pas le passé. JAMAIS
 
 \* paramètre obligatoire 
 
 Réponse : 204 OK ou none
+
 #### Réponses
 
 ```application/json;charset=utf-8
@@ -580,7 +586,7 @@ Dates : Début et fin de validité
 curl -X GET "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu?customerId=1110000000&individuId=1110000004"
 ```
 
-## Création/Modification des horaires de vie privée
+## Création/Modification des horaires de vie privée exceptionnelles
 
 [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=get-/vieprivee/v1/horairesViePriveeExceptionnellesIndividu)
 
@@ -652,6 +658,9 @@ delete /restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu
 | ------------ | ---------------- | ------------------------------------------------------------------------------- |
 | customerId  | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
 | horaireExtensionIds   | integer ($int64 | Identifiant de l'horaire exceptionnel correspond au champ Id dans le GET de horairesViePriveeExceptionnellesIndividu ->extension->id    |
+
+> - On ne peut supprimer que des horaires complètement dans le futur
+> - Grande règle : on n'impacte pas le passé. JAMAIS
 
 
 \* paramètre obligatoire 
