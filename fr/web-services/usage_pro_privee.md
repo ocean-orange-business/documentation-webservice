@@ -580,7 +580,7 @@ Dates : Début et fin de validité
 curl -X GET "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu?customerId=1110000000&individuId=1110000004"
 ```
 
-## Création/Modification des horaires de vie privée
+## Création/Modification des horaires de vie privée exceptionnelles
 
 [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=get-/vieprivee/v1/horairesViePriveeExceptionnellesIndividu)
 
