@@ -14,16 +14,16 @@ Ces API permettent de gérer les horaires de vie privée et d'analyser l'usage p
 
 - [Récupération la liste des individus](#récupération-list-des-individus)
 
-- [Récupération des horaires de vie privée récurrentes](#récupération-des-horaires-de-vie-privée-récurrentes)
-- [Création/Modification des horaires de vie privée](#créationmodification-des-horaires-de-vie-privée)
-- [Supprime des horaires de vie privée récurrentes d'un individu](#supprime-des-horaires-de-vie-privée-récurrentes-d'un-individu)
+> *Horaire vie privée récurrent*
+> - [Récupération des horaires de vie privée récurrentes](#récupération-des-horaires-de-vie-privée-récurrentes)
+> - [Création/Modification des horaires de vie privée](#créationmodification-des-horaires-de-vie-privée)
+> - [Supprime des horaires de vie privée récurrentes d'un individu](#supprime-des-horaires-de-vie-privée-récurrentes-dun-individu)
 
-- [Récupération des horaires de vie privée exceptionnelle](#récupération-des-horaires-de-vie-privée-exceptionnelle)
-- [Création/Modification des horaires de vie privée exceptionnelles](#créationmodification-des-horaires-de-vie-privée)
-- [Supprime des horaires de vie privée exceptionnelles d'un individu](#supprime-des-horaires-de-vie-privée-récurrentes-d'un-individu)
-
-- [Gestion des demandes de passage vie privée/pro à posteriori](#gestion-des-demandes-de-passage-vie-privéepro-à-posteriori)
-- [Analyses de vie privée/usage privé](#analyses-de-vie-privéeusage-privé)
+> *Horaire vie privée exceptionnelle*
+> - [Récupération des horaires de vie privée exceptionnelle](#récupération-des-horaires-de-vie-privée-exceptionnelle)
+> - [Création/Modification des horaires de vie privée exceptionnelles](#créationmodification-des-horaires-de-vie-privée)
+> - [Supprime des horaires de vie privée exceptionnelles d'un individu](#supprime-des-horaires-de-vie-privée-récurrentes-dun-individu)
+{.is-info}
 
 Pour utiliser les différents webservices, il est nécessaire d'utiliser des identifiants internes pour vos individus 
 (par exemple, idChauffeur) ou pour les étapes (idEtape, correspondant à la fiche jour). 
@@ -433,7 +433,7 @@ Réponse : 204 OK ou none
 #### Curl
 
 ```JSON
-curl -X DELETE "http://localhost:8080/ocean/restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu?customerId=1110000000&individuId=1110000403&horaireIndividuIds=90359" \
+curl -X DELETE "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu?customerId=1110000000&individuId=1110000403&horaireIndividuIds=90359" \
   -H "x-auth-token: 7fd67be08f1cca392dfd5d0cda4377eabae1cdacce54237538cd8aad3d6575396fe92cedc528389a37bbf1486cf56ee5eceee9f210b3c32f0a66d704bab8239b"
 }'
 ```
@@ -548,12 +548,12 @@ Dates : Début et fin de validité
 #### Curl
 
 ```JSON
-curl -X GET "http://localhost:8080/ocean/restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu?customerId=1110000000&individuId=1110000004"
+curl -X GET "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu?customerId=1110000000&individuId=1110000004"
 ```
 
 ## Création/Modification des horaires de vie privée
 
-[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
+[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=get-/vieprivee/v1/horairesViePriveeExceptionnellesIndividu)
 
 [Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
@@ -601,7 +601,7 @@ Attention ne mettre un extensionIdToUpdate que dans le cas d'une modification
 #### Curl
 
 ```JSON
-curl -X POST "http://localhost:8080/ocean/restapi/vieprivee/v1/horaireViePriveeExceptionnelleIndividu?customerId=1110000000&individuId=1110000004&description=NOEL&dateDebut=25%2F12%2F2027+00%3A00%3A00+Z&dateFin=26%2F12%2F2027+00%3A00%3A00+Z"
+curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horaireViePriveeExceptionnelleIndividu?customerId=1110000000&individuId=1110000004&description=NOEL&dateDebut=25%2F12%2F2027+00%3A00%3A00+Z&dateFin=26%2F12%2F2027+00%3A00%3A00+Z"
 ```
 
 ## Supprime des horaires de vie privée exceptionnelles d'un individu
@@ -614,7 +614,7 @@ curl -X POST "http://localhost:8080/ocean/restapi/vieprivee/v1/horaireViePriveeE
 
 #### Endpoint
 ```
-delete /restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu
+delete /restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu
 ```
 
 #### Paramètres de la requête
@@ -649,7 +649,7 @@ Réponse : 204 OK ou none
 #### Curl
 
 ```JSON
-curl -X DELETE "http://localhost:8080/ocean/restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu?customerId=1110000000&horaireExtensionIds=18524"\
+curl -X DELETE "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu?customerId=1110000000&horaireExtensionIds=18524"\
   -H "x-auth-token: 7fd67be08f1cca392dfd5d0cda4377eabae1cdacce54237538cd8aad3d6575396fe92cedc528389a37bbf1486cf56ee5eceee9f210b3c32f0a66d704bab8239b"
 }'
 ```
