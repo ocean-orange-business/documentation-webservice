@@ -26,8 +26,9 @@ These APIs allow managing private life schedules and analyzing private/professio
 > - [Delete exceptional private life schedules for an individual](#delete-exceptional-private-life-schedules-for-an-individual)
 {.is-info}
 
-- [Management of requests for private/professional passage retroactively](#management-of-requests-for-private/professional-passage-retroactively)
-- [Private life/private usage analyses](#private-life/private-usage-analyses)
+
+- [Management of requests for private/professional passage retroactively](#management-of-requests-for-privateprofessional-passage-retroactively)
+- [Private life/private usage analyses](#private-lifeprivate-usage-analyses)
 
 To use the various web services, it is necessary to use internal identifiers for your individuals 
 (for example, idChauffeur) or for the steps (idEtape, corresponding to the daily record).
@@ -387,7 +388,36 @@ Warning! In the body of the request, make sure to include the schedules as defin
 curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu?customerId=1110000000&individuId=1110000004&dateDebut=24%2F11%2F2025+00%3A00%3A00+Z&dateFin=30%2F11%2F2025+00%3A00%3A00+Z" \
   -H "content-type: application/json" \
   -d '{
-    "innerMap": {   "map": {}
+    "innerMap": {  "map": {
+      "LUNDI": {
+        "VIE_PRIVEE": [
+          {
+            "idJourSemaine": "LUNDI",
+            "typeHoraires": "VIE_PRIVEE",
+            "debutHeure": 0,
+            "finHeure": 8,
+            "debutMinute": 0,
+            "finMinute": 0
+          },
+          {
+            "idJourSemaine": "LUNDI",
+            "typeHoraires": "VIE_PRIVEE",
+            "debutHeure": 12,
+            "finHeure": 13,
+            "debutMinute": 0,
+            "finMinute": 30
+          },
+          {
+            "idJourSemaine": "LUNDI",
+            "typeHoraires": "VIE_PRIVEE",
+            "debutHeure": 18,
+            "finHeure": 23,
+            "debutMinute": 0,
+            "finMinute": 59
+          }
+        ]
+      }
+     }
     }
 }'
 ```
@@ -443,7 +473,7 @@ curl -X DELETE "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesVi
 }'
 ```
 
-## Retrieval of exceptionnal private life schedules
+## Retrieval of exceptional private life schedules
 
 [Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=get-/vieprivee/v1/horairesViePriveeExceptionnellesIndividu)
 [Pre-authentication required](./acces.md#authentification-par-requête-post) and passing the token in the header **X-AUTH-TOKEN**
@@ -630,7 +660,7 @@ Note: Only include extensionIdToUpdate in the case of an update.
 curl -X POST "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horaireViePriveeExceptionnelleIndividu?customerId=1110000000&individuId=1110000004&description=NOEL&dateDebut=25%2F12%2F2027+00%3A00%3A00+Z&dateFin=26%2F12%2F2027+00%3A00%3A00+Z"
 ```
 
-## Delete exceptionnal private life schedules for an individual
+## Delete exceptional private life schedules for an individual
 
 [Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=delete-/vieprivee/v1/horairesViePriveeExceptionnellesIndividu)
 
