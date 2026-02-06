@@ -57,7 +57,7 @@ Allowed: WITHOUT_USER | WITH_USER | WITH_ENTITE | WITH_GSM | WITH_VEHICLE|      
 \* paramètre obligatoire 
 
 Réponse : Liste des individus du client 
-
+À noter : idCivilite : MR = 1 ; MME = 2 ; MLLE = 3.
 
 #### Réponses
 
