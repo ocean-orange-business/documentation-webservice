@@ -22,10 +22,9 @@ These APIs allow managing private life schedules and analyzing private/professio
 
 > Exceptional private life schedule
 > - [Retrieval of exceptional private life schedules](#retrieval-of-exceptional-private-life-schedules)
-> - [Creation/Modification of private life exceptional schedules](#creationmodification-of-private-life-exceptional-schedules)
+> - [Creation/Modification of exceptional private life schedules](#creationmodification-of-exceptional-private-life-schedules)
 > - [Delete exceptional private life schedules for an individual](#delete-exceptional-private-life-schedules-for-an-individual)
 {.is-info}
-
 
 - [Management of requests for private/professional passage retroactively](#management-of-requests-for-privateprofessional-passage-retroactively)
 - [Private life/private usage analyses](#private-lifeprivate-usage-analyses)
@@ -577,7 +576,7 @@ Dates: Start and end of validity
 ```JSON
 curl -X GET "https://v3.oceansystem.com/ocean/restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu?customerId=1110000000&individuId=1110000004"
 ```
-## Creation/Modification of private life schedules
+## Creation/Modification of exceptional private life schedules
 
 [Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/horairesViePriveeExceptionnellesIndividu)
 
