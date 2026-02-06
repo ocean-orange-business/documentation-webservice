@@ -58,7 +58,7 @@ Allowed: WITHOUT_USER | WITH_USER | WITH_ENTITE | WITH_GSM | WITH_VEHICLE       
 \* parameter is mandatory
 
 Response: List of the client's individuals
-
+Note: idCivilite Status ID: MR = 1; MME = 2; MLLE = 3.
 
 #### Respond
 
