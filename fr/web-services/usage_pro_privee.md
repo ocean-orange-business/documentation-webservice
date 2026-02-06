@@ -13,9 +13,15 @@ dateCreated: 2025-11-25T11:16:09.120Z
 Ces API permettent de gérer les horaires de vie privée et d'analyser l'usage privé/professionnel des véhicules et conducteurs.
 
 - [Récupération la liste des individus](#récupération-list-des-individus)
+
 - [Récupération des horaires de vie privée récurrentes](#récupération-des-horaires-de-vie-privée-récurrentes)
 - [Création/Modification des horaires de vie privée](#créationmodification-des-horaires-de-vie-privée)
 - [Supprime des horaires de vie privée récurrentes d'un individu](#supprime-des-horaires-de-vie-privée-récurrentes-d'un-individu)
+
+- [Récupération des horaires de vie privée exceptionnelle](#récupération-des-horaires-de-vie-privée-exceptionnelle)
+- [Création/Modification des horaires de vie privée exceptionnelles](#créationmodification-des-horaires-de-vie-privée)
+- [Supprime des horaires de vie privée exceptionnelles d'un individu](#supprime-des-horaires-de-vie-privée-récurrentes-d'un-individu)
+
 - [Gestion des demandes de passage vie privée/pro à posteriori](#gestion-des-demandes-de-passage-vie-privéepro-à-posteriori)
 - [Analyses de vie privée/usage privé](#analyses-de-vie-privéeusage-privé)
 
@@ -431,6 +437,223 @@ curl -X DELETE "http://localhost:8080/ocean/restapi/vieprivee/v1/horairesViePriv
   -H "x-auth-token: 7fd67be08f1cca392dfd5d0cda4377eabae1cdacce54237538cd8aad3d6575396fe92cedc528389a37bbf1486cf56ee5eceee9f210b3c32f0a66d704bab8239b"
 }'
 ```
+
+## Récupération des horaires de vie privée exceptionnelles
+
+[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=get-/vieprivee/v1/horairesViePriveeExceptionnellesIndividu)
+[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+
+### Définition {.tabset}
+
+#### Endpoint
+```
+GET /restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu
+```
+
+#### Paramètres de la requête
+
+| Nom          | Type             | Description                                                                     |
+| ------------ | ---------------- | ------------------------------------------------------------------------------- |
+| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| individuId   | integer ($int64) | Identifiant du conducteur.                                                      |
+| dateDebut   | date | La date de début au format "dd/MM/yyyy HH:mm:ss Z" (Format: dd/MM/yyyy HH:mm:ss Z)           |
+| dateFin   | date | La date de fin au format "dd/MM/yyyy HH:mm:ss Z" (Format: dd/MM/yyyy HH:mm:ss Z)               |
+
+
+\* paramètre obligatoire 
+
+Réponse : Liste des horaires récurrents contenant :
+
+Horaire : Heures de début/fin, jour de la semaine, type d'horaire
+Individu : Informations personnelles (nom, prénom, email, GSM, etc.)
+Dates : Début et fin de validité
+
+#### Réponses
+
+```application/json;charset=utf-8
+200 OK
+400 BAD REQUEST - Invalid input parameters
+401 UNAUTHORIZED
+403 FORBIDDEN
+429 TOO MANY REQUEST 
+404 NOT FOUND
+500 INTERNAL SERVER ERROR
+```
+
+#### Résultat
+
+```JSON
+[
+          {
+                  "extension": {
+                          "id": 18524,
+                          "description": "NOEL"
+                  },
+                  "utilisateur": {
+                          "id": 2000000015,
+                          "nomUti": "Chef de ",
+                          "prenomUti": "projet",
+                          "loginUti": "ocean-cdp",
+                          "emailUti": "prototype@oceansystem.com",
+                          "suppressionLogique": false,
+                          "individu": null,
+                          "utilisateurType": "SUPERUSER",
+                          "dateFinValidite": null
+                  },
+                  "individu": {
+                          "id": 1110000004,
+                          "nomInd": "Jean",
+                          "prenomInd": "Edouardo",
+                          "matriculeInd": null,
+                          "gsm": null,
+                          "email": "edouardo.jean@orange.com",
+                          "suppressionLogique": false,
+                          "idCivilite": 1,
+                          "initialesInd": null
+                  },
+                  "debut": 1829692800000,
+                  "fin": 1829779200000,
+                  "horairesIndividu": [
+                          {
+                                  "id": 90377,
+                                  "individu": {
+                                          "id": 1110000004,
+                                          "nomInd": "Jean",
+                                          "prenomInd": "Edouardo",
+                                          "matriculeInd": null,
+                                          "gsm": null,
+                                          "email": "edouardo.jean@orange.com",
+                                          "suppressionLogique": false,
+                                          "idCivilite": 1,
+                                          "initialesInd": null
+                                  },
+                                  "horaire": {
+                                          "id": 1642185,
+                                          "idJourSemaine": "SAMEDI",
+                                          "typeHoraires": "VIE_PRIVEE_EXCEPTIONNELLE",
+                                          "debutHeure": 0,
+                                          "finHeure": 24,
+                                          "debutMinute": 0,
+                                          "finMinute": 0
+                                  },
+                                  "debut": 1829692800000,
+                                  "fin": 1829779200000
+                          },
+                           ],
+                  "description": "BLABLA2",
+                  "id": 18521
+          }
+]
+```
+#### Curl
+
+```JSON
+curl -X GET "http://localhost:8080/ocean/restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu?customerId=1110000000&individuId=1110000004"
+```
+
+## Création/Modification des horaires de vie privée
+
+[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=post-/vieprivee/v1/horairesViePriveeRecurrentesIndividu)
+
+[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+
+### Définition {.tabset}
+
+#### Endpoint
+```
+POST /restapi/vieprivee/v1/horaireViePriveeExceptionnelleIndividu
+```
+
+#### Paramètres de la requête
+
+| Nom          | Type             | Description                                                                     |
+| ------------ | ---------------- | ------------------------------------------------------------------------------- |
+| customerId  | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| individuId *  | integer ($int64) | Identifiant du conducteur.                                                      |
+| dateDebut   | date | La date de début au format "dd/MM/yyyy HH:mm:ss Z" (Format: dd/MM/yyyy HH:mm:ss Z)           |
+| dateFin   | date | La date de fin au format "dd/MM/yyyy HH:mm:ss Z" (Format: dd/MM/yyyy HH:mm:ss Z)               |
+| extensionIdToUpdate   | integer ($int64) | id de l'horaire exceptionnnelle à mettre à jour   |
+
+
+\* paramètre obligatoire 
+
+Réponse : Boolean (succès/échec de l'opération)
+Attention ne mettre un extensionIdToUpdate que dans le cas d'une modification 
+
+#### Réponses
+
+```application/json;charset=utf-8
+200 OK
+400 BAD REQUEST - Invalid input parameters
+401 UNAUTHORIZED
+403 FORBIDDEN
+429 TOO MANY REQUEST 
+500 INTERNAL SERVER ERROR
+```
+
+#### Résultat
+
+```JSON
+{
+ True/False
+}
+```
+#### Curl
+
+```JSON
+curl -X POST "http://localhost:8080/ocean/restapi/vieprivee/v1/horaireViePriveeExceptionnelleIndividu?customerId=1110000000&individuId=1110000004&description=NOEL&dateDebut=25%2F12%2F2027+00%3A00%3A00+Z&dateFin=26%2F12%2F2027+00%3A00%3A00+Z"
+```
+
+## Supprime des horaires de vie privée exceptionnelles d'un individu
+
+[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean/restapi/common/openapi/explorer#?route=delete-/vieprivee/v1/horairesViePriveeExceptionnellesIndividu)
+
+[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+
+### Définition {.tabset}
+
+#### Endpoint
+```
+delete /restapi/vieprivee/v1/horairesViePriveeRecurrentesIndividu
+```
+
+#### Paramètres de la requête
+
+| Nom          | Type             | Description                                                                     |
+| ------------ | ---------------- | ------------------------------------------------------------------------------- |
+| customerId  | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| horaireExtensionIds   | integer ($int64 | Identifiant de l'horaire exceptionnel correspond au champ Id dans le GET de horairesViePriveeExceptionnellesIndividu ->extension->id    |
+
+
+\* paramètre obligatoire 
+
+Réponse : 204 OK ou none
+#### Réponses
+
+```application/json;charset=utf-8
+204 OK
+400 BAD REQUEST - Invalid input parameters
+401 UNAUTHORIZED
+403 FORBIDDEN
+429 TOO MANY REQUEST 
+500 INTERNAL SERVER ERROR
+```
+
+#### Résultat
+
+```JSON
+{
+  
+}
+```
+#### Curl
+
+```JSON
+curl -X DELETE "http://localhost:8080/ocean/restapi/vieprivee/v1/horairesViePriveeExceptionnellesIndividu?customerId=1110000000&horaireExtensionIds=18524"\
+  -H "x-auth-token: 7fd67be08f1cca392dfd5d0cda4377eabae1cdacce54237538cd8aad3d6575396fe92cedc528389a37bbf1486cf56ee5eceee9f210b3c32f0a66d704bab8239b"
+}'
+```
+
 
 ## Gestion des demandes de passage vie privée/pro à posteriori
 
