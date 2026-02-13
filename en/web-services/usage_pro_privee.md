@@ -832,6 +832,8 @@ Consumptions (fuel, electricity)
 Distances and durations
 Costs
 Vehicle information (engine type, equipment)
+> You should not keep the mention of a criterion (with 0) if you do not want to filter by that criterion.
+{.is-info}
 
 #### Responses
 
