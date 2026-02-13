@@ -807,6 +807,8 @@ Consommations (carburant, électricité)
 Distances et durées
 Coûts
 Informations véhicules (motorisation, équipements)
+> Il ne faut pas garder la mention d'un critère (avec 0) si on ne veut pas filtrer sur ce critère.
+{.is-info}
 
 #### Réponses
 
