@@ -36,14 +36,16 @@ get /restapi/positions/search
 #### Paramètres de la requête
 
 
-| Nom             | Type              | Description                                                                                                                                                                |
-| --------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| byStorageDate   | boolean           | Permet de rechercher les positions sur les horodates de stockage et non pas les horodates des positions                            |
-| customerId      | integer ($int64)  | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                                                    |
-| endDate         | string            | La date de fin au format DateHeure ISO le plus courant ‘yyyy-MM-dd’T’HH:mm:ss.SSSXXX’ (exemple : “2000-10-30T01:30:00.000Z”). Ne doit pas être plus ancienne que 2 mois.          |
-| immatriculation | array (of string) | Liste des immatriculations des véhicules                                                                                           |
-| startDate       | string            | La date de début au format DateHeure ISO le plus courant ‘yyyy-MM-dd’T’HH:mm:ss.SSSXXX’ (exemple : “2000-10-30T01:30:00.000Z”). Ne doit pas être plus ancienne que 2 mois. |
-| withPrivacy     | boolean           | Indique si les positions doivent être renvoyées en VP. Valeur par défaut = true                                                    |
+| Nom                         | Type              | Description                                                                                                                                                                                                                                                                                                                     |
+| --------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| customerId                  | integer ($int64)  | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                                                                                                                                                                                                                                                 |
+| immatriculation             | array (of string) | Liste des immatriculations des véhicules                                                                                                                                                                                                                                                                                        |
+| startDate                   | string            | La date de début au format DateHeure ISO le plus courant ‘yyyy-MM-dd’T’HH:mm:ss.SSSXXX’ (exemple : “2000-10-30T01:30:00.000Z”). Ne doit pas être plus ancienne que 2 mois.<br>                                                                                                                                                  |
+| endDate                     | string            | La date de fin au format DateHeure ISO le plus courant ‘yyyy-MM-dd’T’HH:mm:ss.SSSXXX’ (exemple : “2000-10-30T01:30:00.000Z”). Ne doit pas être plus ancienne que 2 mois.                                                                                                                                                        |
+| byStorageDate               | boolean           | Permet de rechercher les positions sur les horodates de stockage et non pas les horodates des positions                                                                                                                                                                                                                         |
+| withPrivacy                 | boolean           | Indique si les positions doivent être renvoyées en VP. Valeur par défaut = true                                                                                                                                                                                                                                                 |
+| addressEnrichmentDisable    | boolean           | Si true, désactive entièrement l'enrichissement d'adresses (reverse geocoding).                                                                                                                                                                                                                                                 |
+| addressEnrichmentEtatMobile | boolean           | \|   \|   \|<br>\|---\|---\|<br>\|Filtre sur les états mobiles pour l'enrichissement d'adresses. Accepte les codes : STOPPED, STOP_ACTION, TRAVELING, WAITING, START_ACTION, ENGINE_UP, UNDEFINED, UNDEFINED_STATE, OUT_OF_ORDER, PRIVACY. Plusieurs valeurs possibles (paramètre répétable). Par défaut : aucun filtre.\|   \| |
 
 \* paramètre obligatoire 
 
@@ -54,6 +56,7 @@ get /restapi/positions/search
 401 UNAUTHORIZED
 403 FORBIDDEN
 404 NOT FOUND
+429 Too Many Requests
 ```
 
 #### Résultat
@@ -64,37 +67,43 @@ get /restapi/positions/search
     {
       "positions": [
         {
+          "date": "date",
+          "matriculeChauffeur": "matriculeChauffeur",
           "address": {
-            "address": "string",
-            "country": "string",
-            "postalCode": "string",
-            "town": "string"
+            "country": "country",
+            "address": "address",
+            "town": "town",
+            "postalCode": "postalCode"
           },
-          "adresseDeReference": "string",
-          "approximationMeter": 0,
-          "cap": 0,
-          "chauffeur": "string",
-          "consommationThermiqueL": 0,
-          "date": "string",
-          "distanceDepuisPosPrecMeter": 0,
-          "etat": "string",
-          "initialesChauffeur": "string",
           "latitudeY": 0,
+          "approximationMeter": 0,
+          "consommationThermiqueL": {},
+          "chauffeur": "chauffeur",
+          "etat": "etat",
+          "vitesseKmh": 0,
+          "distanceDepuisPosPrecMeter": 0,
+          "cap": 0,
+          "typePoi": "typePoi",
           "longitudeX": 0,
-          "matriculeChauffeur": "string",
-          "typePoi": "string",
-          "vitesseKmh": 0
+          "initialesChauffeur": "initialesChauffeur",
+          "adresseDeReference": "adresseDeReference",
+          "timestamp": 0
         }
       ],
       "vehicle": {
-        "descriptionVehicule": "string",
+        "typeMotorisationEnergie": "MONO_ELECTRIQUE",
         "idVehicule": 0,
-        "immatriculation": "string",
-        "typeMotorisationEnergie": "MONO_ELECTRIQUE"
+        "immatriculation": "immatriculation",
+        "descriptionVehicule": "descriptionVehicule"
       }
     }
   ]
 }
+```
+#### Curl
+
+```application/json;charset=utf-8
+curl -X GET "https:/https://v3.oceansystem.com/ocean/restapi/positions/search?immatriculation=AA-123-ZZ&startDate=2026-01-10T01%3A30%3A00.000Z&endDate=2026-01-17T01%3A30%3A00.000Z&byStorageDate=false&withPrivacy=false&addressEnrichmentDisabled=true"
 ```
 
 ## Récupérer les positions d'un ou plusieurs véhicules entre deux dates 
@@ -134,6 +143,7 @@ get /restapi/positionsVehicles/betweenDate
 401 UNAUTHORIZED
 403 FORBIDDEN
 404 NOT FOUND
+429 Too Many Requests
 ```
 
 #### Résultat

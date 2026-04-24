@@ -34,19 +34,21 @@ This API allows retrieval of:
 get /restapi/positions/search
 ```
 
-#### Request Parameters
+#### #### Request Parameters
 
+| Name                        | Type              | Description                                                                                                                                                                                                                                                                                                                     |
+| --------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| customerId                  | integer ($int64)  | Customer identifier. Required only for a multi-customer user                                                                                                                                                                                                                                                                    |
+| immatriculation             | array (of string) | List of vehicle registration numbers                                                                                                                                                                                                                                                                                            |
+| startDate                   | string            | The start date in the most common ISO DateTime format 'yyyy-MM-dd'T'HH:mm:ss.SSSXXX' (example: "2000-10-30T01:30:00.000Z"). Must not be older than 2 months.<br>                                                                                                                                                                |
+| endDate                     | string            | The end date in the most common ISO DateTime format 'yyyy-MM-dd'T'HH:mm:ss.SSSXXX' (example: "2000-10-30T01:30:00.000Z"). Must not be older than 2 months.                                                                                                                                                                      |
+| byStorageDate               | boolean           | Allows searching positions based on storage timestamps rather than position timestamps                                                                                                                                                                                                                                          |
+| withPrivacy                 | boolean           | Indicates whether positions should be returned in Privacy Mode. Default value = true                                                                                                                                                                                                                                            |
+| addressEnrichmentDisable    | boolean           | If true, completely disables address enrichment (reverse geocoding).                                                                                                                                                                                                                                                            |
+| addressEnrichmentEtatMobile | boolean           | \|   \|   \|<br>\|---\|---\|<br>\|Filter on mobile states for address enrichment. Accepts the following codes: STOPPED, STOP_ACTION, TRAVELING, WAITING, START_ACTION, ENGINE_UP, UNDEFINED, UNDEFINED_STATE, OUT_OF_ORDER, PRIVACY. Multiple values allowed (repeatable parameter). Default: no filter.\|   \| |
+|                             |                   |                                                                                                                                                                                                                                                                                                                                 |
 
-|| Name            | Type              | Description                                                                                                                      |
-|------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| byStorageDate    | boolean           | Allows searching positions based on storage timestamps instead of position timestamps.                                           |
-| customerId       | integer ($int64)  | Client ID. Mandatory only for multi-client users.                                                                                |
-| endDate          | string            | End date in ISO DateTime format: 'yyyy-MM-dd'T'HH:mm:ss.SSSXXX' (e.g., "2000-10-30T01:30:00.000Z"). Must not be older than 2 months.                                    |
-| immatriculation  | array (of string) | List of vehicle registrations.                                                                                                   |
-| startDate        | string            | Start date in ISO DateTime format: 'yyyy-MM-dd'T'HH:mm:ss.SSSXXX' (e.g., "2000-10-30T01:30:00.000Z"). Must not be older than 2 months. |
-| withPrivacy      | boolean           | Indicates if positions should be returned in VP (privacy mode). Default value = true.                                                                                             |
-
-* mandatory parameter
+\* rmandatory parameter 
 
 
 #### Responses
@@ -56,12 +58,13 @@ get /restapi/positions/search
 401 UNAUTHORIZED
 403 FORBIDDEN
 404 NOT FOUND
+429 Too Many Requests
 ```
 
 #### Résultat
 
 ```JSON
-{
+
   "positionsVehicles": [
     {
       "positions": [
@@ -97,6 +100,11 @@ get /restapi/positions/search
     }
   ]
 }
+```
+#### Curl
+
+```application/json;charset=utf-8
+curl -X GET "https:/https://v3.oceansystem.com/ocean/restapi/positions/search?immatriculation=AA-123-ZZ&startDate=2026-01-10T01%3A30%3A00.000Z&endDate=2026-01-17T01%3A30%3A00.000Z&byStorageDate=false&withPrivacy=false&addressEnrichmentDisabled=true"
 ```
 
 ## Retrieve the positions of one or more vehicles between two dates
