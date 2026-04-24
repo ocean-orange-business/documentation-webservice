@@ -16,6 +16,7 @@ Cette API permet de récupérer :
 - Les informations de la fiche matériel (nom, référence, marque, modèle, scénario de fonctionnement, message paramétré pour l’appui bouton, numéro de série de la balise, …),
 - Les derniers évènements (pour les véhicules et les matériels),
 - Les entités du client.
+- Les affectations du chauffeur, son historique
 
 ## Récupérer les entités d’un client
 
@@ -235,7 +236,7 @@ get /restapi/vehicule_engin/vehicles
 ]
 ```
 
-## Récupérer les données des véhicules les plus proches
+## Récupérer une affectation (par son id)
 
 [Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
@@ -243,27 +244,102 @@ get /restapi/vehicule_engin/vehicles
 
 #### Endpoint
 ```
-post /restapi/vehicule_engin/nearestVehicles
+get /affectations_chauffeurs/get
 ```
 
 #### Paramètres de la requête
 
-| Nom             | Type            | Description                               |
-| --------------- | --------------- | ----------------------------------------- |
-| customerId      | integer ($int64)| Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients                     |
-| radius          | integer ($int32)| Rayon de recherche                        |
-| latitude        | double          | Latitude du point de départ de recherche  |
-| longitude       | double          | Longitude du point de départ de recherche |
-| resultsLimit    | integer ($int32)| Permet de spécifier le nombre de résultats à renvoyer pour le computeMode PAR_ROUTE (valeur comprise entre 1 et 10)    |
+| Nom           | Type             | Description                                                                     |
+| ------------- | ---------------- | ------------------------------------------------------------------------------- |
+| customerId    | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| idAffectation | integer ($int64) | Identifiant de l'affectation vehicule chauffeur                                 |
+#### Réponses
 
-#### Corps de la requête
+```application/json;charset=utf-8
+200 OK
+201 Created
+401 Unauthorized
+403 Forbidden
+429 Too Many Requests
+500 Internal Server Error
+```
+
+#### Résultat
 
 ```JSON
 {
-  "computeMode":"VOL_OISEAU ou PAR_ROUTE",
-  "radiusUnit":"string"
+  "vehicule": {
+    "typeMotorisation": "MONO",
+    "categorie": "UNDEFINED",
+    "nomImage": "nomImage",
+    "odirectMode": "ODIRECT_UNIVERSEL",
+    "description": "description",
+    "suppressionLogique": false,
+    "privacyEnabled": false,
+    "geolocalise": false,
+    "boutonEvenementEnabled": false,
+    "libelleTypeAsset": {
+      "categorie": "UNDEFINED",
+      "ordre": 0,
+      "libelle": "libelle",
+      "nomIcone": "nomIcone",
+      "id": 0
+    },
+    "dispositifIdentifiant": false,
+    "immobilisationCablee": false,
+    "id": 0,
+    "dioEnabled": false,
+    "geosecuriteEnabled": false,
+    "detectionPorteEnabled": false
+  },
+  "chauffeur": {
+    "nomInd": "nomInd",
+    "gsm": "gsm",
+    "matriculeInd": "matriculeInd",
+    "initialesInd": "initialesInd",
+    "prenomInd": "prenomInd",
+    "id": 0,
+    "email": "email",
+    "suppressionLogique": false,
+    "idCivilite": 0
+  },
+  "chauffeurVehicule": {
+    "isVehiculeFonction": false,
+    "idVehicule": 0,
+    "dateDebut": "2026-04-22T15:39:15.262Z",
+    "idIndividu": 0,
+    "id": 0,
+    "dateFin": "2026-04-22T15:39:15.262Z"
+  }
 }
 ```
+
+#### Curl
+
+```application/json;charset=utf-8
+curl -X GET "https:/https://v3.oceansystem.com/ocean/restapi/affectations_chauffeurs/get?idAffectation=100001"
+```
+
+
+## Récupérer l'historique des affectations
+
+[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+
+### Définition {.tabset}
+
+#### Endpoint
+```
+get /affectations_chauffeurs/historique
+```
+
+#### Paramètres de la requête
+
+| Nom        | Type             | Description                                                                     |
+| ---------- | ---------------- | ------------------------------------------------------------------------------- |
+| customerId | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+| idVehicule | integer ($int64) | Identifiant du véhicule                                                         |
+| idIndividu | integer ($int64) | Identifiant de l'affectation vehicule chauffeur                                 |
+|            |                  |                                                                                 |
 
 #### Réponses
 
@@ -272,7 +348,8 @@ post /restapi/vehicule_engin/nearestVehicles
 201 Created
 401 Unauthorized
 403 Forbidden
-404 Not Found
+429 Too Many Requests
+500 Internal Server Error
 ```
 
 #### Résultat
@@ -280,137 +357,55 @@ post /restapi/vehicule_engin/nearestVehicles
 ```JSON
 [
   {
-    "address": {
-      "address": "string",
-      "cap": 0,
-      "closestPoi": {
-        "adressePoi": "string",
-        "codePostalPoi": "string",
-        "complementAdresse1Poi": "string",
-        "complementAdresse2Poi": "string",
-        "denominationPoi": "string",
-        "etatRegionPoi": "string",
-        "geom": "string",
-        "groupePoi": {
-          "id": 0,
-          "libelle": "string"
-        },
-        "id": 0,
-        "idPays": 0,
-        "latPoi": 0,
-        "libelleTypePoi": {
-          "color": "string",
-          "i18nKey": "string",
-          "id": 0,
-          "libelle": "string",
-          "nomImage": "string",
-          "ordre": 0,
-          "type": "UNDEFINED"
-        },
-        "longPoi": 0,
-        "propSpecifiqueDTO": {
-          "id": 0,
-          "idClient": 0,
-          "idObjetRef": 0,
-          "proprietesSpecifiquesClient": {
-            "psValues": {
-              "additionalProp1": [
-                "string"
-              ],
-              "additionalProp2": [
-                "string"
-              ],
-              "additionalProp3": [
-                "string"
-              ]
-            }
-          },
-          "typeObjet": "CLIENT"
-        },
-        "rayonPoi": 0,
-        "suppressionLogique": true,
-        "villePoi": "string"
-      },
-      "countryCode": 0,
-      "gpsCalle": true,
-      "latitude": 0,
-      "longitude": 0,
-      "postCode": "string",
-      "precision": 0,
-      "town": "string"
-    },
-    "distance": 0,
-    "driver": {
-      "affectedEtape": {
-        "codeExploitant": "string",
-        "creation": "2024-12-18T11:05:38.972Z",
-        "debut": "2024-12-18T11:05:38.972Z",
-        "idEtape": 0,
-        "modeAffectationEtape": "AUTO",
-        "ndid": "string",
-        "numeroEmbarque": 0,
-        "typeAffectationEtape": "CHAUFFEUR"
-      },
-      "dispositif": {
-        "color": 0,
-        "id": 0,
-        "idClient": 0,
-        "idTypeDispositifIdentifiant": 0,
-        "numeroCleClient": 0,
-        "numeroCompletDid": "string",
-        "numeroDid": "string"
-      },
-      "id": 0,
-      "identEnabled": true,
-      "individu": {
-        "email": "string",
-        "gsm": "string",
-        "id": 0,
-        "idCivilite": 0,
-        "initialesInd": "string",
-        "matriculeInd": "string",
-        "nomInd": "string",
-        "prenomInd": "string",
-        "suppressionLogique": true
-      },
-      "ndidLong": "string",
-      "relevant": true
-    },
-    "duration": 0,
-    "eta": "2024-12-18T11:05:38.972Z",
-    "etatMobile": "UNDEFINED",
-    "gmtPos": "2024-12-18T11:05:38.972Z",
-    "gpsCale": true,
-    "group": {
-      "descriptionGrp": "string",
-      "id": 0,
-      "suppressionLogique": true
-    },
-    "immobilisationState": "LOCKED",
-    "time": 0,
-    "vehicle": {
+    "vehicule": {
+      "typeMotorisation": "MONO",
       "categorie": "UNDEFINED",
-      "description": "string",
-      "detectionPorteEnabled": true,
-      "dioEnabled": true,
-      "dispositifIdentifiant": true,
-      "geolocalise": true,
-      "geosecuriteEnabled": true,
-      "id": 0,
-      "immobilisationCablee": true,
+      "nomImage": "nomImage",
+      "odirectMode": "ODIRECT_UNIVERSEL",
+      "description": "description",
+      "suppressionLogique": false,
+      "privacyEnabled": false,
+      "geolocalise": false,
+      "boutonEvenementEnabled": false,
       "libelleTypeAsset": {
         "categorie": "UNDEFINED",
-        "id": 0,
-        "libelle": "string",
-        "nomIcone": "string",
-        "ordre": 0
+        "ordre": 0,
+        "libelle": "libelle",
+        "nomIcone": "nomIcone",
+        "id": 0
       },
-      "nomImage": "string",
-      "odirectMode": "ODIRECT_UNIVERSEL",
-      "privacyEnabled": true,
-      "suppressionLogique": true,
-      "typeMotorisation": "MONO"
+      "dispositifIdentifiant": false,
+      "immobilisationCablee": false,
+      "id": 0,
+      "dioEnabled": false,
+      "geosecuriteEnabled": false,
+      "detectionPorteEnabled": false
+    },
+    "chauffeur": {
+      "nomInd": "nomInd",
+      "gsm": "gsm",
+      "matriculeInd": "matriculeInd",
+      "initialesInd": "initialesInd",
+      "prenomInd": "prenomInd",
+      "id": 0,
+      "email": "email",
+      "suppressionLogique": false,
+      "idCivilite": 0
+    },
+    "chauffeurVehicule": {
+      "isVehiculeFonction": false,
+      "idVehicule": 0,
+      "dateDebut": "2026-04-22T16:01:00.201Z",
+      "idIndividu": 0,
+      "id": 0,
+      "dateFin": "2026-04-22T16:01:00.201Z"
     }
   }
 ]
+```
+
+#### Curl
+
+```application/json;charset=utf-8
+curl -X GET "https:/https://v3.oceansystem.com/ocean/restapi/affectations_chauffeurs/historique?customerId=1110000000&idVehicule=10&idIndividu=1110"
 ```
