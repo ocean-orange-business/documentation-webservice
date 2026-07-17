@@ -27,3 +27,5 @@ A detailed explanation of each web service is provided along with the prerequisi
 ## 7. [Auxiliary Equipment](web-services/auxiliary-equipment.md)
 
 ## 8. [Eco-Driving](web-services/eco-driving.md)
+
+## 9. [Car Sharing (Autopartage)](web-services/autopartage.md)

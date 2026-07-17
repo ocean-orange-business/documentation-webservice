@@ -32,3 +32,5 @@ Une explication détaillée de chaque web service est fournie ainsi que les pré
 
 ## 10. [Chronotachygraphe](web-services/chronotachygraphe.md)
 
+## 11. [Autopartage](web-services/autopartage.md)
+
