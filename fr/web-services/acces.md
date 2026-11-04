@@ -716,6 +716,156 @@ get /restapi/evenement/lastEvent
 }
 ```
 
+## Récupérer les événements sur une période
+
+[Authentification préalable nécessaire](#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+
+[Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/)
+
+Contrairement à `lastEvent` (qui ne renvoie que le **dernier** événement de chaque véhicule), cet endpoint renvoie **l'historique** des événements sur la période demandée, trié du plus récent au plus ancien.
+
+### Définition {.tabset}
+
+#### Endpoint
+
+```
+get /restapi/evenement/events
+```
+
+(alias : `get /restapi/evenement/list`)
+
+#### Paramètres de la requête
+
+| Nom              | Type             | Description                                                                                                          |
+| ---------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------- |
+| customerId *     | integer ($int64) | Identifiant du client                                                                                                |
+| dateDebut *      | string           | La date de début doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API. |
+| dateFin *        | string           | La date de fin doit être au format UTC : "dd/MM/yyyy HH:mm:ss Z". Seul ce format est pris en compte par notre API.   |
+| vehiculesIds     | array (of int)   | Identifiants des véhicules. Si absent, tous les véhicules accessibles à l'utilisateur.                               |
+| entitiesIds      | array (of int)   | Identifiants des entités                                                                                             |
+| typeEvenements   | array (of string)| Types d'événements à renvoyer, par nom (voir ci-dessous). Si absent, tous les types autorisés pour l'utilisateur.    |
+
+\* paramètre obligatoire
+
+Exemple : `get /restapi/evenement/events?customerId=123&dateDebut=22/10/2026 06:00:00 +0000&dateFin=22/10/2026 07:00:00 +0000&typeEvenements=CHOC_DETECTE`
+
+#### Types d'événements (`typeEvenements`)
+
+Valeurs fréquemment utilisées (liste non exhaustive) :
+
+| Valeur                       | Description                                              |
+| ---------------------------- | -------------------------------------------------------- |
+| `CHOC_DETECTE`               | Choc détecté                                             |
+| `SUSPICION_ACCIDENT`         | Suspicion d'accident (suite à un choc)                   |
+| `ALERTE_DECLENCHEMENT_AIRBAG`| Déclenchement d'airbag                                   |
+| `CAN_BUS_DEFAUT`             | Défaut remonté par le CAN bus (voir ci-dessous)          |
+| `CAN_BUS_PRISE_CARBURANT`    | Prise de carburant                                       |
+| `CAN_BUS_VOL_CARBURANT`      | Vol de carburant                                         |
+| `ALIM_EXTERNE_BRANCHEE`      | Alimentation externe branchée                            |
+| `ALIM_EXTERNE_DEBRANCHEE`    | Alimentation externe débranchée                          |
+| `BATTERIE_FAIBLE`            | Batterie faible                                          |
+| `DEPASSEMENT_VITESSE`        | Dépassement de vitesse                                   |
+| `ENTREE_ZONE_GEOFENCING`     | Entrée dans une zone de géofencing                       |
+| `SORTIE_ZONE_GEOFENCING`     | Sortie d'une zone de géofencing                          |
+
+Un nom inconnu provoque une erreur HTTP 500 (`java.lang.IllegalArgumentException`). Le champ `typeEvenementODirectDTO` n'est renseigné que pour les événements O-Direct (voir ci-dessous) ; il vaut `null` pour les autres, par exemple `CHOC_DETECTE`.
+
+#### Événements O-Direct (dont la ceinture)
+
+Les alertes remontées par le CAN bus (par exemple « ceinture non bouclée ») sont renvoyées avec le type `CAN_BUS_DEFAUT`. Leur nature précise est portée par le champ `typeEvenementODirectDTO.typeEvenementOdirectDTO` (`numeroEve` et `code`) : il n'existe pas de valeur de `typeEvenements` par alerte, il faut donc demander `typeEvenements=CAN_BUS_DEFAUT` puis filtrer côté client.
+
+| numeroEve | code                       | Description               |
+| --------- | -------------------------- | ------------------------- |
+| 123       | `ALERTE_CEINTURE_SECURITE` | Ceinture non bouclée      |
+
+La liste des types O-Direct accessibles à l'utilisateur est disponible via `get /restapi/evenement/get-odirect-preferences`.
+
+> **Volumétrie :** selon le client, le nombre d'événements peut être très élevé (plusieurs centaines d'alertes par heure pour une flotte importante). Privilégier des périodes courtes (une heure à une journée), ou découper par `vehiculesIds`.
+
+#### Réponses
+
+```application/json;charset=utf-8
+200 OK
+401 Unauthorized
+403 Forbidden
+404 Not Found
+```
+
+L'accès à ces données nécessite l'une des fonctionnalités d'analyse des événements sur le compte utilisé.
+
+#### Résultat
+
+Tableau d'événements (extrait ; les champs `address`, `entite` et `vehicleEngin` sont identiques à ceux décrits pour `lastEvent`). Les valeurs ci-dessous sont fictives.
+
+```JSON
+[
+  {
+    "id": "string",
+    "date": "2026-10-22T06:12:41.000Z",
+    "dateDebut": "2026-10-22T06:12:41.000Z",
+    "dateFin": null,
+    "typeEvenement": "CAN_BUS_DEFAUT",
+    "eventState": "PUNCTUAL",
+    "evenementLibelle": "string",
+    "reliable": true,
+    "typeEvenementODirectDTO": {
+      "classificationEvenementDTO": {
+        "code": "S",
+        "descriptioni18nKey": "string",
+        "id": 0
+      },
+      "detailsEvenementLightDTO": [],
+      "id": 0,
+      "typeEvenementOdirectDTO": {
+        "code": "ALERTE_CEINTURE_SECURITE",
+        "descriptionI18NKey": "evt_alerte_ceinture_securite",
+        "numeroEve": 123,
+        "temporalType": "PUNCTUAL"
+      }
+    },
+    "vehicleEngin": {
+      "id": 0,
+      "description": "string"
+    }
+  }
+]
+```
+
+#### Curl
+
+Événements de type choc sur une journée :
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/events" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123" \
+  --data-urlencode "dateDebut=22/10/2026 00:00:00 +0000" \
+  --data-urlencode "dateFin=23/10/2026 00:00:00 +0000" \
+  --data-urlencode "typeEvenements=CHOC_DETECTE"
+```
+
+Alertes « ceinture non bouclée » sur une heure (défauts CAN bus, puis filtre sur `numeroEve` 123) :
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/events" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123" \
+  --data-urlencode "dateDebut=22/10/2026 06:00:00 +0000" \
+  --data-urlencode "dateFin=22/10/2026 07:00:00 +0000" \
+  --data-urlencode "typeEvenements=CAN_BUS_DEFAUT" \
+  | jq '[.[] | select(.typeEvenementODirectDTO.typeEvenementOdirectDTO.numeroEve == 123)]'
+```
+
+> `jq` n'est utilisé ici que pour filtrer la réponse côté client ; l'API ne propose pas de filtre par alerte.
+
+Liste des types O-Direct accessibles à l'utilisateur (`numeroEve`, `code`) :
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/get-odirect-preferences" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123"
+```
+
 ## Récupérer les données des matériels
 
 [Authentification préalable nécessaire](#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
