@@ -16,7 +16,8 @@ Cette API permet de récupérer :
 - Les positions de tous les véhicules autorisés pour l’utilisateur,
 - Les dernières positions des véhicules / matériels,
 - Les positions des véhicules / matériels entre 2 dates,
-- La fiche journalière d’un véhicule pour une date donnée.
+- La fiche journalière d’un véhicule pour une date donnée,
+- La fiche journalière normalisée de plusieurs véhicules pour une période donnée.
 
 
 ## Récupérer les positions d'un ou plusieurs véhicules entre deux dates : 2
@@ -103,7 +104,8 @@ get /restapi/positions/search
 #### Curl
 
 ```application/json;charset=utf-8
-curl -X GET "https:/https://v3.oceansystem.com/ocean/restapi/positions/search?immatriculation=AA-123-ZZ&startDate=2026-01-10T01%3A30%3A00.000Z&endDate=2026-01-17T01%3A30%3A00.000Z&byStorageDate=false&withPrivacy=false&addressEnrichmentDisabled=true"
+curl -X GET "https://v3.oceansystem.com/ocean/restapi/positions/search?immatriculation=AA-123-ZZ&startDate=2026-01-10T01%3A30%3A00.000Z&endDate=2026-01-17T01%3A30%3A00.000Z&byStorageDate=false&withPrivacy=false&addressEnrichmentDisabled=true" \
+  -H "x-auth-token: <VOTRE_TOKEN>"
 ```
 
 ## Récupérer les positions d'un ou plusieurs véhicules entre deux dates 
@@ -187,6 +189,13 @@ get /restapi/positionsVehicles/betweenDate
 }
 ```
 
+#### Curl
+
+```JSON
+curl -X GET "https://v3.oceansystem.com/ocean/restapi/positionsVehicles/betweenDate?immatsVeh=AA-123-ZZ&immatsVeh=BB-456-ZZ&login=<LOGIN>&password=<MOT_DE_PASSE>&dateDebut=01%2F11%2F2026+00%3A00%3A00+Z&dateFin=02%2F11%2F2026+00%3A00%3A00+Z&parDateStockage=false" \
+  -H "x-auth-token: <VOTRE_TOKEN>"
+```
+
 ## Récupérer la dernière position d'un ou plusieurs véhicules
 
 [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/obtention-positions-vehicules/getPosAndStatusVehUsingGET)
@@ -221,6 +230,13 @@ get /restapi/positionsVehicles/lastPosition
 401 UNAUTHORIZED
 403 FORBIDDEN
 404 NOT FOUND
+```
+
+#### Curl
+
+```JSON
+curl -X GET "https://v3.oceansystem.com/ocean/restapi/positionsVehicles/lastPosition?immatsVeh=AA-123-ZZ&immatsVeh=BB-456-ZZ&login=<LOGIN>&password=<MOT_DE_PASSE>" \
+  -H "x-auth-token: <VOTRE_TOKEN>"
 ```
 
 ## Récupérer tous les véhicules autorisés pour l'utilisateur avec leurs positions
@@ -299,6 +315,13 @@ get /restapi/mobility/v1/vehiclePositions
 }
 ```
 
+#### Curl
+
+```JSON
+curl -X GET "https://v3.oceansystem.com/ocean/restapi/mobility/v1/vehiclePositions?customerId=1110000000" \
+  -H "x-auth-token: <VOTRE_TOKEN>"
+```
+
 ## Récupérer le trajet d’un véhicule
 
 [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/mobility/getTrajetUsingGET)
@@ -342,6 +365,13 @@ get /restapi/mobility/v1/trajet
     }
   ]
 }
+```
+
+#### Curl
+
+```JSON
+curl -X GET "https://v3.oceansystem.com/ocean/restapi/mobility/v1/trajet?customerId=1110000000&travelId=123456" \
+  -H "x-auth-token: <VOTRE_TOKEN>"
 ```
 
 ## Récupérer la fiche journalière d’un véhicule pour une date donnée
@@ -443,6 +473,13 @@ get /restapi/mobility/v1/ficheJour
   ]
 }
 *Valeur possibe du champ etat :  « start D » / « waiting T » / « traveling R » / « stop A»
+```
+
+#### Curl
+
+```JSON
+curl -X GET "https://v3.oceansystem.com/ocean/restapi/mobility/v1/ficheJour?customerId=1110000000&vehId=12345&date=03%2F11%2F2026" \
+  -H "x-auth-token: <VOTRE_TOKEN>"
 ```
 
 ## Récupérer les positions d'un ou plusieurs matériels entre deux dates
@@ -577,6 +614,213 @@ get /restapi/materiel/positionBetween
 ]
 ```
 
+#### Curl
+
+```JSON
+curl -X GET "https://v3.oceansystem.com/ocean/restapi/materiel/positionBetween?customerId=1110000000&materielIds=2001&materielIds=2002&dateDebut=03%2F11%2F2026+00%3A00%3A00+Z&dateFin=03%2F11%2F2026+23%3A59%3A59+Z" \
+  -H "x-auth-token: <VOTRE_TOKEN>"
+```
+
+## Récupérer la fiche journalière normalisée des véhicules pour la période donnée
+
+[Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
+
+Contrairement à [la fiche journalière d'un véhicule](#récupérer-la-fiche-journalière-d’un-véhicule-pour-une-date-donnée), cette version renvoie **une ligne par étape** (`rows`). Les entités qui se répètent (entités, véhicules, conducteurs, POI) ne sont pas dupliquées dans chaque ligne : elles sont sorties dans des index (`entitiesById`, `vehiclesById`, `individusById`, `poisById`), et chaque ligne y renvoie par son identifiant. Les totaux ne sont pas fournis : ils se recalculent à partir des lignes.
+
+> La demande est limitée à **50 véhicules × jours** (jours calendaires, bornes incluses). Exemple : 1 véhicule sur 50 jours, ou 10 véhicules sur 5 jours. Au-delà, l'API répond `400 BAD REQUEST`.
+{.is-warning}
+
+### Définition {.tabset}
+
+#### Endpoint
+
+```
+post /restapi/vehicule_engin/v2/fichesJoursVehicules
+```
+
+#### Paramètres de la requête
+
+| Nom          | Type             | Description                                                                     |
+| ------------ | ---------------- | ------------------------------------------------------------------------------- |
+| customerId * | integer ($int64) | Identifiant du client. Obligatoire uniquement pour un utilisateur multi-clients |
+
+\* paramètre obligatoire
+
+#### Corps de la requête
+
+```JSON
+{
+  "periode": {
+    "debut": "2026-11-01T00:00:00.000Z",
+    "fin": "2026-11-03T23:59:59.999Z"
+  },
+  "vehicleIds": [12345, 12346],
+  "criteria": {
+    "withDriver": true,
+    "withPoi": true,
+    "withAddress": true
+  }
+}
+```
+
+| Nom           | Type                   | Description                                                                                                                                                         |
+| ------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| periode *     | object                 | Période demandée. `debut` et `fin` sont obligatoires, au format ISO-8601 (ex. `"2026-11-01T00:00:00.000Z"`) ou en timestamp epoch en millisecondes.               |
+| vehicleIds *  | array (of int)         | Identifiants des véhicules / engins. Au moins un identifiant, aucun nul. L'utilisateur doit avoir les droits sur chacun d'eux.                                      |
+| criteria      | object                 | Critères de la fiche journalière (facultatif). Les champs optionnels des lignes ne sont renseignés que si le critère correspondant est demandé.                     |
+
+\* paramètre obligatoire
+
+**Critères les plus utiles (`criteria`)** : tous sont des booléens, `false` par défaut.
+
+* `withDriver` : renseigne le conducteur de chaque étape (`individuId` et `individusById`).
+* `withPoi` : renseigne le POI le plus proche du début et de la fin de l'étape (`startPoiId`, `endPoiId` et `poisById`).
+* `withAddress` : renseigne les adresses de début et de fin (`startAddress`, `endAddress`).
+* `withAffectationManuelle` : renseigne les affectations manuelles et par badge (`affectation`).
+* `withBadg` : renseigne les informations de badgeage (`ndidLong`).
+* `withUnifiedEvent` : renseigne les évènements de l'étape (`evenement`).
+* `withRealConsumption` : renseigne la consommation réelle (`consommation`).
+* `withCapacity` : renseigne la capacité de batterie (`capaciteBatterie`).
+* `withChargeElectrique` : renseigne les données de charge d'un véhicule électrique (`chargeElectrique`).
+* `withNoteEcoConduite` : calcule une note d'écoconduite par trajet (`ecoConduite`).
+* `minDurationInSec` / `maxDurationInSec` : ne garde que les étapes dont la durée est supérieure / inférieure à la valeur donnée (en secondes).
+
+#### Réponses
+
+```application/json;charset=utf-8
+200 OK
+400 BAD REQUEST
+401 UNAUTHORIZED
+403 FORBIDDEN
+404 NOT FOUND
+```
+
+#### Résultat
+
+```JSON
+{
+  "rows": [
+    {
+      "id": 0,
+      "date": "string",
+      "entityId": 0,
+      "vehicleId": 0,
+      "type": "T",
+      "startTime": "string",
+      "endTime": "string",
+      "durationInSec": 0,
+      "distanceInMeters": 0,
+      "inProgress": false,
+      "anomalyType": "NONE",
+      "etatMobile": "string",
+      "etapeSource": "string",
+      "individuId": 0,
+      "ndidLong": "string",
+      "affectation": {},
+      "startAddress": {
+        "address": "string",
+        "town": "string",
+        "postCode": "string",
+        "countryCode": 0,
+        "precision": 0,
+        "gpsCalle": true,
+        "latitude": 0,
+        "longitude": 0,
+        "cap": 0
+      },
+      "endAddress": {
+        "address": "string",
+        "town": "string",
+        "postCode": "string",
+        "countryCode": 0,
+        "precision": 0,
+        "gpsCalle": true,
+        "latitude": 0,
+        "longitude": 0,
+        "cap": 0
+      },
+      "startPoiId": 0,
+      "endPoiId": 0,
+      "evenement": {},
+      "consommation": 0,
+      "capaciteBatterie": {},
+      "chargeElectrique": {},
+      "startLevelValue": 0,
+      "stopLevelValue": 0,
+      "ecoConduite": {}
+    }
+  ],
+  "entitiesById": {
+    "0": {
+      "id": 0,
+      "nom": "string",
+      "suppressionLogique": false
+    }
+  },
+  "vehiclesById": {
+    "0": {
+      "id": 0,
+      "categorie": "string",
+      "description": "string",
+      "geolocalise": true,
+      "typeMotorisation": "string"
+    }
+  },
+  "individusById": {
+    "0": {
+      "id": 0,
+      "nomInd": "string",
+      "prenomInd": "string",
+      "matriculeInd": "string",
+      "gsm": "string",
+      "email": "string"
+    }
+  },
+  "poisById": {
+    "0": {
+      "id": 0,
+      "denominationPoi": "string",
+      "adressePoi": "string",
+      "codePostalPoi": "string",
+      "villePoi": "string",
+      "latPoi": 0,
+      "longPoi": 0,
+      "rayonPoi": 0
+    }
+  }
+}
+```
+
+#### Curl
+
+```JSON
+curl -X POST "https://v3.oceansystem.com/ocean/restapi/vehicule_engin/v2/fichesJoursVehicules?customerId=1110000000" \
+  -H "content-type: application/json" \
+  -H "x-auth-token: <VOTRE_TOKEN>" \
+  -d '{
+    "periode": {
+      "debut": "2026-11-01T00:00:00.000Z",
+      "fin": "2026-11-03T23:59:59.999Z"
+    },
+    "vehicleIds": [12345, 12346],
+    "criteria": {
+      "withDriver": true,
+      "withPoi": true,
+      "withAddress": true
+    }
+  }'
+```
+
+**Description des champs d'une ligne (`rows`)** :
+
+* `date` : jour de rattachement de l'étape, au format "dd/MM/yyyy".
+* `entityId`, `vehicleId`, `individuId`, `startPoiId`, `endPoiId` : identifiants à résoudre dans `entitiesById`, `vehiclesById`, `individusById` et `poisById`.
+* `type` : type d'étape (trajet, arrêt, …).
+* `durationInSec` / `distanceInMeters` : durée de l'étape en secondes et distance parcourue en mètres.
+* `inProgress` : `true` si l'étape est encore en cours.
+* `anomalyType` : incohérence temporelle de l'étape. Elle ne concerne que les dates, jamais la consommation ni la distance.
+* Les champs `individuId`, `ndidLong`, `affectation`, `startAddress`, `endAddress`, `startPoiId`, `endPoiId`, `evenement`, `consommation`, `capaciteBatterie`, `chargeElectrique`, `startLevelValue`, `stopLevelValue` et `ecoConduite` sont absents de la réponse tant que le critère correspondant n'a pas été demandé.
+
 ## Récupérer la dernière position d'un ou plusieurs matériels
 
 [Documentation supplémentaire sur SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/materiel/getMaterialLastPositionUsingGET)
@@ -708,4 +952,11 @@ get /restapi/materiel/lastPosition
     ]
   }
 ]
+```
+
+#### Curl
+
+```JSON
+curl -X GET "https://v3.oceansystem.com/ocean/restapi/materiel/lastPosition?customerId=1110000000&materielIds=2001&materielIds=2002" \
+  -H "x-auth-token: <VOTRE_TOKEN>"
 ```
