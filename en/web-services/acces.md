@@ -573,6 +573,156 @@ get /restapi/evenement/lastEvent
 }
 ```
 
+## Retrieve Events over a Period
+
+[Prior authentication required](#authentication-via-post-request) and pass the token in the **X-AUTH-TOKEN** header
+
+[Additional documentation on SWAGGER](https://v3.oceansystem.com/ocean-3.0.0/apidocs/#/)
+
+Unlike `lastEvent` (which only returns the **latest** event of each vehicle), this endpoint returns the **history** of events over the requested period, sorted from most recent to oldest.
+
+### Definition {.tabset}
+
+#### Endpoint
+
+```
+get /restapi/evenement/events
+```
+
+(alias: `get /restapi/evenement/list`)
+
+#### Request parameters
+
+| Name             | Type              | Description                                                                                                       |
+| ---------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------- |
+| customerId *     | integer ($int64)  | Customer identifier                                                                                               |
+| dateDebut *      | string            | Start date, UTC, format "dd/MM/yyyy HH:mm:ss Z". Only this format is accepted by our API.                         |
+| dateFin *        | string            | End date, UTC, format "dd/MM/yyyy HH:mm:ss Z". Only this format is accepted by our API.                           |
+| vehiculesIds     | array (of int)    | Vehicle identifiers. If omitted, all vehicles the user can access.                                                |
+| entitiesIds      | array (of int)    | Entity identifiers                                                                                                |
+| typeEvenements   | array (of string) | Event types to return, by name (see below). If omitted, all event types authorized for the user.                  |
+
+\* mandatory parameter
+
+Example: `get /restapi/evenement/events?customerId=123&dateDebut=22/10/2026 06:00:00 +0000&dateFin=22/10/2026 07:00:00 +0000&typeEvenements=CHOC_DETECTE`
+
+#### Event types (`typeEvenements`)
+
+Commonly used values (non-exhaustive list):
+
+| Value                        | Description                                       |
+| ---------------------------- | ------------------------------------------------- |
+| `CHOC_DETECTE`               | Shock detected                                    |
+| `SUSPICION_ACCIDENT`         | Suspected accident (following a shock)            |
+| `ALERTE_DECLENCHEMENT_AIRBAG`| Airbag deployment                                 |
+| `CAN_BUS_DEFAUT`             | Fault reported by the CAN bus (see below)         |
+| `CAN_BUS_PRISE_CARBURANT`    | Refuelling                                        |
+| `CAN_BUS_VOL_CARBURANT`      | Fuel theft                                        |
+| `ALIM_EXTERNE_BRANCHEE`      | External power connected                          |
+| `ALIM_EXTERNE_DEBRANCHEE`    | External power disconnected                       |
+| `BATTERIE_FAIBLE`            | Low battery                                       |
+| `DEPASSEMENT_VITESSE`        | Speeding                                          |
+| `ENTREE_ZONE_GEOFENCING`     | Geofencing zone entry                             |
+| `SORTIE_ZONE_GEOFENCING`     | Geofencing zone exit                              |
+
+An unknown name causes an HTTP 500 error (`java.lang.IllegalArgumentException`). The `typeEvenementODirectDTO` field is only filled for O-Direct events (see below); it is `null` for the others, for example `CHOC_DETECTE`.
+
+#### O-Direct events (including seat belt)
+
+Alerts reported by the CAN bus (for example "seat belt not fastened") are returned with the type `CAN_BUS_DEFAUT`. Their exact nature is carried by the `typeEvenementODirectDTO.typeEvenementOdirectDTO` field (`numeroEve` and `code`): there is no `typeEvenements` value per alert, so request `typeEvenements=CAN_BUS_DEFAUT` and filter on the client side.
+
+| numeroEve | code                       | Description               |
+| --------- | -------------------------- | ------------------------- |
+| 123       | `ALERTE_CEINTURE_SECURITE` | Seat belt not fastened    |
+
+The list of O-Direct types available to the user can be retrieved with `get /restapi/evenement/get-odirect-preferences`.
+
+> **Volume:** depending on the customer, the number of events can be very high (several hundred alerts per hour for a large fleet). Prefer short periods (one hour to one day), or split by `vehiculesIds`.
+
+#### Responses
+
+```application/json;charset=utf-8
+200 OK
+401 Unauthorized
+403 Forbidden
+404 Not Found
+```
+
+Access to this data requires one of the event analysis features on the account used.
+
+#### Result
+
+Array of events (excerpt; the `address`, `entite` and `vehicleEngin` fields are identical to those described for `lastEvent`). The values below are fictitious.
+
+```JSON
+[
+  {
+    "id": "string",
+    "date": "2026-10-22T06:12:41.000Z",
+    "dateDebut": "2026-10-22T06:12:41.000Z",
+    "dateFin": null,
+    "typeEvenement": "CAN_BUS_DEFAUT",
+    "eventState": "PUNCTUAL",
+    "evenementLibelle": "string",
+    "reliable": true,
+    "typeEvenementODirectDTO": {
+      "classificationEvenementDTO": {
+        "code": "S",
+        "descriptioni18nKey": "string",
+        "id": 0
+      },
+      "detailsEvenementLightDTO": [],
+      "id": 0,
+      "typeEvenementOdirectDTO": {
+        "code": "ALERTE_CEINTURE_SECURITE",
+        "descriptionI18NKey": "evt_alerte_ceinture_securite",
+        "numeroEve": 123,
+        "temporalType": "PUNCTUAL"
+      }
+    },
+    "vehicleEngin": {
+      "id": 0,
+      "description": "string"
+    }
+  }
+]
+```
+
+#### Curl
+
+Shock events over one day:
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/events" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123" \
+  --data-urlencode "dateDebut=22/10/2026 00:00:00 +0000" \
+  --data-urlencode "dateFin=23/10/2026 00:00:00 +0000" \
+  --data-urlencode "typeEvenements=CHOC_DETECTE"
+```
+
+"Seat belt not fastened" alerts over one hour (CAN bus faults, then filter on `numeroEve` 123):
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/events" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123" \
+  --data-urlencode "dateDebut=22/10/2026 06:00:00 +0000" \
+  --data-urlencode "dateFin=22/10/2026 07:00:00 +0000" \
+  --data-urlencode "typeEvenements=CAN_BUS_DEFAUT" \
+  | jq '[.[] | select(.typeEvenementODirectDTO.typeEvenementOdirectDTO.numeroEve == 123)]'
+```
+
+> `jq` is only used here to filter the response on the client side; the API has no per-alert filter.
+
+List of O-Direct types available to the user (`numeroEve`, `code`):
+
+```JSON
+curl -G "https://v3.oceansystem.com/ocean/restapi/evenement/get-odirect-preferences" \
+  -H "x-auth-token: <X-AUTH-TOKEN>" \
+  --data-urlencode "customerId=123"
+```
+
 ## Retrieve Equipment Data
 
 [Prior authentication required](#authentication-via-post-request) and passing the token in the header **X-AUTH-TOKEN**
