@@ -17,7 +17,7 @@ This API allows retrieval of:
 * Last positions of vehicles/equipment.
 * Positions of vehicles/equipment between two dates.
 * Daily log for a vehicle for a given date.
-* Normalized daily log for several vehicles over a given period.
+* Normalized daily log for several vehicles over a given period (coming soon).
 
 
 
@@ -624,6 +624,8 @@ curl -X GET "https://v3.oceansystem.com/ocean/restapi/materiel/positionBetween?c
 ```
 
 ## Retrieve the normalized daily report of vehicles for the given period
+
+> ⚠️ **This web service is not yet available in production.** It will be available soon: until then, calls return `404 NOT FOUND`.
 
 [Prior authentication is required](./acces.md#authentification-par-requête-post) and the token must be included in the **X-AUTH-TOKEN** header
 
