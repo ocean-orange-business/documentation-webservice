@@ -17,7 +17,7 @@ Cette API permet de récupérer :
 - Les dernières positions des véhicules / matériels,
 - Les positions des véhicules / matériels entre 2 dates,
 - La fiche journalière d’un véhicule pour une date donnée,
-- La fiche journalière normalisée de plusieurs véhicules pour une période donnée.
+- La fiche journalière normalisée de plusieurs véhicules pour une période donnée (prochainement disponible).
 
 
 ## Récupérer les positions d'un ou plusieurs véhicules entre deux dates : 2
@@ -622,6 +622,8 @@ curl -X GET "https://v3.oceansystem.com/ocean/restapi/materiel/positionBetween?c
 ```
 
 ## Récupérer la fiche journalière normalisée des véhicules pour la période donnée
+
+> ⚠️ **Ce web service n'est pas encore disponible en production.** Il le sera prochainement : d'ici là, un appel renvoie `404 NOT FOUND`.
 
 [Authentification préalable nécessaire](./acces.md#authentification-par-requête-post) et passage du token dans le header **X-AUTH-TOKEN**
 
